@@ -31,9 +31,7 @@ set showmatch
 set mouse=a
 
 " Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+set t_Co=256
 
 " UTF-8 encoding
 set encoding=utf-8
