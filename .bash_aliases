@@ -3,6 +3,7 @@
 alias ll='ls -AlFh'
 alias la='ls -A'
 alias l='ls -CF'
+alias lsize='du * -hd 0 | sort -hr'
 alias python='python3'
 alias diff='colordiff'
 alias n='nautilus .'
