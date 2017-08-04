@@ -2,6 +2,9 @@
 " General
 "-------------------------------------------------------------
 
+" Vundle required, must be in the start
+set nocompatible
+
 " Syntax coloring
 syntax enable
 
@@ -36,12 +39,37 @@ set t_Co=256
 " UTF-8 encoding
 set encoding=utf-8
 
+" Backspace like most other apps
+set backspace=indent,eol,start
+
+" Change line after reaching last character
+set whichwrap+=<,>,h,l,[,]
+
 " TabComplete like bash
 set wildmenu
 set wildmode=longest,list,full
 
 " No swap file creation
 set noswapfile
+
+" Persistent undo
+set undodir=~/.vim/undo/
+set undofile
+
+" Find as you type search
+set incsearch
+
+" Case insensitive search
+set ignorecase
+
+" Case sensitive when uc present
+set smartcase
+
+" Copy, cut and past to clipboard
+set clipboard=unnamedplus
+
+" Always show status line
+set laststatus=2
 
 " Request sudo password to modify root files
 cmap w!! %!sudo tee % > /dev/null
@@ -52,17 +80,14 @@ imap <down> <esc>gj<insert><right>
 map <up> gk
 map <down> gj
 
-" Copy, cut and past to clipboard
-set clipboard=unnamedplus
-
-" Always show status line
-set laststatus=2
+" Move among buffers with CTRL
+map <C-J> :bnext<CR>
+map <C-K> :bprev<CR>
 
 "-------------------------------------------------------------
 " Vundle
 "-------------------------------------------------------------
 
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -76,6 +101,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tomasr/molokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -110,6 +136,9 @@ set completeopt-=preview
 " Remove diagnostics
 let g:ycm_show_diagnostics_ui = 0
 
+" GoTo shortcut
+" nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
+
 "-------------------------------------------------------------
 " Vim airline
 "-------------------------------------------------------------
@@ -125,3 +154,9 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 " Theme
 let g:airline_theme='wombat'
+
+"-------------------------------------------------------------
+" Molokai
+"-------------------------------------------------------------
+
+colorscheme molokai
