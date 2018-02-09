@@ -75,3 +75,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+
+source "/home/caio/.oh-my-zsh/custom/themes/spaceship.zsh-theme"

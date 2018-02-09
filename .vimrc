@@ -101,7 +101,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tomasr/molokai'
+Plugin 'flazz/vim-colorschemes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -156,7 +156,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_theme='wombat'
 
 "-------------------------------------------------------------
-" Molokai
+" Vim colorschemes 
 "-------------------------------------------------------------
 
-colorscheme molokai
+colorscheme onedark 
