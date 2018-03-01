@@ -90,7 +90,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'haya14busa/incsearch.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
-"Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -131,23 +130,3 @@ map g# <Plug>(incsearch-nohl-g#)
 " save readonly file with sudo with:
 " :w suda:%
 let g:suda#prefix = 'suda:'
-
-
-" youcompleteme
-
-"highlight Pmenu ctermfg=white ctermbg=darkgray
-"highlight PmenuSel ctermfg=black  ctermbg=white
-"highlight clear SignColumn
-
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
-" Remove preview window
-"let g:ycm_add_preview_to_completeopt = 0
-"set completeopt-=preview
-
-" Remove diagnostics
-"let g:ycm_show_diagnostics_ui = 0
-
-" GoTo shortcut
-" nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
