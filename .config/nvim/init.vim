@@ -5,6 +5,9 @@
 " Syntax coloring
 syntax enable
 
+" File type detection
+filetype plugin on
+
 " Shows line number
 set number
 
@@ -54,7 +57,11 @@ set undodir=~/.nvim/undo//
 " Swap file location
 set directory=~/.nvim/swap//
 
+" Disable highlight of search matches
+set nohlsearch
+
 " Case insensitive search, sensitive when uppercase present
+set ignorecase
 set smartcase
 
 " Copy, cut and past to clipboard
@@ -85,11 +92,13 @@ nnoremap <Down> g<Down>
 
 call plug#begin()
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'haya14busa/incsearch.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 
 call plug#end()
 
@@ -103,7 +112,13 @@ colorscheme onedark
 let g:airline_theme='onedark'
 
 
-" vim-airline
+" dracula
+
+"colorscheme dracula
+"let g:airline_theme='dracula
+
+
+" airline
 
 " Set the symbol dictionary as the one of powerline
 let g:airline_powerline_fonts = 1
@@ -113,20 +128,21 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 
-" incsearch
-
-" Turn off hlsearch after search
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-
-
 " suda
 
-" save readonly file with sudo with:
+" Save readonly file with sudo with:
 " :w suda:%
 let g:suda#prefix = 'suda:'
+
+
+" gitgutter
+
+" Don't map any keys
+let g:gitgutter_map_keys = 0
+
+
+" youcompleteme
+
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_global_ycm_extra_conf = '~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
