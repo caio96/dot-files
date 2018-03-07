@@ -3,15 +3,12 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-
-if [ -d $JAVA_HOME ]; then
-    export JAVA_HOME
+# local pip 
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 
-ANDROID_HOME="/opt/android-sdk"
+[ -d "/usr/lib/jvm/java-9-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-9-openjdk"
 
-if [ -d $ANDROID_HOME ]; then
-    export ANDROID_HOME
-fi
+[ -d "/opt/android-sdk" ] && export ANDROID_HOME="/opt/android-sdk"
 

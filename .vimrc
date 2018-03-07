@@ -5,6 +5,9 @@
 " Syntax coloring
 syntax enable
 
+" File type detection
+filetype plugin on
+
 " Shows line number
 set number
 
@@ -49,16 +52,20 @@ set nobackup
 
 " Persistent undo
 set undofile
-set undodir=~/.nvim/undo//
+set undodir=~/.vim/undo//
 
 " Swap file location
-set directory=~/.nvim/swap//
+set directory=~/.vim/swap//
+
+" Disable highlight of search matches
+set nohlsearch
 
 " Case insensitive search, sensitive when uppercase present
+set ignorecase
 set smartcase
 
 " Copy, cut and past to clipboard
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 
 " Always show status line
 set laststatus=2
@@ -85,12 +92,26 @@ nnoremap <Down> g<Down>
 
 call plug#begin()
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'haya14busa/incsearch.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+
+if has("nvim")
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-clang'
+    Plug 'zchee/deoplete-jedi'
+    Plug 'Shougo/neosnippet.vim'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'honza/vim-snippets'
+    Plug 'w0rp/ale'
+else
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+endif
 
 call plug#end()
 
@@ -98,14 +119,8 @@ call plug#end()
 "           Plugins config             "
 "--------------------------------------"
 
-" onedark
-
-colorscheme onedark
-let g:airline_theme='onedark'
-
-
-" vim-airline
-
+" airline
+"
 " Set the symbol dictionary as the one of powerline
 let g:airline_powerline_fonts = 1
 " Automatically displays all buffers when there's only one tab open.
@@ -113,41 +128,72 @@ let g:airline#extensions#tabline#enabled = 1
 " Just show the filename (no path) in the tab
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-
-" incsearch
-
-" Turn off hlsearch after search
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-
-
 " suda
-
-" save readonly file with sudo with:
+"
+" Save readonly file with sudo with:
 " :w suda:%
 let g:suda#prefix = 'suda:'
 
+" gitgutter
+"
+" Don't map any keys
+let g:gitgutter_map_keys = 0
 
-" youcompleteme
+if has("nvim")
+    
+    " onedark
+    "
+    colorscheme onedark
+    let g:airline_theme='onedark'
 
-"highlight Pmenu ctermfg=white ctermbg=darkgray
-"highlight PmenuSel ctermfg=black  ctermbg=white
-"highlight clear SignColumn
+    " deoplete
+    "
+    let g:deoplete#enable_at_startup = 1
+    " tab alternate completion
+    inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    
+    " neosnippet
+    "
+    let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    " jump to completion fields with tab
+    imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    " ale        
+    "
+    " airline integration.
+    let g:airline#extensions#ale#enabled = 1
+    " message format
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+    " delay on text changed
+    let g:ale_lint_delay = 1000
+    let g:ale_sign_column_always = 1
+    " C-e to next message
+    nmap <silent> <C-e> <Plug>(ale_next_wrap)
+    " fix python files with autopep8 and yapf.
+    let g:ale_fixers = { 'python': ['autopep8', 'yapf'] }
 
-" Remove preview window
-"let g:ycm_add_preview_to_completeopt = 0
-"set completeopt-=preview
+else
 
-" Remove diagnostics
-"let g:ycm_show_diagnostics_ui = 0
+    " dracula
+    "
+    colorscheme dracula
+    let g:airline_theme='dracula'
 
-" GoTo shortcut
-" nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
+    " youcompleteme
+    "
+    let g:ycm_python_binary_path = '/usr/bin/python3'
+    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
+
+endif
+
+
+
+
