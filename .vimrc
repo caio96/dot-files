@@ -7,6 +7,7 @@ syntax enable
 
 " File type detection
 filetype plugin on
+filetype plugin indent on
 
 " Shows line number
 set number
@@ -23,7 +24,6 @@ set expandtab
 " Smart tab and indent
 set smarttab
 set autoindent
-set smartindent
 
 " Highlights matching [{()}]
 set showmatch
@@ -131,13 +131,14 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " suda
 "
 " Save readonly file with sudo with:
-" :w suda:%
-let g:suda#prefix = 'suda:'
+" :w suda://%
 
 " gitgutter
 "
 " Don't map any keys
 let g:gitgutter_map_keys = 0
+" Default sign: ~_
+let g:gitgutter_sign_modified_removed   = '~'
 
 if has("nvim")
     
@@ -151,7 +152,9 @@ if has("nvim")
     let g:deoplete#enable_at_startup = 1
     " tab alternate completion
     inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    
+    " auto close preview window
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
     " neosnippet
     "
     let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
@@ -170,9 +173,10 @@ if has("nvim")
     let g:ale_echo_msg_error_str = 'E'
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-    " delay on text changed
-    let g:ale_lint_delay = 1000
     let g:ale_sign_column_always = 1
+    " custom error and warning signs
+    let g:ale_sign_error = "◉"
+    let g:ale_sign_warning = "◉"
     " C-e to next message
     nmap <silent> <C-e> <Plug>(ale_next_wrap)
     " fix python files with autopep8 and yapf.
