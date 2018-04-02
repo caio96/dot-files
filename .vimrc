@@ -70,6 +70,13 @@ set clipboard=unnamedplus
 " Always show status line
 set laststatus=2
 
+" If file is changed outside of vim and not changed  
+" inside vim, update file
+set autoread
+
+" Allows you to open a new file without saving the current one
+set hidden
+
 "--------------------------------------"
 "              Mapping                 "
 "--------------------------------------"
@@ -77,6 +84,18 @@ set laststatus=2
 " Up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
 nnoremap <Down> g<Down>
+" switch to the next buffer in the buffer list
+nnoremap <C-j> :bnext<CR>
+
+"--------------------------------------"
+"              AutoCmd                 "
+"--------------------------------------"
+
+" Triger autoread when files changes on disk
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 "--------------------------------------"
 "              Plugins                 "
@@ -93,15 +112,16 @@ nnoremap <Down> g<Down>
 call plug#begin()
 
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 if has("nvim")
+    Plug 'joshdick/onedark.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
     Plug 'zchee/deoplete-jedi'
@@ -109,8 +129,8 @@ if has("nvim")
     Plug 'Shougo/neosnippet-snippets'
     Plug 'honza/vim-snippets'
     Plug 'w0rp/ale'
-else
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+"else
+    "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 endif
 
 call plug#end()
@@ -140,8 +160,11 @@ let g:gitgutter_map_keys = 0
 " Default sign: ~_
 let g:gitgutter_sign_modified_removed   = '~'
 
+" fzf
+"
+nnoremap <C-p> :FZF<CR>
+
 if has("nvim")
-    
     " onedark
     "
     colorscheme onedark
@@ -181,23 +204,18 @@ if has("nvim")
     nmap <silent> <C-e> <Plug>(ale_next_wrap)
     " fix python files with autopep8 and yapf.
     let g:ale_fixers = { 'python': ['autopep8', 'yapf'] }
-
 else
-
     " dracula
     "
     colorscheme dracula
     let g:airline_theme='dracula'
 
+
     " youcompleteme
     "
-    let g:ycm_python_binary_path = '/usr/bin/python3'
-    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-    nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
-
+    " let g:ycm_python_binary_path = '/usr/bin/python3'
+    " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+    " let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    " nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
 endif
-
-
-
 
