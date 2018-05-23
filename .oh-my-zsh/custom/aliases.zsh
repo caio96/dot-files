@@ -13,27 +13,18 @@ unalias 9
 unalias _
 unalias afind
 unalias d
-unalias ebuild
-unalias gist
 unalias grep
-unalias heroku
 unalias history
-unalias hpodder
 unalias l
 unalias la
 unalias ll
 unalias ls
 unalias lsa
-unalias man
 unalias md
-unalias mkdir
-unalias mv
-unalias mysql
 unalias please
 unalias po
 unalias pu
 unalias rd
-unalias sudo
 unalias which-command
 
 # Aliases
@@ -43,7 +34,6 @@ alias ll='ls -AlFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias lsize='du -had 1 | sort -hr'
-alias python='python3'
 alias diff='colordiff'
 alias n='nautilus .'
 alias tkillmux='tmux kill-session -t 0'

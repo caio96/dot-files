@@ -3,7 +3,10 @@
 "--------------------------------------"
 
 " Syntax coloring
-syntax enable
+syntax on
+
+" No backwards compatibility
+set nocompatible
 
 " File type detection
 filetype plugin on
@@ -70,7 +73,7 @@ set clipboard=unnamedplus
 " Always show status line
 set laststatus=2
 
-" If file is changed outside of vim and not changed  
+" If file is changed outside of vim and not changed
 " inside vim, update file
 set autoread
 
@@ -119,6 +122,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 if has("nvim")
     Plug 'joshdick/onedark.vim'
@@ -164,6 +169,26 @@ let g:gitgutter_sign_modified_removed   = '~'
 "
 nnoremap <C-p> :FZF<CR>
 
+" vim better whitespace
+"
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+
+" vimwiki
+"
+" Use markdown syntax
+let g:vimwiki_ext2syntax = {'.wiki': 'markdown'}
+" Headers with different colors
+let g:vimwiki_hl_headers = 1
+" Highligh checked [X]
+let g:vimwiki_hl_cb_checked = 1
+    " Fix highlight bug with this option
+    au BufEnter *.wiki :syntax sync fromstart
+" Add syntax highlight
+let wiki = {}
+let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
+let g:vimwiki_list = [wiki]
+
 if has("nvim")
     " onedark
     "
@@ -188,7 +213,7 @@ if has("nvim")
     imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-    " ale        
+    " ale
     "
     " airline integration.
     let g:airline#extensions#ale#enabled = 1
