@@ -15,8 +15,8 @@ fi
 
 #[ -d "/usr/lib/jvm/java-9-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-9-openjdk"
 #[ -d "/usr/lib/jvm/java-8-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
-[ -d "/usr/lib/jvm/java-10-jdk" ] && export JAVA_HOME="/usr/lib/jvm/java-10-jdk"
-
+#[ -d "/usr/lib/jvm/java-10-jdk" ] && export JAVA_HOME="/usr/lib/jvm/java-10-jdk"
+[ -d "/usr/lib/jvm/java-8-jdk" ] && export JAVA_HOME="/usr/lib/jvm/java-8-jdk"
 
 [ -d "/opt/android-sdk" ] && export ANDROID_HOME="/opt/android-sdk"
 

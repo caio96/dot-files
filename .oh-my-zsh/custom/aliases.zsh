@@ -45,3 +45,4 @@ alias pc-update="sudo apt update && sudo apt -y upgrade && sudo apt-get -y autor
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias network-restart="service network-manager restart"
 alias touchpad-restart="sudo modprobe -r psmouse && sudo modprobe psmouse"
+alias git-fetch-branches='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done; git fetch --all; git pull --all'

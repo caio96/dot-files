@@ -186,6 +186,7 @@ let g:vimwiki_hl_cb_checked = 1
     au BufEnter *.wiki :syntax sync fromstart
 " Add syntax highlight
 let wiki = {}
+let wiki.path = "$HOME/.vimwiki"
 let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
 let g:vimwiki_list = [wiki]
 
