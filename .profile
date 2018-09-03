@@ -1,17 +1,20 @@
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
-JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+# set PATH so it includes user's private bin if it exists
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
-if [ -d $JAVA_HOME ]; then
-    export JAVA_HOME
-fi
+# add anaconda to path if it exists
+[ -d "$HOME/.anaconda3" ] && PATH="$HOME/.anaconda3/bin":"$PATH"
 
-ANDROID_HOME="/opt/android-sdk"
+# set java home
+#[ -d "/usr/lib/jvm/java-10-jdk" ] && export JAVA_HOME="/usr/lib/jvm/java-10-jdk"
+#[ -d "/usr/lib/jvm/java-9-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-9-openjdk"
+#[ -d "/usr/lib/jvm/java-8-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+[ -d "/usr/lib/jvm/java-8-jdk" ] && export JAVA_HOME="/usr/lib/jvm/java-8-jdk"
 
-if [ -d $ANDROID_HOME ]; then
-    export ANDROID_HOME
-fi
+# set android home
+[ -d "/opt/android-sdk" ] && export ANDROID_HOME="/opt/android-sdk"
 
+# set editor
+export EDITOR="vim"

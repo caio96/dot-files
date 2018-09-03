@@ -3,7 +3,7 @@
 # git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 
 # Path to the bash it configuration
-export BASH_IT="/home/caio/.bash_it"
+export BASH_IT="$HOME/.bash_it"
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/

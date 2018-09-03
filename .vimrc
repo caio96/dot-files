@@ -9,7 +9,6 @@ syntax on
 set nocompatible
 
 " File type detection
-filetype plugin on
 filetype plugin indent on
 
 " Shows line number
@@ -80,6 +79,19 @@ set autoread
 " Allows you to open a new file without saving the current one
 set hidden
 
+" Use dark variant colorscheme by default
+set background=dark
+
+" Set true color
+if !has('nvim') && (v:version > 800)
+    " set Vim-specific sequences for RGB colors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+else
+    set termguicolors
+endif
+
 "--------------------------------------"
 "              Mapping                 "
 "--------------------------------------"
@@ -114,7 +126,12 @@ autocmd FileChangedShellPost *
 
 call plug#begin()
 
-Plug 'dracula/vim', { 'as': 'dracula' }
+"color themes
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'kristijanhusak/vim-hybrid-material'
+
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
@@ -126,13 +143,9 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 if has("nvim")
-    Plug 'joshdick/onedark.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-clang'
     Plug 'zchee/deoplete-jedi'
-    Plug 'Shougo/neosnippet.vim'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'honza/vim-snippets'
     Plug 'w0rp/ale'
 "else
     "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
@@ -143,6 +156,24 @@ call plug#end()
 "--------------------------------------"
 "           Plugins config             "
 "--------------------------------------"
+
+" Color themes
+
+" Gruvbox
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
+
+" Onedark
+" colorscheme onedark
+" let g:airline_theme='onedark'
+
+" Paper color theme
+" colorscheme PaperColor
+" let g:airline_theme = 'papercolor'
+
+" Vim hybrid material
+" colorscheme hybrid_reverse
+" let g:airline_theme = 'hybrid'
 
 " airline
 "
@@ -199,20 +230,8 @@ if has("nvim")
     " deoplete
     "
     let g:deoplete#enable_at_startup = 1
-    " tab alternate completion
-    inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     " auto close preview window
     autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " neosnippet
-    "
-    let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand_target)
-    " jump to completion fields with tab
-    imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     " ale
     "
@@ -231,12 +250,6 @@ if has("nvim")
     " fix python files with autopep8 and yapf.
     let g:ale_fixers = { 'python': ['autopep8', 'yapf'] }
 else
-    " dracula
-    "
-    colorscheme dracula
-    let g:airline_theme='dracula'
-
-
     " youcompleteme
     "
     " let g:ycm_python_binary_path = '/usr/bin/python3'
