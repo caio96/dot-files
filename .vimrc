@@ -133,6 +133,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'kristijanhusak/vim-hybrid-material'
 
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
@@ -160,16 +161,16 @@ call plug#end()
 " Color themes
 
 " Gruvbox
-colorscheme gruvbox
-let g:airline_theme='gruvbox'
+" colorscheme gruvbox
+" let g:airline_theme='gruvbox'
 
 " Onedark
 " colorscheme onedark
 " let g:airline_theme='onedark'
 
 " Paper color theme
-" colorscheme PaperColor
-" let g:airline_theme = 'papercolor'
+colorscheme PaperColor
+let g:airline_theme='wombat'
 
 " Vim hybrid material
 " colorscheme hybrid_reverse
@@ -222,10 +223,11 @@ let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
 let g:vimwiki_list = [wiki]
 
 if has("nvim")
-    " onedark
+
+    " colorscheme
     "
-    colorscheme onedark
-    let g:airline_theme='onedark'
+    colorscheme gruvbox
+    let g:airline_theme='gruvbox'
 
     " deoplete
     "
