@@ -82,6 +82,9 @@ set hidden
 " Use dark variant colorscheme by default
 set background=dark
 
+" Stop showing preview
+set completeopt-=preview
+
 " Set true color
 if !has('nvim') && (v:version > 800)
     " set Vim-specific sequences for RGB colors
@@ -144,12 +147,16 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 if has("nvim")
+
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-clang'
+    Plug 'Shougo/deoplete-clangx'
     Plug 'zchee/deoplete-jedi'
+    Plug 'ujihisa/neco-look'
     Plug 'w0rp/ale'
+
 "else
     "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+
 endif
 
 call plug#end()
@@ -169,8 +176,8 @@ call plug#end()
 " let g:airline_theme='onedark'
 
 " Paper color theme
-colorscheme PaperColor
-let g:airline_theme='wombat'
+" colorscheme PaperColor
+" let g:airline_theme='wombat'
 
 " Vim hybrid material
 " colorscheme hybrid_reverse
@@ -234,9 +241,14 @@ if has("nvim")
     let g:deoplete#enable_at_startup = 1
     " auto close preview window
     autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    call deoplete#custom#source('look', 'max_candidates', 5)
 
     " ale
     "
+    " Set this in your vimrc file to disabling highlighting
+    let g:ale_set_highlights = 0
+    " lint only when saving file
+    let g:ale_lint_on_text_changed = 'never'
     " airline integration.
     let g:airline#extensions#ale#enabled = 1
     " message format
@@ -249,9 +261,21 @@ if has("nvim")
     let g:ale_sign_warning = "◉"
     " C-e to next message
     nmap <silent> <C-e> <Plug>(ale_next_wrap)
+    " C-] to go to definition
+    nmap <silent> <C-]> <Plug>(ale_go_to_definition)
+    " <leader> ff to fix file
+    nmap <leader>ff <Plug>(ale_fix)
+    " pip install 'python-language-server[all]'
+    let g:ale_linters = { 'python': ['flake8', 'pylint', 'pyls']}
     " fix python files with autopep8 and yapf.
-    let g:ale_fixers = { 'python': ['autopep8', 'yapf'] }
+    let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
+
 else
+
+    " Paper color theme
+    colorscheme PaperColor
+    let g:airline_theme='wombat'
+
     " youcompleteme
     "
     " let g:ycm_python_binary_path = '/usr/bin/python3'
