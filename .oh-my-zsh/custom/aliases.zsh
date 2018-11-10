@@ -24,6 +24,5 @@ unalias md
 unalias please
 unalias rd
 unalias which-command
-unalias run-help
 
 source $HOME/.bash_aliases
