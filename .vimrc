@@ -99,12 +99,13 @@ endif
 "              Mapping                 "
 "--------------------------------------"
 
-" Up/down arrow keys move by screen line
+" up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
 nnoremap <Down> g<Down>
 " switch to the next buffer in the buffer list
 nnoremap <C-j> :bnext<CR>
-
+" indent and return the same line where you were
+map <F7> mzgg=G`z
 "--------------------------------------"
 "              AutoCmd                 "
 "--------------------------------------"
@@ -269,6 +270,7 @@ if has("nvim")
     let g:ale_linters = { 'python': ['flake8', 'pylint', 'pyls']}
     " fix python files with autopep8 and yapf.
     let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
+    let g:ale_fixers = { 'cpp': [ 'clang-format'] }
 
 else
 

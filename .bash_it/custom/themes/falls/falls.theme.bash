@@ -1,4 +1,5 @@
-# Made with Sexy Bash Prompt, inspired by "Extravagant Zsh Prompt"
+# Based on Sexy Bash Prompt
+# Author: Caio Salvador Rohwedder
 
 if tput setaf 1 &> /dev/null; then
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
@@ -29,7 +30,6 @@ fi
 parse_git_dirty () {
   [[ $(git status 2> /dev/null | tail -n1 | cut -c 1-17) != "nothing to commit" ]] && echo "*"
 }
-
 parse_git_branch () {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
@@ -57,7 +57,7 @@ fi
 char="\[$WHITE\]\$ \[$RESET\]"
 
 function prompt_command() {
-  PS1="\n${BOLD}$user$host$dir$git$char"
+  PS1="\n\[${BOLD}$user$host$dir$git$char"
 }
 
 safe_append_prompt_command prompt_command

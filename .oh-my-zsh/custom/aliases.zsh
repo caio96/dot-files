@@ -23,6 +23,7 @@ unalias lsa
 unalias md
 unalias please
 unalias rd
+unalias run-help
 unalias which-command
 
 source $HOME/.bash_aliases
