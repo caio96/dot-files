@@ -21,4 +21,5 @@ alias touchpad-restart='sudo modprobe -r psmouse && sudo modprobe psmouse'
 alias git-fetch-branches='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done; git fetch --all; git pull --all'
 alias gst='git status'
 alias cycle-display='disper --cycle-stages="-S : -s" --cycle'
+alias toggle-redshift='pkill -USR1 redshift'
 

@@ -99,6 +99,9 @@ endif
 "              Mapping                 "
 "--------------------------------------"
 
+" leader mapping
+let mapleader = "\\"
+let g:mapleader = "\\"
 " up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
 nnoremap <Down> g<Down>
@@ -106,6 +109,17 @@ nnoremap <Down> g<Down>
 nnoremap <C-j> :bnext<CR>
 " indent and return the same line where you were
 map <F7> mzgg=G`z
+" d deletes instead of cutting
+nnoremap x "_x
+nnoremap X "_X
+nnoremap d "_d
+nnoremap D "_D
+vnoremap d "_d
+" leader-d to cut
+nnoremap <leader>d "+d
+nnoremap <leader>D "+D
+vnoremap <leader>d "+d
+
 "--------------------------------------"
 "              AutoCmd                 "
 "--------------------------------------"
@@ -271,6 +285,7 @@ if has("nvim")
     " fix python files with autopep8 and yapf.
     let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
     let g:ale_fixers = { 'cpp': [ 'clang-format'] }
+    let g:ale_c_clangformat_options = '-style="{IndentWidth: 4}"'
 
 else
 
