@@ -21,7 +21,6 @@ unalias ll
 unalias ls
 unalias lsa
 unalias md
-unalias please
 unalias rd
 unalias run-help
 unalias which-command

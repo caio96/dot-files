@@ -285,7 +285,7 @@ if has("nvim")
     " fix python files with autopep8 and yapf.
     let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
     let g:ale_fixers = { 'cpp': [ 'clang-format'] }
-    let g:ale_c_clangformat_options = '-style="{IndentWidth: 4}"'
+    let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
 
 else
 
