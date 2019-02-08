@@ -102,23 +102,32 @@ endif
 " leader mapping
 let mapleader = "\\"
 let g:mapleader = "\\"
+
 " up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
 nnoremap <Down> g<Down>
+
 " switch to the next buffer in the buffer list
 nnoremap <C-j> :bnext<CR>
+
 " indent and return the same line where you were
 map <F7> mzgg=G`z
+
 " d deletes instead of cutting
 nnoremap x "_x
 nnoremap X "_X
 nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
+
 " leader-d to cut
 nnoremap <leader>d "+d
 nnoremap <leader>D "+D
 vnoremap <leader>d "+d
+
+" indent line multiple times when in visual mode
+vnoremap < <gv
+vnoremap > >gv
 
 "--------------------------------------"
 "              AutoCmd                 "
