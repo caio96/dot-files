@@ -289,10 +289,13 @@ if has("nvim")
     nmap <silent> <C-]> <Plug>(ale_go_to_definition)
     " <leader> ff to fix file
     nmap <leader>ff <Plug>(ale_fix)
+    " python
     " pip install 'python-language-server[all]'
-    let g:ale_linters = { 'python': ['flake8', 'pylint', 'pyls']}
-    " fix python files with autopep8 and yapf.
+    let g:ale_linters = { 'python': ['pyls', 'flake8', 'pylint']}
     let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
+    " cpp
+    " install cppcheck and clang
+    let g:ale_linters = { 'cpp': ['clangd', 'clang', 'cppcheck']}
     let g:ale_fixers = { 'cpp': [ 'clang-format'] }
     let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
 
