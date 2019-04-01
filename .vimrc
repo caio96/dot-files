@@ -219,7 +219,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " suda
 "
 " Save readonly file with sudo with:
-" :w suda://%
+" :w suda:%
+let g:suda#prefix = 'suda:'
 
 " gitgutter
 "
@@ -237,6 +238,9 @@ nnoremap <C-p> :FZF<CR>
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
+let g:strip_only_modified_lines=1
+" strip to any file size
+let g:strip_max_file_size=0
 
 " vimwiki
 "
@@ -270,6 +274,8 @@ if has("nvim")
 
     " ale
     "
+    " Enable completion via lsp
+    "let g:ale_completion_enabled = 1
     " Set this in your vimrc file to disabling highlighting
     let g:ale_set_highlights = 0
     " lint only when saving file
@@ -290,14 +296,17 @@ if has("nvim")
     nmap <silent> <C-]> <Plug>(ale_go_to_definition)
     " <leader> ff to fix file
     nmap <leader>ff <Plug>(ale_fix)
+    " linters and fixers
+    let g:ale_linters = {}
+    let g:ale_fixers = {}
     " python
     " pip install 'python-language-server[all]'
-    let g:ale_linters = { 'python': ['pyls', 'flake8', 'pylint']}
-    let g:ale_fixers = { 'python': [ 'autopep8', 'yapf'] }
+    let g:ale_linters.python = ['pyls', 'flake8', 'pylint']
+    let g:ale_fixers.python = [ 'yapf', 'autopep8', 'isort', 'black']
     " cpp
     " install cppcheck and clang
-    let g:ale_linters = { 'cpp': ['clangd', 'clang', 'cppcheck']}
-    let g:ale_fixers = { 'cpp': [ 'clang-format'] }
+    let g:ale_linters.cpp = ['clangd', 'clang', 'clangtidy', 'cppcheck']
+    let g:ale_fixers.cpp = [ 'clang-format', 'uncrustify']
     let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
 
 else
