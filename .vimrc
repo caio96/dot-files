@@ -170,10 +170,12 @@ Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'ryanoasis/vim-devicons'
 
 if has("nvim")
 
@@ -218,6 +220,11 @@ let g:airline#extensions#tabline#enabled = 1
 " Just show the filename (no path) in the tab
 let g:airline#extensions#tabline#fnamemod = ':t'
 
+" devicons
+"
+" Airline configuration
+let g:airline_powerline_fonts = 1
+
 " suda
 "
 " Save readonly file with sudo with:
@@ -230,6 +237,25 @@ let g:suda#prefix = 'suda:'
 let g:gitgutter_map_keys = 0
 " Default sign: ~_
 let g:gitgutter_sign_modified_removed   = '~'
+
+" nerdcommenter
+"
+" Toggle comments based on the first line
+map <leader>cc :NERDComToggleComment<CR>
+
+" nerdtree
+"
+" Remove arrows from folders
+let NERDTreeDirArrowExpandable = "\u00a0"
+let NERDTreeDirArrowCollapsible = "\u00a0"
+let NERDTreeNodeDelimiter = "\x07"
+" enable nerdtree and decorate folders
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:webdevicons_enable_nerdtree = 1
+" Open and close nerdtree
+map <F2> :NERDTreeToggle<CR>
+" Close vim if only nerdtree is left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " fzf
 "
@@ -267,10 +293,12 @@ if has("nvim")
     colorscheme gruvbox
     let g:airline_theme='gruvbox'
 
-
     " coc
     "
     " install nodejs and yarn
+    " install plugins:
+    " :CocInstall coc-python
+    " :CocInstall coc-word
     " config in ~/.config/nvim/coc-settings.json
     " Use <c-space> for trigger completion.
     inoremap <silent><expr> <c-space> coc#refresh()
