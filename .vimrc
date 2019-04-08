@@ -42,6 +42,11 @@ set encoding=utf-8
 " Backspace like most other apps
 set backspace=indent,eol,start
 
+" Show invisibles
+set list
+set showbreak=↪\
+set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:⣿,eol:¬
+
 " Change line after reaching last character
 set whichwrap+=<,>,[,]
 
@@ -172,10 +177,7 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 if has("nvim")
 
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/deoplete-clangx'
-    Plug 'zchee/deoplete-jedi'
-    Plug 'ujihisa/neco-look'
+    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     Plug 'w0rp/ale'
 
 "else
@@ -265,17 +267,20 @@ if has("nvim")
     colorscheme gruvbox
     let g:airline_theme='gruvbox'
 
-    " deoplete
+
+    " coc
     "
-    let g:deoplete#enable_at_startup = 1
-    " auto close preview window
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-    call deoplete#custom#source('look', 'max_candidates', 5)
+    " install nodejs and yarn
+    " config in ~/.config/nvim/coc-settings.json
+    " Use <c-space> for trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+    " Use enter to confirm complete
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    " Use Ctrl-] to go to definition
+    nmap <silent> <C-]> <Plug>(coc-definition)
 
     " ale
     "
-    " Enable completion via lsp
-    "let g:ale_completion_enabled = 1
     " Set this in your vimrc file to disabling highlighting
     let g:ale_set_highlights = 0
     " lint only when saving file
@@ -292,8 +297,6 @@ if has("nvim")
     let g:ale_sign_warning = "◉"
     " C-e to next message
     nmap <silent> <C-e> <Plug>(ale_next_wrap)
-    " C-] to go to definition
-    nmap <silent> <C-]> <Plug>(ale_go_to_definition)
     " <leader> ff to fix file
     nmap <leader>ff <Plug>(ale_fix)
     " linters and fixers
@@ -305,7 +308,7 @@ if has("nvim")
     let g:ale_fixers.python = [ 'yapf', 'autopep8', 'isort', 'black']
     " cpp
     " install cppcheck and clang
-    let g:ale_linters.cpp = ['clangd', 'clang', 'clangtidy', 'cppcheck']
+    let g:ale_linters.cpp = ['clangd', 'clang', 'cppcheck']
     let g:ale_fixers.cpp = [ 'clang-format', 'uncrustify']
     let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
 
