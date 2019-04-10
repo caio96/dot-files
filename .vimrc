@@ -44,7 +44,7 @@ set backspace=indent,eol,start
 
 " Show invisibles
 set list
-set showbreak=↪\
+set showbreak=﬌
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:⣿,eol:¬
 
 " Change line after reaching last character
