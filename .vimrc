@@ -96,7 +96,7 @@ if !has('nvim') && (v:version > 800)
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
-else
+elseif has('nvim')
     set termguicolors
 endif
 
@@ -178,13 +178,15 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'ryanoasis/vim-devicons'
 
 if has("nvim")
-
-    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     Plug 'w0rp/ale'
-
-"else
-    "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
-
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+else
+    "function! BuildYCM(info)
+        "if a:info.status == 'installed' || a:info.force
+            "!/usr/bin/python3 install.py --clang-completer
+        "endif
+    "endfunction
+    "Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 endif
 
 call plug#end()
@@ -278,8 +280,6 @@ let g:vimwiki_ext2syntax = {'.wiki': 'markdown'}
 let g:vimwiki_hl_headers = 1
 " Highligh checked [X]
 let g:vimwiki_hl_cb_checked = 1
-    " Fix highlight bug with this option
-    au BufEnter *.wiki :syntax sync fromstart
 " Add syntax highlight
 let wiki = {}
 let wiki.path = "$HOME/.vimwiki"
@@ -299,6 +299,8 @@ if has("nvim")
     " install plugins:
     " :CocInstall coc-python
     " :CocInstall coc-word
+    " pip install 'python-language-server[all]'
+    " install clangd and ccls
     " config in ~/.config/nvim/coc-settings.json
     " Use <c-space> for trigger completion.
     inoremap <silent><expr> <c-space> coc#refresh()
@@ -331,12 +333,11 @@ if has("nvim")
     let g:ale_linters = {}
     let g:ale_fixers = {}
     " python
-    " pip install 'python-language-server[all]'
-    let g:ale_linters.python = ['pyls', 'flake8', 'pylint']
+    let g:ale_linters.python = ['flake8', 'pylint']
     let g:ale_fixers.python = [ 'yapf', 'autopep8', 'isort', 'black']
     " cpp
     " install cppcheck and clang
-    let g:ale_linters.cpp = ['clangd', 'clang', 'cppcheck']
+    let g:ale_linters.cpp = ['clang', 'cppcheck']
     let g:ale_fixers.cpp = [ 'clang-format', 'uncrustify']
     let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
 
@@ -350,7 +351,7 @@ else
     "
     " let g:ycm_python_binary_path = '/usr/bin/python3'
     " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    " let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    " let g:ycm_global_ycm_extra_conf = '$HOME/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
     " nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
 endif
 
