@@ -116,7 +116,7 @@ nnoremap <Down> g<Down>
 nnoremap <C-j> :bnext<CR>
 
 " indent and return the same line where you were
-map <F7> mzgg=G`z
+map <F3> mzgg=G`z
 
 " d deletes instead of cutting
 nnoremap x "_x
@@ -176,6 +176,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'ryanoasis/vim-devicons'
+Plug 'terryma/vim-multiple-cursors'
 
 if has("nvim")
     Plug 'w0rp/ale'
@@ -286,6 +287,18 @@ let wiki.path = "$HOME/.vimwiki"
 let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
 let g:vimwiki_list = [wiki]
 
+
+" vim multiple cursors
+"
+" mappings
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
 if has("nvim")
 
     " colorscheme
@@ -340,6 +353,9 @@ if has("nvim")
     let g:ale_linters.cpp = ['clang', 'cppcheck']
     let g:ale_fixers.cpp = [ 'clang-format', 'uncrustify']
     let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
+    " c
+    let g:ale_linters.c = ['clang', 'cppcheck']
+    let g:ale_fixers.c = [ 'clang-format', 'uncrustify']
 
 else
 
