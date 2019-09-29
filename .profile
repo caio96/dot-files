@@ -4,8 +4,8 @@
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
-# add anaconda to path if it exists
-[ -d "$HOME/.anaconda3" ] && PATH="$HOME/.anaconda3/bin":"$PATH"
+# add cuda toolkit to PATH
+[ -d "/usr/local/cuda-10.1/bin" ] && PATH="$PATH:/usr/local/cuda-10.1/bin"
 
 # set java home
 [ -d "/usr/lib/jvm/java-11-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"

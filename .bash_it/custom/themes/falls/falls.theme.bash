@@ -40,7 +40,7 @@ dir=""
 git=""
 char=""
 
-#user="\[${MAGENTA}\]\u "
+user="${MAGENTA}\]\u "
 
 if [[ -n $SSH_CONNECTION ]]; then
     host="\[$ORANGE\]\h "
@@ -48,13 +48,9 @@ fi
 
 dir="\[$GREEN\]\w "
 
-git="\[$PURPLE\]\$(parse_git_branch) "
-if [ $git == " " ]; then
-    git=""
-fi
+git="\[$PURPLE\]\$(parse_git_branch)"
 
-#char="\[$WHITE\]\n\$ \[$RESET\]"
-char="\[$WHITE\]\$ \[$RESET\]"
+char="\[$WHITE\]\n\$ \[$RESET\]"
 
 function prompt_command() {
   PS1="\n\[${BOLD}$user$host$dir$git$char"

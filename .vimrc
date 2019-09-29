@@ -180,7 +180,7 @@ Plug 'terryma/vim-multiple-cursors'
 
 if has("nvim")
     Plug 'w0rp/ale'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
     "function! BuildYCM(info)
         "if a:info.status == 'installed' || a:info.force
