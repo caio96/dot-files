@@ -48,7 +48,7 @@ set showbreak=﬌
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:⣿,eol:¬
 
 " Change line after reaching last character
-set whichwrap+=<,>,[,]
+set whichwrap+=<,>,h,l,[,]
 
 " TabComplete like bash
 set wildmenu
@@ -90,6 +90,9 @@ set background=dark
 " Stop showing preview
 set completeopt-=preview
 
+" Always show the sign column
+set signcolumn=yes
+
 " Set true color
 if !has('nvim') && (v:version > 800)
     " set Vim-specific sequences for RGB colors
@@ -111,9 +114,14 @@ let g:mapleader = "\\"
 " up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
 nnoremap <Down> g<Down>
+vnoremap <Up> g<Up>
+vnoremap <Down> g<Down>
+inoremap <Up> <C-o>g<Up>
+inoremap <Down> <C-o>g<Down>
 
 " switch to the next buffer in the buffer list
 nnoremap <C-j> :bnext<CR>
+nnoremap <C-k> :bprevious<CR>
 
 " indent and return the same line where you were
 map <F3> mzgg=G`z
@@ -142,7 +150,7 @@ vnoremap > >gv
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " Notification after file change
 autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 "--------------------------------------"
 "              Plugins                 "
@@ -163,29 +171,30 @@ Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'ryanoasis/vim-devicons'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'terryma/vim-multiple-cursors'
 
 if has("nvim")
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-else
+"else
     "function! BuildYCM(info)
-        "if a:info.status == 'installed' || a:info.force
-            "!/usr/bin/python3 install.py --clang-completer
-        "endif
+    "if a:info.status == 'installed' || a:info.force
+    "!/usr/bin/python3 install.py --clang-completer
+    "endif
     "endfunction
     "Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 endif
@@ -196,7 +205,7 @@ call plug#end()
 "           Plugins config             "
 "--------------------------------------"
 
-" Color themes
+" Color themes options
 
 " Gruvbox
 " colorscheme gruvbox
@@ -228,23 +237,25 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " Airline configuration
 let g:airline_powerline_fonts = 1
 
-" suda
-"
-" Save readonly file with sudo with:
-" :w suda:%
-let g:suda#prefix = 'suda:'
-
 " gitgutter
 "
 " Don't map any keys
 let g:gitgutter_map_keys = 0
 " Default sign: ~_
-let g:gitgutter_sign_modified_removed   = '~'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+" Make Sign Column color the same color as the background
+let g:gitgutter_override_sign_column_highlight = 1
 
 " nerdcommenter
 "
+let g:NERDCreateDefaultMappings = 0
 " Toggle comments based on the first line
-map <leader>cc :NERDComToggleComment<CR>
+nnoremap <leader>cc :call NERDComment(0,"toggle")<CR>
+vnoremap <leader>cc :call NERDComment(0,"toggle")<CR>
 
 " nerdtree
 "
@@ -252,9 +263,6 @@ map <leader>cc :NERDComToggleComment<CR>
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeNodeDelimiter = "\x07"
-" enable nerdtree and decorate folders
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:webdevicons_enable_nerdtree = 1
 " Open and close nerdtree
 map <F2> :NERDTreeToggle<CR>
 " Close vim if only nerdtree is left open
@@ -287,7 +295,6 @@ let wiki.path = "$HOME/.vimwiki"
 let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
 let g:vimwiki_list = [wiki]
 
-
 " vim multiple cursors
 "
 " mappings
@@ -298,6 +305,7 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
 
 if has("nvim")
 
@@ -310,20 +318,25 @@ if has("nvim")
     "
     " install nodejs and yarn
     " install plugins:
-    " :CocInstall coc-python
+    " :CocInstall coc-jedi
+    " :CocInstall coc-json
     " :CocInstall coc-word
-    " pip install 'python-language-server[all]'
+    " pip install python-language-server jedi-language-server jedi
     " install clangd and ccls
+
+    " TODO
     " config in ~/.config/nvim/coc-settings.json
     " Use <c-space> for trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
+    "inoremap <silent><expr> <c-space> coc#refresh()
     " Use enter to confirm complete
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
     " Use Ctrl-] to go to definition
-    nmap <silent> <C-]> <Plug>(coc-definition)
+    "nmap <silent> <C-]> <Plug>(coc-definition)
 
     " ale
     "
+    " Disable completion with ale
+    let g:ale_completion_enabled = 0
     " Set this in your vimrc file to disabling highlighting
     let g:ale_set_highlights = 0
     " lint only when saving file
@@ -347,7 +360,8 @@ if has("nvim")
     let g:ale_fixers = {}
     " python
     let g:ale_linters.python = ['flake8', 'pylint']
-    let g:ale_fixers.python = [ 'yapf', 'autopep8', 'isort', 'black']
+    let g:ale_fixers.python = [ 'isort', 'black']
+    let g:ale_python_black_options = '--line-length 120'
     " cpp
     " install cppcheck and clang
     let g:ale_linters.cpp = ['clang', 'cppcheck']
@@ -360,8 +374,8 @@ if has("nvim")
 else
 
     " Paper color theme
-    colorscheme PaperColor
-    let g:airline_theme='wombat'
+    colorscheme dracula
+    let g:airline_theme='dracula'
 
     " youcompleteme
     "
