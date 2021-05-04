@@ -1,0 +1,18 @@
+{
+    "cmake.configureOnOpen": true,
+    "editor.fontFamily": "'FuraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "editor.renderWhitespace": "boundary",
+    "latex-workshop.latex.autoClean.run": "onFailed",
+    "window.zoomLevel": 1,
+    "editor.fontSize": 13,
+    "gitlens.codeLens.enabled": false,
+    "editor.wordWrap": "on",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ]
+}
