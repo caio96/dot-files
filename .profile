@@ -5,16 +5,16 @@
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
 # add cuda toolkit to PATH
-[ -d "/usr/local/cuda-10.1/bin" ] && PATH="$PATH:/usr/local/cuda-10.1/bin"
+#[ -d "/usr/local/cuda-10.1/bin" ] && PATH="$PATH:/usr/local/cuda-10.1/bin"
 
 # add llvm toolkit to PATH
-[ -d "/usr/lib/llvm-9/bin" ] && PATH="$PATH:/usr/lib/llvm-9/bin"
+#[ -d "/usr/lib/llvm-9/bin" ] && PATH="$PATH:/usr/lib/llvm-9/bin"
 
 # set java home
-[ -d "/usr/lib/jvm/java-11-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
+#[ -d "/usr/lib/jvm/java-11-openjdk" ] && export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
 
 # set android home
-[ -d "/opt/android-sdk" ] && export ANDROID_HOME="/opt/android-sdk"
+#[ -d "/opt/android-sdk" ] && export ANDROID_HOME="/opt/android-sdk"
 
 # set editor
 export EDITOR="vim"
