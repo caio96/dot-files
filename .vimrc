@@ -26,6 +26,7 @@ set expandtab
 " Smart tab and indent
 set smarttab
 set autoindent
+set smartindent
 
 " Highlights matching [{()}]
 set showmatch
@@ -93,6 +94,17 @@ set completeopt-=preview
 " Always show the sign column
 set signcolumn=yes
 
+" Show lines bellow or above scrolling
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+
+" Last line will be showed as much as possible
+set display+=lastline
+
 " Set true color
 if !has('nvim') && (v:version > 800)
     " set Vim-specific sequences for RGB colors
@@ -101,6 +113,37 @@ if !has('nvim') && (v:version > 800)
     set termguicolors
 elseif has('nvim')
     set termguicolors
+endif
+
+"--------------------------------------"
+" Avoid scrolling when switch buffers  "
+"--------------------------------------"
+
+" Save current view settings on a per-window, per-buffer basis.
+function! AutoSaveWinView()
+    if !exists("w:SavedBufView")
+        let w:SavedBufView = {}
+    endif
+    let w:SavedBufView[bufnr("%")] = winsaveview()
+endfunction
+
+" Restore current view settings.
+function! AutoRestoreWinView()
+    let buf = bufnr("%")
+    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
+        let v = winsaveview()
+        let atStartOfFile = v.lnum == 1 && v.col == 0
+        if atStartOfFile && !&diff
+            call winrestview(w:SavedBufView[buf])
+        endif
+        unlet w:SavedBufView[buf]
+    endif
+endfunction
+
+" When switching buffers, preserve window view.
+if v:version >= 700
+    autocmd BufLeave * call AutoSaveWinView()
+    autocmd BufEnter * call AutoRestoreWinView()
 endif
 
 "--------------------------------------"
@@ -142,6 +185,15 @@ vnoremap <leader>d "+d
 vnoremap < <gv
 vnoremap > >gv
 
+" map Ctrl-Backspace to delete the previous word
+imap <C-BS> <C-W>
+" adjust for this to work in a terminal
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>
+" improve behaviour for Ctrl-W and Ctrl-Backspace
+inoremap <C-w> <C-\><C-o>dB
+inoremap <C-BS> <C-\><C-o>db
+
 "--------------------------------------"
 "              AutoCmd                 "
 "--------------------------------------"
@@ -151,6 +203,9 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " Notification after file change
 autocmd FileChangedShellPost *
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+" Return to last edit position when opening files
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 "--------------------------------------"
 "              Plugins                 "

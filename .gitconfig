@@ -8,4 +8,5 @@
     br = branch --sort=-committerdate
 [core]
     editor = vim
-
+[diff]
+    tool = meld
