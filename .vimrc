@@ -240,7 +240,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 if has("nvim")
     Plug 'dense-analysis/ale'
@@ -309,8 +309,8 @@ let g:gitgutter_override_sign_column_highlight = 1
 "
 let g:NERDCreateDefaultMappings = 0
 " Toggle comments based on the first line
-nnoremap <leader>cc :call NERDComment(0,"toggle")<CR>
-vnoremap <leader>cc :call NERDComment(0,"toggle")<CR>
+nnoremap <leader>cc :call nerdcommenter#Comment(0,"toggle")<CR>
+vnoremap <leader>cc :call nerdcommenter#Comment(0,"toggle")<CR>
 
 " nerdtree
 "
@@ -350,16 +350,12 @@ let wiki.path = "$HOME/.vimwiki"
 let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
 let g:vimwiki_list = [wiki]
 
-" vim multiple cursors
+" vim visual multi
 "
 " mappings
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
 
 if has("nvim")
