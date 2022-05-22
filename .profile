@@ -4,6 +4,9 @@
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
+# go lang bin
+[ -d "$HOME/.go/bin" ] && PATH="$HOME/.go/bin:$PATH"
+
 # add cuda toolkit to PATH
 #[ -d "/usr/local/cuda-10.1/bin" ] && PATH="$PATH:/usr/local/cuda-10.1/bin"
 

@@ -421,6 +421,8 @@ if has("nvim")
     " c
     let g:ale_linters.c = ['clang', 'cppcheck']
     let g:ale_fixers.c = [ 'clang-format', 'uncrustify']
+    " bash
+    let g:ale_fixers.sh = ['shfmt']
 
 else
 
