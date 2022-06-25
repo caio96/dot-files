@@ -1,18 +1,17 @@
 {
-    "cmake.configureOnOpen": true,
-    "editor.fontFamily": "'FuraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontLigatures": true,
-    "latex-workshop.view.pdf.viewer": "tab",
+    "workbench.colorTheme": "Gruvbox Dark Medium",
+    "editor.fontFamily": "'FiraCode Nerd Font', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": "true",
+    "vim.disableExtension": true,
     "editor.renderWhitespace": "boundary",
-    "latex-workshop.latex.autoClean.run": "onFailed",
-    "window.zoomLevel": 1,
-    "editor.fontSize": 13,
-    "gitlens.codeLens.enabled": false,
     "editor.wordWrap": "on",
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ]
+    "editor.codeLensFontFamily": "'FiraCode Nerd Fon Mono' 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 15,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.build.forceRecipeUsage": false,
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoClean.run": "onFailed",
+    "C_Cpp.intelliSenseCacheSize": 2048,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.statusBar.enabled": false
 }
