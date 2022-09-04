@@ -1,1 +1,2 @@
-source $HOME/.profile
+#source $HOME/.profile
+#[[ -f ~/.zshrc ]] && . ~/.zshrc

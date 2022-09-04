@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
- 
-# append to the history file, don't overwrite it
-shopt -s histappend
- 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=200000
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+    *) return;;
+esac
 
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 
-# Lock and Load a custom theme file
+# Lock and Load a custom theme file.
+# Leave empty to disable theming.
 # location /.bash_it/themes/
-export BASH_IT_THEME='barbbr'
+export BASH_IT_THEME=''
 
-export BASH_IT_COMMAND_DURATION='true'
+# Some themes can show whether `sudo` has a current token or not.
+# Set `$THEME_CHECK_SUDO` to `true` to check every prompt:
+#THEME_CHECK_SUDO='true'
 
 # (Advanced): Change this to the name of your remote repo if you
 # cloned bash-it with a remote other than origin such as `bash-it`.
@@ -40,6 +38,9 @@ unset MAILCHECK
 # Set this to the command you use for todo.txt-cli
 # export TODO="t"
 
+# Set this to the location of your work or project folders
+#BASH_IT_PROJECT_PATHS="${HOME}/Projects:/Volumes/work/src"
+
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
 # Set to actual location of gitstatus directory if installed
@@ -59,10 +60,10 @@ export SCM_CHECK=true
 
 # If your theme use command duration, uncomment this to
 # enable display of last command duration.
-#export BASH_IT_COMMAND_DURATION=true
+export BASH_IT_COMMAND_DURATION=false
 # You can choose the minimum time in seconds before
 # command duration is displayed.
-#export COMMAND_DURATION_MIN_SECONDS=1
+export COMMAND_DURATION_MIN_SECONDS=5
 
 # Set Xterm/screen/Tmux title with shortened command and directory.
 # Uncomment this to set.
@@ -81,6 +82,7 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+eval "$(starship init bash)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

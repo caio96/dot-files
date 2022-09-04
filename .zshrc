@@ -103,8 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/caio/.anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
