@@ -244,7 +244,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 if has("nvim")
     Plug 'dense-analysis/ale'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neovim/nvim-lspconfig'
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "else
     "function! BuildYCM(info)
     "if a:info.status == 'installed' || a:info.force
