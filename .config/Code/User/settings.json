@@ -1,8 +1,7 @@
 {
-    "workbench.colorTheme": "Gruvbox Dark Medium",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
     "editor.fontFamily": "'FiraCode Nerd Font', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": "true",
-    "vim.disableExtension": true,
     "editor.renderWhitespace": "boundary",
     "editor.wordWrap": "on",
     "editor.codeLensFontFamily": "'FiraCode Nerd Fon Mono' 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
