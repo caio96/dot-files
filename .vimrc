@@ -245,14 +245,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 if has("nvim")
     Plug 'dense-analysis/ale'
     Plug 'neovim/nvim-lspconfig'
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"else
-    "function! BuildYCM(info)
-    "if a:info.status == 'installed' || a:info.force
-    "!/usr/bin/python3 install.py --clang-completer
-    "endif
-    "endfunction
-    "Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+else
+    Plug 'tpope/vim-sensible'
 endif
 
 call plug#end()
@@ -366,25 +360,6 @@ if has("nvim")
     colorscheme gruvbox
     let g:airline_theme='gruvbox'
 
-    " coc
-    "
-    " install nodejs and yarn
-    " install plugins:
-    " :CocInstall coc-jedi
-    " :CocInstall coc-json
-    " :CocInstall coc-word
-    " pip install python-language-server jedi-language-server jedi
-    " install clangd and ccls
-
-    " TODO
-    " config in ~/.config/nvim/coc-settings.json
-    " Use <c-space> for trigger completion.
-    "inoremap <silent><expr> <c-space> coc#refresh()
-    " Use enter to confirm complete
-    "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Use Ctrl-] to go to definition
-    "nmap <silent> <C-]> <Plug>(coc-definition)
-
     " ale
     "
     " Disable completion with ale
@@ -431,11 +406,5 @@ else
     colorscheme dracula
     let g:airline_theme='dracula'
 
-    " youcompleteme
-    "
-    " let g:ycm_python_binary_path = '/usr/bin/python3'
-    " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    " let g:ycm_global_ycm_extra_conf = '$HOME/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
-    " nnoremap <silent>  <C-]>  :YcmCompleter GoTo<CR>
 endif
 

@@ -1,3 +1,0 @@
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator ssh dir_writable dir vcs background_jobs status)
-POWERLEVEL9K_DISABLE_RPROMPT=true
-POWERLEVEL9K_STATUS_VERBOSE=false
