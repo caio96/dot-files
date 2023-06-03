@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -73,6 +73,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 #
 plugins=(zsh-syntax-highlighting zsh-autosuggestions fzf)
 
+# Avoid creating multiple .zcompdump files in home
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -103,14 +106,14 @@ source $ZSH/oh-my-zsh.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/caio/.anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$("$HOME/.anaconda3/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/caio/.anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/caio/.anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/.anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/caio/.anaconda3/bin:$PATH"
+        export PATH="$HOME/.anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
