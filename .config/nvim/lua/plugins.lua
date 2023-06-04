@@ -10,22 +10,24 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
 
-  --use {
-    --'nvim-telescope/telescope.nvim', tag = '*',
-    --requires = 'nvim-lua/plenary.nvim'
-  --}
-
   use {
-    'akinsho/bufferline.nvim', tag = "*",
-    requires = 'nvim-tree/nvim-web-devicons'
+    'nvim-telescope/telescope.nvim', tag = '*',
+    requires = 'nvim-lua/plenary.nvim'
   }
+
+  use { 'lewis6991/gitsigns.nvim', tag = '*' }
+
+  -- use {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   run = ':TSUpdate'
+  -- }
 
   use 'scrooloose/nerdcommenter'
+  use 'nvim-lualine/lualine.nvim'
+  use 'nvim-tree/nvim-web-devicons'
+  use 'sainnhe/gruvbox-material'
+  use 'RRethy/vim-illuminate'
+  
+  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
 
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
-
-  use 'ellisonleao/gruvbox.nvim'
 end)
