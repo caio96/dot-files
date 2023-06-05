@@ -27,9 +27,6 @@ vim.opt.whichwrap:append{
   ['l'] = true
 }
 
-vim.opt.undodir = vim.fn.expand('~/.vim/undod//')
-vim.opt.directory = vim.fn.expand('~/.vim/swap//')
-
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

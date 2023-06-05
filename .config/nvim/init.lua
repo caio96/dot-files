@@ -3,3 +3,4 @@
 require('settings')
 require('plugins')
 require('plugins-config')
+require('lsp-completion')
