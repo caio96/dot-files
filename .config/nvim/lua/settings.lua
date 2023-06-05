@@ -7,6 +7,8 @@ vim.opt.shiftwidth = 4
 
 vim.opt.showmatch = true
 
+vim.opt.undofile = true
+
 vim.opt.showbreak = '﬌'
 vim.opt.list = true
 vim.opt.listchars = {
@@ -33,7 +35,7 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard:append('unnamedplus')
 
-vim.opt.completeopt:remove('preview')
+vim.opt.completeopt = {'menuone', 'noselect'}
 vim.opt.display:append('lastline')
 
 vim.opt.scrolloff = 1
