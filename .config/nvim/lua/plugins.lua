@@ -37,6 +37,8 @@ return require('packer').startup(function(use)
   use 'j-hui/fidget.nvim'
   -- Preview what a shortcut does
   use 'folke/which-key.nvim'
+  -- Show small scroll bar for context
+  use 'petertriho/nvim-scrollbar'
   -- Enable sudo writing 
   use 'lambdalisue/suda.vim'
   -- Add comments
