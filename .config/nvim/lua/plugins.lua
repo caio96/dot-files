@@ -53,6 +53,8 @@ return require('packer').startup(function(use)
   use 'tpope/vim-sleuth'
   -- Git related
   use 'tpope/vim-fugitive'
+  -- Wiki notes support
+  use 'vimwiki/vimwiki'
   -- Shows git changes in files
   use { 'lewis6991/gitsigns.nvim', tag = '*' }
   -- Fuzzy finder and pretty preview

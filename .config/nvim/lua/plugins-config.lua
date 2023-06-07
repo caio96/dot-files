@@ -149,6 +149,18 @@ require("indent_blankline").setup {
 vim.keymap.set('n', '<leader>nr', require('illuminate').goto_next_reference, { desc = "Move to [n]ext illuminated [r]eference" })
 vim.keymap.set('n', '<leader>pr', require('illuminate').goto_prev_reference, { desc = "Move to [p]revious illuminated [r]eference" })
 
+-- vimwiki
+-- Use markdown syntax
+vim.g.vimwiki_ext2syntax = {['.wiki'] = 'markdown'}
+-- Headers with different colors
+vim.g.vimwiki_hl_headers = 1
+-- Highligh checked [X]
+vim.g.vimwiki_hl_cb_checked = 1
+-- Add syntax highlight
+local wiki = { path = '~/.vimwiki',
+               nested_syntaxes = {python='py', cpp='cpp', sh='sh'} }
+vim.g.vimwiki_list = {wiki}
+
 -- others
 require('gitsigns').setup()
 require('nvim-tree').setup()
