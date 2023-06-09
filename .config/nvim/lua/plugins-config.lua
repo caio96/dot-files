@@ -6,6 +6,7 @@ vim.cmd([[colorscheme gruvbox-material]])
 
 -- lualine
 require('lualine').setup{
+  options = { disabled_filetypes = {'NvimTree'} }
   -- tabline = {
   --   lualine_a = {'buffers'},
   --   lualine_z = {'tabs'}
@@ -20,7 +21,15 @@ bufferline.setup {
         bufferline.style_preset.no_italic,
         bufferline.style_preset.no_bold
     },
-    separator_style = 'slant'
+    separator_style = 'slant',
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        highlight = "Directory",
+        separator = true
+      }
+    }
   }
 }
 

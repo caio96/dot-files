@@ -70,6 +70,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- nvim-cmp
+local lspkind = require('lspkind')
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
 cmp.setup {
@@ -77,6 +78,12 @@ cmp.setup {
     expand = function(args)
         luasnip.lsp_expand(args.body)
     end,
+  },
+
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text'
+    })
   },
 
   mapping = cmp.mapping.preset.insert {

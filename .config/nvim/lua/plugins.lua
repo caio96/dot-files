@@ -39,6 +39,8 @@ return require('packer').startup(function(use)
   use 'folke/which-key.nvim'
   -- Show small scroll bar for context
   use 'petertriho/nvim-scrollbar'
+  -- Show of type of lsp suggestion with pretty icons
+  use 'onsails/lspkind.nvim'
   -- Enable sudo writing 
   use 'lambdalisue/suda.vim'
   -- Add comments
