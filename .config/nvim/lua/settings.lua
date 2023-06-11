@@ -19,7 +19,7 @@ vim.opt.showmatch = true
 vim.opt.undofile = true
 
 -- Show whitespace characters
-vim.opt.showbreak = '﬌'
+vim.opt.showbreak = '󱞩'
 vim.opt.list = true
 vim.opt.listchars = {
   tab = '› ',

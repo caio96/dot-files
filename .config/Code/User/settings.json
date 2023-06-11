@@ -12,5 +12,11 @@
     "latex-workshop.latex.autoClean.run": "onFailed",
     "C_Cpp.intelliSenseCacheSize": 2048,
     "gitlens.codeLens.enabled": false,
-    "gitlens.statusBar.enabled": false
+    "gitlens.statusBar.enabled": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "cmake.configureOnOpen": false,
+    "editor.inlayHints.enabled": "off",
+    "vim.disableExtension": true
 }
