@@ -1,31 +1,48 @@
+local overrides = require "custom.configs.overrides"
+
+---@type NvPluginSpec[]
 local plugins = {
+
   {
-    "nvim-treesitter/nvim-treesitter",
-    tag = "v0.9.0",
-    opts = {
-      ensure_installed = {
-        "c",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "bash",
-        "cmake",
-        "cpp",
-        "dockerfile",
-        "json",
-        "llvm",
-        "markdown",
-        "markdown_inline",
-        "make",
-        "python",
-        "tablegen",
-        "yaml",
-      },
-      highlight = {
-        additional_vim_regex_highlighting = false,
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      -- format & linting
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function()
+          require "custom.configs.null-ls"
+        end,
       },
     },
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end, -- Override to setup mason-lspconfig
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = overrides.treesitter,
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = overrides.nvimtree,
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = overrides.indent_blankline,
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    dependencies = overrides.gitsigns.dependencies,
   },
 
   {
@@ -35,12 +52,13 @@ local plugins = {
     opts = {
       markdown = {
         headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
+        codeblock_highlight = false,
         fat_headline = false,
         fat_headline_upper_string = "",
         fat_headline_lower_string = "",
       },
     },
-    config = function()
+    init = function()
       local colors = require("base46").get_theme_tb "base_30"
       vim.cmd(string.format("highlight Headline1 guifg=%s gui=bold", colors.pink))
       vim.cmd(string.format("highlight Headline2 guifg=%s gui=bold", colors.orange))
@@ -65,9 +83,17 @@ local plugins = {
   },
 
   {
-    "ethanholz/nvim-lastplace",
+    "ntpeters/vim-better-whitespace",
     lazy = false,
-    opts = {},
+    config = function()
+      vim.g.better_whitespace_ctermcolor = "None"
+      vim.g.better_whitespace_guicolor = "None"
+      vim.g.better_whitespace_enabled = 1
+      vim.g.strip_whitespace_on_save = 1
+      vim.g.strip_whitespace_confirm = 0
+      vim.g.strip_only_modified_lines = 1
+      vim.g.strip_max_file_size = 0
+    end,
   },
 
   {
@@ -80,22 +106,29 @@ local plugins = {
   },
 
   {
-    "lambdalisue/suda.vim",
-    lazy = false,
+    "renerocksai/telekasten.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    cmd = "Telekasten",
+    opts = {
+      home = vim.fn.expand "~/.zettelkasten",
+    },
   },
 
   {
-    "ntpeters/vim-better-whitespace",
+    "folke/trouble.nvim",
+    cmd = {"Trouble", "TroubleToggle"},
+    config = true,
+  },
+
+  {
+    "ethanholz/nvim-lastplace",
     lazy = false,
-    config = function()
-      vim.g.better_whitespace_ctermcolor = "None"
-      vim.g.better_whitespace_guicolor = "None"
-      vim.g.better_whitespace_enabled = 1
-      vim.g.strip_whitespace_on_save = 1
-      vim.g.strip_whitespace_confirm = 0
-      vim.g.strip_only_modified_lines = 1
-      vim.g.strip_max_file_size = 0
-    end,
+    opts = {},
+  },
+
+  {
+    "lambdalisue/suda.vim",
+    cmd = {"SudaRead", "SudaWrite"},
   },
 
   {
@@ -113,80 +146,8 @@ local plugins = {
     cmd = "Git",
   },
 
-  -- {
-  --   "vimwiki/vimwiki",
-  --   lazy = false,
-  --   init = function()
-  --     vim.g.vimwiki_ext2syntax = {['.wiki'] = 'markdown'}
-  --     -- Headers with different colors
-  --     vim.g.vimwiki_hl_headers = 1
-  --     -- Highligh checked [X]
-  --     vim.g.vimwiki_hl_cb_checked = 1
-  --     -- Add syntax highlight
-  --     local wiki = { path = '~/.vimwiki',
-  --                    nested_syntaxes = {python='py', cpp='cpp', sh='sh'},
-  --                    syntax = 'markdown',
-  --                    ext = '.md',
-  --     }
-  --     vim.g.vimwiki_list = {wiki}
-  --   end,
-  -- },
-
-  {
-    "renerocksai/telekasten.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    lazy = false,
-    opts = {
-      home = vim.fn.expand "~/.zettelkasten",
-    },
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      show_current_context_start = false,
-    },
-  },
-
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        -- lsp
-        "bash-language-server",
-        "cmake-language-server",
-        "clangd",
-        "dockerfile-language-server",
-        "python-lsp-server",
-        -- linter
-        "cmakelint",
-        "hadolint",
-        "markdownlint",
-        "shellcheck",
-        -- formatter
-        "beautysh",
-        "black",
-        "prettier",
-        "stylua",
-        "isort",
-        "",
-      },
-    },
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "jose-elias-alvarez/null-ls.nvim",
-      config = function()
-        require "custom.configs.null-ls"
-      end,
-    },
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end,
-  },
+  -- To use a extras plugin
+  -- { import = "custom.configs.extras.mason-extras", },
 }
 
 return plugins

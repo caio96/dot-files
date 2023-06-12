@@ -1,7 +1,8 @@
-local mappings = {}
+---@type MappingsTable
+local M = {}
 
 -- In order to disable a default keymap, use
-mappings.disabled = {
+M.disabled = {
   n = {
     ["<C-n>"] = "",
     ["<C-c>"] = "",
@@ -9,14 +10,19 @@ mappings.disabled = {
   },
 }
 
-mappings.nvimtree = {
+M.general = {
   n = {
-    -- toggle
+    [";"] = { ":", "enter command mode", opts = { nowait = true } },
+  },
+}
+
+M.nvimtree = {
+  n = {
     ["<F2>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
   },
 }
 
-mappings.custom = {
+M.custom = {
   v = {
     ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move highlighted text down" },
     ["<A-k>"] = { ":m '>-2<CR>gv=gv", "Move highlighted text up" },
@@ -26,7 +32,7 @@ mappings.custom = {
   },
 }
 
-mappings.illuminate = {
+M.illuminate = {
   n = {
     ["<leader>nr"] = {
       function()
@@ -41,6 +47,52 @@ mappings.illuminate = {
       "Move to [p]revious illuminated [r]eference",
     },
   },
+}
+
+M.null_ls = {
+  n = {
+    ["<leader>f"] = {
+      function()
+        vim.diagnostic.open_float { border = "rounded" }
+      end,
+      "Floating diagnostic",
+    },
+
+    ["[d"] = {
+      function()
+        vim.diagnostic.goto_prev({ float = { border = "rounded" }})
+      end,
+      "Goto prev",
+    },
+
+    ["]d"] = {
+      function()
+        vim.diagnostic.goto_next({ float = { border = "rounded" }})
+      end,
+      "Goto next",
+    },
+
+    ["<leader>q"] = {
+      function()
+        vim.diagnostic.setloclist()
+      end,
+      "Diagnostic setloclist",
+    },
+
+    ["<leader>fm"] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      "LSP formatting",
+    },
+  }
+}
+
+M.trouble = {
+  n = {
+    ["<leader>tt"] =  { "<cmd>TroubleToggle<cr>", "Toggle trouble diagnostic indicator"},
+    ["<leader>tq"] =  { "<cmd>TroubleToggle quickfix<cr>", "Toggle trouble diagnostic with quickfix items"},
+  }
 }
 
 -- Half page jump keeps cursor centered
@@ -67,4 +119,11 @@ vim.keymap.set({ "n", "v" }, "D", [["_D]])
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
-return mappings
+-- Extras example
+-- M.symbols_outline = {
+--   n = {
+--     ["<leader>cs"] = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
+--   },
+-- }
+
+return M
