@@ -111,6 +111,8 @@ local plugins = {
     cmd = "Telekasten",
     opts = {
       home = vim.fn.expand "~/.zettelkasten",
+      command_palette_theme = 'dropdown',
+      auto_set_filetype = false,
     },
   },
 

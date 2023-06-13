@@ -49,6 +49,23 @@ M.illuminate = {
   },
 }
 
+M.telekasten = {
+  n = {
+    ["<leader>z"] = {"<cmd>Telekasten<CR>", "Open Telekasten panel"},
+    ["<leader>zf"] = {"<cmd>Telekasten find_notes<CR>", "Find note by name"},
+    ["<leader>zs"] = {"<cmd>Telekasten search_notes<CR>", "Search in notes"},
+    ["<leader>zn"] = {"<cmd>Telekasten new_note<CR>", "Create new note"},
+    ["<leader>zt"] = {"<cmd>Telekasten goto_today<CR>", "Go to today's note"},
+    ["<leader>zw"] = {"<cmd>Telekasten goto_thisweek<CR>", "Go to this week's note"},
+    ["<C-Space>"] = {
+      function()
+        require('telekasten').toggle_todo()
+      end ,
+      "Toggle TODO"
+    },
+  }
+}
+
 M.null_ls = {
   n = {
     ["<leader>f"] = {
@@ -118,12 +135,5 @@ vim.keymap.set({ "n", "v" }, "D", [["_D]])
 -- Indent multiple times in visual mode
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
-
--- Extras example
--- M.symbols_outline = {
---   n = {
---     ["<leader>cs"] = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
---   },
--- }
 
 return M

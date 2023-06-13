@@ -10,7 +10,6 @@ local lint = null_ls.builtins.diagnostics
 local sources = {
   lint.cmake_lint,
   lint.hadolint,
-  lint.markdownlint,
   lint.shellcheck,
 
   formatting.beautysh,

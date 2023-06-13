@@ -37,7 +37,6 @@ M.mason = {
     -- linter
     "cmakelint",
     "hadolint",
-    "markdownlint",
     "shellcheck",
     -- formatter
     "beautysh",
