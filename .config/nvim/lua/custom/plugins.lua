@@ -117,6 +117,14 @@ local plugins = {
   },
 
   {
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    opts = {
+      mapping = {"jk"},
+    }
+  },
+
+  {
     "folke/trouble.nvim",
     cmd = {"Trouble", "TroubleToggle"},
     config = true,

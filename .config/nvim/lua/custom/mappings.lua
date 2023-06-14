@@ -14,6 +14,9 @@ M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
   },
+  i = {
+    ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
+  }
 }
 
 M.nvimtree = {

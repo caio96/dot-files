@@ -1,6 +1,6 @@
 -- Remap leader
-vim.g.mapleader = "\\"
-vim.g.maplocalleader = "\\"
+-- vim.g.mapleader = "\\"
+-- vim.g.maplocalleader = "\\"
 
 -- Show whitespace characters
 vim.opt.showbreak = "󱞩"
