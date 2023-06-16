@@ -68,13 +68,4 @@ M.indent_blankline = {
   show_current_context_start = false,
 }
 
-M.gitsigns = {
-  dependencies = {
-    {
-      "sindrets/diffview.nvim",
-      config = true,
-    },
-  }
-}
-
 return M

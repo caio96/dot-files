@@ -41,11 +41,6 @@ local plugins = {
   },
 
   {
-    "lewis6991/gitsigns.nvim",
-    dependencies = overrides.gitsigns.dependencies,
-  },
-
-  {
     "lukas-reineke/headlines.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     ft = "markdown",
@@ -125,8 +120,22 @@ local plugins = {
   },
 
   {
+    "ggandor/leap.nvim",
+    lazy = false,
+    config = function ()
+      require('leap').add_default_mappings()
+    end
+  },
+
+  {
     "folke/trouble.nvim",
     cmd = {"Trouble", "TroubleToggle"},
+    config = true,
+  },
+
+  {
+    'tzachar/highlight-undo.nvim',
+    lazy = false,
     config = true,
   },
 
@@ -134,6 +143,11 @@ local plugins = {
     "ethanholz/nvim-lastplace",
     lazy = false,
     opts = {},
+  },
+
+  {
+    'sindrets/diffview.nvim',
+    cmd = {"DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh"}
   },
 
   {
