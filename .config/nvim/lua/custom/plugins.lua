@@ -33,6 +33,7 @@ local plugins = {
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
+    event = "BufWinEnter",
   },
 
   {
@@ -168,6 +169,17 @@ local plugins = {
   {
     "tpope/vim-fugitive",
     cmd = "Git",
+  },
+
+  {
+    "utilyre/barbecue.nvim",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {},
+    lazy = false,
   },
 
   -- To use a extras plugin
