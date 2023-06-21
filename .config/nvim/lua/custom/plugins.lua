@@ -122,10 +122,19 @@ local plugins = {
 
   {
     "ggandor/leap.nvim",
-    lazy = false,
+    keys = {"s", "S"},
     config = function ()
       require('leap').add_default_mappings()
     end
+  },
+
+  {
+    'jinh0/eyeliner.nvim',
+    keys = {"f", "F"},
+    opts = {
+      highlight_on_key = true,
+      dim = true,
+    },
   },
 
   {
@@ -136,7 +145,7 @@ local plugins = {
 
   {
     'tzachar/highlight-undo.nvim',
-    lazy = false,
+    keys = {"u", "U", "<C-r>"},
     config = true,
   },
 
@@ -167,20 +176,42 @@ local plugins = {
   },
 
   {
-    "tpope/vim-fugitive",
-    cmd = "Git",
-  },
-
-  {
     "utilyre/barbecue.nvim",
     version = "*",
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
-    opts = {},
+    opts = {
+      show_dirname = false,
+      show_basename = false,
+    },
     lazy = false,
   },
+
+  {
+    'simrat39/symbols-outline.nvim',
+    cmd = {"SymbolsOutline"},
+    opts = {},
+  },
+
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    opts = {
+      log_level = "error",
+      auto_session_suppress_dirs = { "~/", "~/Downloads", "/"},
+    },
+    dependencies = {
+      {
+        'rmagatti/session-lens',
+        opts = {},
+        config = function()
+          require("telescope").load_extension("session-lens")
+        end
+      },
+    }
+  }
 
   -- To use a extras plugin
   -- { import = "custom.configs.extras.mason-extras", },

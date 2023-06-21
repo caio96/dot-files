@@ -52,6 +52,12 @@ M.illuminate = {
   },
 }
 
+M.auto_sessions = {
+  n = {
+    ["<leader>fp"] = { "<cmd> Telescope session-lens search_session <CR>", "Find projects" },
+  }
+}
+
 M.telekasten = {
   n = {
     ["<leader>z"] = {"<cmd>Telekasten<CR>", "Open Telekasten panel"},

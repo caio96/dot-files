@@ -42,9 +42,9 @@ M.mason = {
     "beautysh",
     "black",
     "clang-format",
+    "isort",
     "prettier",
     "stylua",
-    "isort",
   },
 }
 

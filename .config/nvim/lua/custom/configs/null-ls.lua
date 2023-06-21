@@ -14,12 +14,13 @@ local sources = {
 
   formatting.beautysh,
   formatting.black,
+  formatting.clang_format,
   formatting.isort,
   formatting.prettier.with { filetypes = { "markdown"} }, -- so prettier works only on these filetypes
   formatting.stylua,
 }
 
 null_ls.setup {
-  debug = true,
+  debug = false,
   sources = sources,
 }
