@@ -13,6 +13,9 @@ local plugins = {
           require "custom.configs.null-ls"
         end,
       },
+      {
+        "utilyre/barbecue.nvim",
+      },
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -66,7 +69,7 @@ local plugins = {
 
   {
     "RRethy/vim-illuminate",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       local colors = require("base46").get_theme_tb "base_30"
       vim.cmd(string.format("hi IlluminatedWordRead gui=none guibg=%s", colors.one_bg))
@@ -80,7 +83,8 @@ local plugins = {
 
   {
     "ntpeters/vim-better-whitespace",
-    lazy = false,
+    cmd = {"StripWhitespace", "StripWhitespaceOnChangedLines"},
+    event = "VeryLazy",
     config = function()
       vim.g.better_whitespace_ctermcolor = "None"
       vim.g.better_whitespace_guicolor = "None"
@@ -167,12 +171,12 @@ local plugins = {
 
   {
     "mg979/vim-visual-multi",
-    lazy = false,
+    event = "VeryLazy",
   },
 
   {
     "tpope/vim-sleuth",
-    lazy = false,
+    event = "VeryLazy",
   },
 
   {
@@ -180,13 +184,11 @@ local plugins = {
     version = "*",
     dependencies = {
       "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons", -- optional dependency
     },
     opts = {
       show_dirname = false,
       show_basename = false,
     },
-    lazy = false,
   },
 
   {
@@ -211,7 +213,17 @@ local plugins = {
         end
       },
     }
-  }
+  },
+
+  {
+    "tenxsoydev/karen-yank.nvim",
+    lazy = false,
+    opts = {
+      mappings = {
+        karen = "<leader>",
+      },
+    },
+  },
 
   -- To use a extras plugin
   -- { import = "custom.configs.extras.mason-extras", },
