@@ -1,7 +1,3 @@
--- Remap leader
--- vim.g.mapleader = "\\"
--- vim.g.maplocalleader = "\\"
-
 -- Show whitespace characters
 vim.opt.showbreak = "󱞩"
 vim.opt.list = true
@@ -14,7 +10,7 @@ vim.opt.listchars = {
   eol = "¬",
 }
 
--- Don't highlight all search occurences
+-- Don't highlight all search occurrences
 vim.opt.hlsearch = false
 
 -- Show last line as much as possible
@@ -26,10 +22,8 @@ vim.opt.sidescrolloff = 5
 
 vim.diagnostic.config {virtual_text = false,underline = false,}
 
--- local autocmd = vim.api.nvim_create_autocmd
+-- Check spelling for comments
+vim.opt.spell = true
 
--- Auto resize panes when resizing nvim window
--- autocmd("VimResized", {
---   pattern = "*",
---   command = "tabdo wincmd =",
--- })
+-- Load autocmds
+require('custom.autocmd')
