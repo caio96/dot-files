@@ -16,6 +16,9 @@ M.general = {
   n = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
     ["<leader>s"] = { ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Replace all occurences of current word" },
+    ["H"] = { "^", "Go to the beginning of the line" },
+    ["L"] = { "$", "Go to the end of the line" },
+    ["ZZ"] = { "<cmd> wqa <CR>", "Save file all buffers and exit" },
   },
   i = {
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
@@ -131,6 +134,12 @@ M.trouble = {
   }
 }
 
+M.undotree = {
+  n = {
+    ["U"] = { "<cmd>UndotreeToggle<cr>", "Toggle undo tree", opts = { remap = true } },
+  }
+}
+
 -- Half page jump keeps cursor centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -138,5 +147,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- Keep search items centered
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+
+-- Disable ex mode
+vim.keymap.set("n", "Q", "<nop>")
 
 return M

@@ -125,19 +125,39 @@ local plugins = {
   },
 
   {
-    "ggandor/leap.nvim",
-    keys = {"s", "S"},
-    config = function ()
-      require('leap').add_default_mappings()
-    end
+    "mbbill/undotree",
+    cmd = "UndotreeToggle"
   },
 
   {
-    'jinh0/eyeliner.nvim',
-    keys = {"f", "F"},
+    "folke/flash.nvim",
+    event = "VeryLazy",
     opts = {
-      highlight_on_key = true,
-      dim = true,
+      modes = {
+        char = {
+          -- Removing ; and , from the defaults
+          keys = { "f", "F", "t", "T" },
+        },
+      }
+    },
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
     },
   },
 
@@ -149,7 +169,7 @@ local plugins = {
 
   {
     'tzachar/highlight-undo.nvim',
-    keys = {"u", "U", "<C-r>"},
+    keys = {"u", "<C-r>"},
     config = true,
   },
 
