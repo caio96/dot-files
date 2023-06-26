@@ -15,7 +15,7 @@ M.disabled = {
 M.general = {
   n = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
-    ["<leader>s"] = { ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Replace all occurences of current word" },
+    ["<leader>s"] = { ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Replace all occurrences of current word" },
     ["H"] = { "^", "Go to the beginning of the line" },
     ["L"] = { "$", "Go to the end of the line" },
     ["ZZ"] = { "<cmd> wqa <CR>", "Save file all buffers and exit" },

@@ -231,7 +231,7 @@ local plugins = {
 
   {
     "tenxsoydev/karen-yank.nvim",
-    lazy = false,
+    event = "VeryLazy",
     opts = {
       mappings = {
         karen = "<leader>",

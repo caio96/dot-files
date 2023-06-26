@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 
 --------------------------------------------------------------------
 
--- Add command to remeove trailing whitespace in the whole file
+-- Add command to remove trailing whitespace in the whole file
 vim.api.nvim_create_user_command("StripWhitespace",
   function()
     if not vim.o.binary and vim.o.filetype ~= 'diff' then
