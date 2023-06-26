@@ -26,4 +26,4 @@ vim.diagnostic.config {virtual_text = false,underline = false,}
 vim.opt.spell = true
 
 -- Load autocmds
-require('custom.autocmd')
+require('custom.cmds')

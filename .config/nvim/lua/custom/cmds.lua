@@ -32,3 +32,16 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 })
 
 --------------------------------------------------------------------
+
+-- Add command to remeove trailing whitespace in the whole file
+vim.api.nvim_create_user_command("StripWhitespace",
+  function()
+    if not vim.o.binary and vim.o.filetype ~= 'diff' then
+      local current_view = vim.fn.winsaveview()
+      vim.cmd([[keeppatterns %s/\s\+$//e]])
+      vim.fn.winrestview(current_view)
+    end
+  end,
+  {}
+)
+

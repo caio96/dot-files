@@ -82,18 +82,12 @@ local plugins = {
   },
 
   {
-    "ntpeters/vim-better-whitespace",
-    cmd = {"StripWhitespace", "StripWhitespaceOnChangedLines"},
+    "lewis6991/spaceless.nvim",
     event = "VeryLazy",
-    config = function()
-      vim.g.better_whitespace_ctermcolor = "None"
-      vim.g.better_whitespace_guicolor = "None"
-      vim.g.better_whitespace_enabled = 1
-      vim.g.strip_whitespace_on_save = 1
-      vim.g.strip_whitespace_confirm = 0
-      vim.g.strip_only_modified_lines = 1
-      vim.g.strip_max_file_size = 0
-    end,
+    config = true,
+    cond = function ()
+      return vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "diff"
+    end
   },
 
   {
