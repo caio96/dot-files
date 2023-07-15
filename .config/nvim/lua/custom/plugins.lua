@@ -114,7 +114,7 @@ local plugins = {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     opts = {
-      mapping = {"jk"},
+      mapping = {"jk", "JK"},
     }
   },
 
@@ -235,6 +235,7 @@ local plugins = {
     opts = {
       mappings = {
         karen = "<leader>",
+        disable = { "s", "S", "x", "X", "p", "P", "y", "Y" },
       },
     },
   },

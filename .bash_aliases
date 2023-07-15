@@ -1,4 +1,5 @@
 # Alias definitions
+alias cat='batcat'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto --exclude-dir={.git,.hg}'
 alias ll='ls -AlFh'
