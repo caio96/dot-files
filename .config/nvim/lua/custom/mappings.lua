@@ -69,6 +69,12 @@ M.nvimtree = {
   },
 }
 
+M.symbols_outline = {
+  n = {
+    ["<F3>"] = { "<cmd> SymbolsOutline <CR>", "Toggle symbols outline" },
+  },
+}
+
 M.illuminate = {
   n = {
     ["<leader>in"] = {
@@ -137,6 +143,29 @@ M.trouble = {
 M.undotree = {
   n = {
     ["U"] = { "<cmd>UndotreeToggle<cr>", "Toggle undo tree", opts = { remap = true } },
+  }
+}
+
+M.mini_map = {
+  n = {
+    ["<leader>mf"] = {
+      function()
+        require('mini.map').toggle_focus()
+      end,
+      "Toogle focus on mini map"
+    },
+    ["<leader>mr"] = {
+      function()
+        require('mini.map').refresh()
+      end,
+      "Refresh mini map"
+    },
+    ["<leader>mt"] = {
+      function()
+        require('mini.map').toggle()
+      end,
+      "Toggle mini map"
+    },
   }
 }
 

@@ -48,22 +48,22 @@ local plugins = {
     "lukas-reineke/headlines.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     ft = "markdown",
-    opts = {
-      markdown = {
-        headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
-        codeblock_highlight = false,
-        fat_headline = false,
-        fat_headline_upper_string = "",
-        fat_headline_lower_string = "",
-      },
-    },
-    init = function()
+    config = function()
       local colors = require("base46").get_theme_tb "base_30"
       vim.cmd(string.format("highlight Headline1 guifg=%s gui=bold", colors.pink))
-      vim.cmd(string.format("highlight Headline2 guifg=%s gui=bold", colors.orange))
+      vim.cmd(string.format("highlight Headline2 guifg=%s gui=bold", colors.yellow))
       vim.cmd(string.format("highlight Headline3 guifg=%s gui=bold", colors.blue))
-      vim.cmd(string.format("highlight Headline4 guifg=%s gui=bold", colors.yellow))
+      vim.cmd(string.format("highlight Headline4 guifg=%s gui=bold", colors.orange))
       vim.cmd(string.format("highlight Headline5 guifg=%s gui=bold", colors.red))
+      require('headlines').setup {
+        markdown = {
+          headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
+          codeblock_highlight = false,
+          fat_headline = false,
+          fat_headline_upper_string = "",
+          fat_headline_lower_string = "",
+        },
+      }
     end,
   },
 
@@ -79,6 +79,18 @@ local plugins = {
         under_cursor = false,
       }
     end,
+    cond = function ()
+      -- Disable for files without a file type
+      if not vim.bo.filetype then
+        return false
+      end
+      -- Disable for large files
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
+      if ok and stats and stats.size > 1000000 then
+        return false
+      end
+      return true
+    end,
   },
 
   {
@@ -91,11 +103,32 @@ local plugins = {
   },
 
   {
-    "petertriho/nvim-scrollbar",
+    'echasnovski/mini.map',
     lazy = false,
-    config = function()
-      require("scrollbar").setup()
-      require("scrollbar.handlers.gitsigns").setup()
+    version = '*',
+    config = function ()
+      local map = require('mini.map')
+      map.setup({
+        integrations = {
+          map.gen_integration.gitsigns(),
+        },
+        symbols = {
+          encode = map.gen_encode_symbols.dot('4x2'),
+          scroll_line = '█ ',
+        },
+        window = {
+          show_integration_count = false,
+          winblend = 0
+        },
+      })
+
+      -- Open minimap automatically
+      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+        callback = function()
+          require('mini.map').open()
+        end,
+        pattern = "*",
+      })
     end,
   },
 
