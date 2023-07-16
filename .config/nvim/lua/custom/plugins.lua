@@ -192,6 +192,25 @@ local plugins = {
   },
 
   {
+    "kevinhwang91/nvim-hlslens",
+    event = "VeryLazy",
+    config = function ()
+      require('hlslens').setup({
+        calm_down = true,
+        nearest_only = true,
+        nearest_float_when = "never",
+      })
+      local kopts = {noremap = true, silent = true}
+      vim.api.nvim_set_keymap('n', 'n',
+          [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+          kopts)
+      vim.api.nvim_set_keymap('n', 'N',
+          [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+          kopts)
+    end
+  },
+
+  {
     "folke/trouble.nvim",
     cmd = {"Trouble", "TroubleToggle"},
     config = true,
@@ -221,12 +240,19 @@ local plugins = {
       'nvim-lua/plenary.nvim',
       'sindrets/diffview.nvim',
     },
-    opts = {
-      use_telescope = true,
-      integrations = {
-        diffview = true,
-      },
-    },
+    config = function ()
+      local colors = require("base46").get_theme_tb "base_30"
+      vim.cmd(string.format("highlight def NeogitDiffAdd             guifg=%s", colors.green))
+      vim.cmd(string.format("highlight def NeogitDiffAddHighlight    guifg=%s", colors.green))
+      vim.cmd(string.format("highlight def NeogitDiffDelete          guifg=%s", colors.red))
+      vim.cmd(string.format("highlight def NeogitDiffDeleteHighlight guifg=%s", colors.red))
+      vim.cmd(string.format("highlight def NeogitHunkHeader          guibg=%s guifg=%s", colors.grey, colors.black))
+      vim.cmd(string.format("highlight def NeogitHunkHeaderHighlight guibg=%s guifg=%s", colors.light_grey, colors.black))
+
+      require("neogit").setup ({
+        use_telescope = true,
+      })
+    end
   },
 
   {
@@ -278,6 +304,27 @@ local plugins = {
         end
       },
     }
+  },
+
+  {
+    "ibhagwan/smartyank.nvim",
+    event = "VeryLazy",
+    opts = {
+      highlight = {
+        timeout = 200,
+      },
+      clipboard = {
+        enabled = false,
+      },
+      tmux = {
+        enabled = false,
+      },
+      osc52 = {
+        enabled = true,
+        escseq = 'tmux',
+        silent = true,
+      },
+    },
   },
 
   {

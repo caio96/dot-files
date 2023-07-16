@@ -10,9 +10,6 @@ vim.opt.listchars = {
   eol = "¬",
 }
 
--- Don't highlight all search occurrences
-vim.opt.hlsearch = false
-
 -- Show last line as much as possible
 vim.opt.display:append "lastline"
 
