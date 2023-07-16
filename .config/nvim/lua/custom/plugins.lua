@@ -118,12 +118,12 @@ local plugins = {
         },
         window = {
           show_integration_count = false,
-          winblend = 0
+          winblend = 20
         },
       })
 
       -- Open minimap automatically
-      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
         callback = function()
           require('mini.map').open()
         end,
@@ -165,6 +165,9 @@ local plugins = {
           -- Removing ; and , from the defaults
           keys = { "f", "F", "t", "T" },
         },
+        search = {
+          enabled = false,
+        }
       }
     },
     keys = {
@@ -209,6 +212,21 @@ local plugins = {
   {
     'sindrets/diffview.nvim',
     cmd = {"DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh"}
+  },
+
+  {
+    'NeogitOrg/neogit',
+    cmd = {"Neogit"},
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+    },
+    opts = {
+      use_telescope = true,
+      integrations = {
+        diffview = true,
+      },
+    },
   },
 
   {

@@ -11,6 +11,8 @@ M.treesitter = {
     "cmake",
     "cpp",
     "dockerfile",
+    "gitcommit",
+    "git_rebase",
     "json",
     "llvm",
     "markdown",
