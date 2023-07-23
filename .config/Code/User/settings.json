@@ -18,5 +18,4 @@
     },
     "cmake.configureOnOpen": false,
     "editor.inlayHints.enabled": "off",
-    "vim.disableExtension": true
 }
