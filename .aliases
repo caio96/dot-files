@@ -1,7 +1,11 @@
 # Alias definitions
 alias cat='batcat'
-alias ls='ls --color=auto'
+alias cd='z'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias grep='grep --color=auto --exclude-dir={.git,.hg}'
+alias ls='ls --color=auto'
 alias ll='ls -AlFh'
 alias la='ls -A'
 alias l='ls -CF'
@@ -14,4 +18,3 @@ alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 alias ubuntu-update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y clean'
 alias git-fetch-branches='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done; git fetch --all; git pull --all'
-
