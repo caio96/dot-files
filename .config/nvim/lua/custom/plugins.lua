@@ -307,6 +307,11 @@ local plugins = {
   },
 
   {
+    "svermeulen/vim-cutlass",
+    event = "VeryLazy",
+  },
+
+  {
     "ibhagwan/smartyank.nvim",
     event = "VeryLazy",
     opts = {
@@ -314,26 +319,15 @@ local plugins = {
         timeout = 200,
       },
       clipboard = {
-        enabled = false,
+        enabled = true,
       },
       tmux = {
-        enabled = false,
+        enabled = true,
       },
       osc52 = {
         enabled = true,
         escseq = 'tmux',
         silent = true,
-      },
-    },
-  },
-
-  {
-    "tenxsoydev/karen-yank.nvim",
-    event = "VeryLazy",
-    opts = {
-      mappings = {
-        karen = "<leader>",
-        disable = { "s", "S", "x", "X", "p", "P", "y", "Y" },
       },
     },
   },

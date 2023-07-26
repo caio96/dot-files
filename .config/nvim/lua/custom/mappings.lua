@@ -183,4 +183,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- Disable ex mode
 vim.keymap.set("n", "Q", "<nop>")
 
+-- Use x to cut
+vim.keymap.set("n", "x", "d")
+vim.keymap.set("x", "x", "d")
+vim.keymap.set("n", "xx", "dd")
+vim.keymap.set("n", "X", "D")
+
 return M
