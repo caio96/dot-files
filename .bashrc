@@ -39,9 +39,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-command -v starship &> /dev/null && eval "$(starship init zsh)"
-command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
-command -v navi &> /dev/null && eval "$(navi widget zsh)"
+command -v starship &> /dev/null && eval "$(starship init bash)"
+command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
+command -v navi &> /dev/null && eval "$(navi widget bash)"
 [ -f ~/.anaconda3/bin/thefuck ] && eval $(~/.anaconda3/bin/thefuck --alias)
 
 [ -f ~/.aliases ] && source ~/.aliases
