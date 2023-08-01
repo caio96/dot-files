@@ -17,12 +17,6 @@ set number
 "Always show current position
 set ruler
 
-" Tabs = 4 spaces
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-
 " Smart tab and indent
 set smarttab
 set autoindent
@@ -34,7 +28,7 @@ set showmatch
 " Enables mouse
 set mouse=a
 
-" Enable 256 colors palette in Gnome Terminal
+" Enable 256 colors palette
 set t_Co=256
 
 " UTF-8 encoding
@@ -45,7 +39,7 @@ set backspace=indent,eol,start
 
 " Show invisibles
 set list
-set showbreak=﬌
+set showbreak=󱞩
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:⣿,eol:¬
 
 " Change line after reaching last character
@@ -95,23 +89,17 @@ set completeopt-=preview
 set signcolumn=yes
 
 " Show lines bellow or above scrolling
-if !&scrolloff
-  set scrolloff=1
-endif
-if !&sidescrolloff
-  set sidescrolloff=5
-endif
+set scrolloff = 2
+set sidescrolloff = 5
 
 " Last line will be showed as much as possible
 set display+=lastline
 
 " Set true color
-if !has('nvim') && (v:version > 800)
+if v:version > 800
     " set Vim-specific sequences for RGB colors
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-elseif has('nvim')
     set termguicolors
 endif
 
@@ -151,8 +139,8 @@ endif
 "--------------------------------------"
 
 " leader mapping
-let mapleader = "\\"
-let g:mapleader = "\\"
+let mapleader = "<space>"
+let g:mapleader = "<space>"
 
 " up/down arrow keys move by screen line
 nnoremap <Up> g<Up>
@@ -163,8 +151,8 @@ inoremap <Up> <C-o>g<Up>
 inoremap <Down> <C-o>g<Down>
 
 " switch to the next buffer in the buffer list
-nnoremap <C-j> :bnext<CR>
-nnoremap <C-k> :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " indent and return the same line where you were
 map <F3> mzgg=G`z
@@ -182,17 +170,8 @@ nnoremap <leader>D "+D
 vnoremap <leader>d "+d
 
 " indent line multiple times when in visual mode
-vnoremap < <gv
-vnoremap > >gv
-
-" map Ctrl-Backspace to delete the previous word
-imap <C-BS> <C-W>
-" adjust for this to work in a terminal
-noremap! <C-BS> <C-w>
-noremap! <C-h> <C-w>
-" improve behaviour for Ctrl-W and Ctrl-Backspace
-inoremap <C-w> <C-\><C-o>dB
-inoremap <C-BS> <C-\><C-o>db
+vnoremap <C-h> <gv
+vnoremap <C-l> >gv
 
 "--------------------------------------"
 "              AutoCmd                 "
@@ -215,39 +194,25 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 "    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-" NeoVim Plug
-" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 call plug#begin()
 
 "color themes
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
+Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'lambdalisue/suda.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
-if has("nvim")
-    Plug 'dense-analysis/ale'
-    Plug 'neovim/nvim-lspconfig'
-else
-    Plug 'tpope/vim-sensible'
-endif
+Plug 'max397574/better-escape.nvim'
+Plug 'tpope/vim-sleuth'
 
 call plug#end()
 
@@ -257,21 +222,9 @@ call plug#end()
 
 " Color themes options
 
-" Gruvbox
-" colorscheme gruvbox
-" let g:airline_theme='gruvbox'
-
-" Onedark
-" colorscheme onedark
-" let g:airline_theme='onedark'
-
-" Paper color theme
-" colorscheme PaperColor
-" let g:airline_theme='wombat'
-
-" Vim hybrid material
-" colorscheme hybrid_reverse
-" let g:airline_theme = 'hybrid'
+" Dracula color theme
+colorscheme dracula
+let g:airline_theme='dracula'
 
 " airline
 "
@@ -352,59 +305,4 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
-
-if has("nvim")
-
-    " colorscheme
-    "
-    colorscheme gruvbox
-    let g:airline_theme='gruvbox'
-
-    " ale
-    "
-    " Disable completion with ale
-    let g:ale_completion_enabled = 0
-    " Set this in your vimrc file to disabling highlighting
-    let g:ale_set_highlights = 0
-    " lint only when saving file
-    let g:ale_lint_on_text_changed = 'never'
-    " airline integration.
-    let g:airline#extensions#ale#enabled = 1
-    " message format
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-    let g:ale_sign_column_always = 1
-    " custom error and warning signs
-    let g:ale_sign_error = "◉"
-    let g:ale_sign_warning = "◉"
-    " C-e to next message
-    nmap <silent> <C-e> <Plug>(ale_next_wrap)
-    " <leader> ff to fix file
-    nmap <leader>ff <Plug>(ale_fix)
-    " linters and fixers
-    let g:ale_linters = {}
-    let g:ale_fixers = {}
-    " python
-    let g:ale_linters.python = ['flake8', 'pylint']
-    let g:ale_fixers.python = [ 'isort', 'black']
-    let g:ale_python_black_options = '--line-length 120'
-    " cpp
-    " install cppcheck and clang
-    let g:ale_linters.cpp = ['clang', 'cppcheck']
-    let g:ale_fixers.cpp = [ 'clang-format', 'uncrustify']
-    let g:ale_c_clangformat_options = '-style="{IndentWidth: 4, ColumnLimit: 120}"'
-    " c
-    let g:ale_linters.c = ['clang', 'cppcheck']
-    let g:ale_fixers.c = [ 'clang-format', 'uncrustify']
-    " bash
-    let g:ale_fixers.sh = ['shfmt']
-
-else
-
-    " Paper color theme
-    colorscheme dracula
-    let g:airline_theme='dracula'
-
-endif
 
