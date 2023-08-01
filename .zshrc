@@ -84,6 +84,7 @@ eval "$(zoxide init zsh)"
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.profile ] && source ~/.profile
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

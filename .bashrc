@@ -44,6 +44,7 @@ eval "$(zoxide init bash)"
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.profile ] && source ~/.profile
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
