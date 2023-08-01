@@ -10,3 +10,5 @@
     editor = vim
 [diff]
     tool = meld
+[init]
+	defaultBranch = main
