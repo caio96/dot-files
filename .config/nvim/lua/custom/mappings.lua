@@ -184,9 +184,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Use x to cut
-vim.keymap.set("n", "x", "d")
-vim.keymap.set("x", "x", "d")
-vim.keymap.set("n", "xx", "dd")
-vim.keymap.set("n", "X", "D")
+vim.keymap.set("n", "m", "d")
+vim.keymap.set("x", "m", "d")
+vim.keymap.set("n", "mm", "dd")
+vim.keymap.set("n", "M", "D")
 
 return M
