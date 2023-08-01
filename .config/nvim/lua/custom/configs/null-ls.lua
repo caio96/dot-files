@@ -12,7 +12,13 @@ local sources = {
   lint.hadolint,
   lint.shellcheck,
 
-  formatting.beautysh,
+  formatting.beautysh.with({
+    args = {
+      "--indent-size",
+      "2",
+      "$FILENAME"
+    },
+  }),
   formatting.black,
   formatting.clang_format,
   formatting.isort,
