@@ -80,7 +80,9 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-eval "$(zoxide init zsh)"
+command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+command -v navi &> /dev/null && eval "$(navi widget zsh)"
+[ -f ~/.anaconda3/bin/thefuck ] && eval $(~/.anaconda3/bin/thefuck --alias)
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

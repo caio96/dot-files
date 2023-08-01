@@ -39,8 +39,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-eval "$(starship init bash)"
-eval "$(zoxide init bash)"
+command -v starship &> /dev/null && eval "$(starship init zsh)"
+command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+command -v navi &> /dev/null && eval "$(navi widget zsh)"
+[ -f ~/.anaconda3/bin/thefuck ] && eval $(~/.anaconda3/bin/thefuck --alias)
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -60,4 +62,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-

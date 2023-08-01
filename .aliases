@@ -1,14 +1,23 @@
 # Alias definitions
-alias cat='batcat'
-alias cd='z'
+command -v batcat &> /dev/null && alias cat='batcat'
+command -v z &> /dev/null && alias cd='z'
+if command -v exa &> /dev/null; then
+  alias ls='exa'
+  alias ll='exa -al'
+  alias la='exa -a'
+  alias la='exa -a'
+  alias lt='exa --tree'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -AlFh'
+  alias la='ls -A'
+  alias lt='tree'
+fi
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias grep='grep --color=auto --exclude-dir={.git,.hg}'
-alias ls='ls --color=auto'
-alias ll='ls -AlFh'
-alias la='ls -A'
-alias l='ls -CF'
 alias lsize='du -had 1 | sort -hr'
 alias n='nohup nautilus . > /dev/null 2>&1 &'
 alias ..='cd ..'
