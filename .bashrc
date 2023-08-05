@@ -41,7 +41,6 @@ fi
 
 command -v starship &> /dev/null && eval "$(starship init bash)"
 command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
-command -v navi &> /dev/null && eval "$(navi widget bash)"
 [ -f ~/.anaconda3/bin/thefuck ] && eval $(~/.anaconda3/bin/thefuck --alias)
 
 [ -f ~/.aliases ] && source ~/.aliases
@@ -50,14 +49,14 @@ command -v navi &> /dev/null && eval "$(navi widget bash)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$("/home/caio/.anaconda3/bin/conda" "shell.bash" "hook" 2> /dev/null)"
+__conda_setup="$("$HOME/.anaconda3/bin/conda" "shell.bash" "hook" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/caio/.anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/caio/.anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/.anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/caio/.anaconda3/bin:$PATH"
+        export PATH="$HOME/.anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
