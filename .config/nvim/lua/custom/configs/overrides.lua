@@ -13,6 +13,7 @@ M.treesitter = {
     "dockerfile",
     "gitcommit",
     "git_rebase",
+    "html",
     "json",
     "llvm",
     "markdown",

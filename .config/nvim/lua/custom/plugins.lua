@@ -332,6 +332,33 @@ local plugins = {
     },
   },
 
+  {
+    "luckasRanarison/nvim-devdocs",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      ensure_installed = {"c", "cpp"}
+    },
+    cmd = {
+      "DevdocsFetch",
+      "DevdocsInstall",
+      "DevdocsUninstall",
+      "DevdocsOpen",
+      "DevdocsOpenFloat",
+      "DevdocsUpdate",
+      "DevdocsUpdateAll",
+    }
+  },
+
+  {
+    "ellisonleao/glow.nvim",
+    config = true,
+    cmd = "Glow"
+  },
+
   -- To use a extras plugin
   -- { import = "custom.configs.extras.mason-extras", },
 }
