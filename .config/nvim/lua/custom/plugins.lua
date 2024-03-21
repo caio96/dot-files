@@ -295,15 +295,6 @@ local plugins = {
       log_level = "error",
       auto_session_suppress_dirs = { "~/", "~/Downloads", "/"},
     },
-    dependencies = {
-      {
-        'rmagatti/session-lens',
-        opts = {},
-        config = function()
-          require("telescope").load_extension("session-lens")
-        end
-      },
-    }
   },
 
   {
@@ -332,26 +323,25 @@ local plugins = {
     },
   },
 
-  {
-    "luckasRanarison/nvim-devdocs",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opts = {
-      ensure_installed = {"c", "cpp"}
-    },
-    cmd = {
-      "DevdocsFetch",
-      "DevdocsInstall",
-      "DevdocsUninstall",
-      "DevdocsOpen",
-      "DevdocsOpenFloat",
-      "DevdocsUpdate",
-      "DevdocsUpdateAll",
-    }
-  },
+  -- Disable because it is a bit buggy
+  -- {
+  --   "luckasRanarison/nvim-devdocs",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   opts = {},
+  --   cmd = {
+  --     "DevdocsFetch",
+  --     "DevdocsInstall",
+  --     "DevdocsUninstall",
+  --     "DevdocsOpen",
+  --     "DevdocsOpenFloat",
+  --     "DevdocsUpdate",
+  --     "DevdocsUpdateAll",
+  --   }
+  -- },
 
   {
     "ellisonleao/glow.nvim",
