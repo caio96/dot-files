@@ -15,6 +15,7 @@ config.color_scheme = 'Gruvbox dark, hard (base16)'
 config.font = wezterm.font 'FiraCode NerdFont Mono'
 config.font_size = 11
 config.enable_scroll_bar = true
+config.check_for_updates = false
 
 config.keys = {
   {
