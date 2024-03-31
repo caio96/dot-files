@@ -1,3 +1,5 @@
+require "nvchad.options"
+
 -- Show whitespace characters
 vim.opt.showbreak = "󱞩"
 vim.opt.list = true
@@ -17,10 +19,7 @@ vim.opt.display:append "lastline"
 vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 5
 
-vim.diagnostic.config {virtual_text = false,underline = false,}
+vim.diagnostic.config { virtual_text = false, underline = false, }
 
 -- Check spelling for comments
 vim.opt.spell = true
-
--- Load autocmds
-require('custom.cmds')

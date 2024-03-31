@@ -1,3 +1,5 @@
+require "nvchad.autocmds"
+
 -- Detect large files and disable some functionality that can make it slow
 local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
