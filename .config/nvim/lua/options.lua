@@ -23,3 +23,6 @@ vim.diagnostic.config { virtual_text = false, underline = false, }
 
 -- Check spelling for comments
 vim.opt.spell = true
+
+-- Update session options for auto-sessions
+vim.o.sessionoptions="blank,buffers,curdir,folds,tabpages,winsize,winpos"

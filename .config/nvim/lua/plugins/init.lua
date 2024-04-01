@@ -95,6 +95,13 @@ return {
   },
 
   {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      filters = { custom = { "^.git$" } },
+    },
+  },
+
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       {
@@ -112,8 +119,7 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-    },
+    dependencies = {},
   },
 
   {
@@ -410,6 +416,7 @@ return {
       session_lens = {
         load_on_setup = false,
       },
+      pre_save_cmds = { "NvimTreeClose" },
     },
   },
 

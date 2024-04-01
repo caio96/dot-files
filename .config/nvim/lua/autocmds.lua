@@ -20,23 +20,23 @@ vim.api.nvim_create_autocmd({ "BufReadPre" }, {
 -- Avoid scrolling when changing buffers ---------------------------
 
 -- Save current view settings on a per-window, per-buffer basis.
-vim.api.nvim_create_autocmd({"BufLeave"}, {
-  pattern = {"*"},
+vim.api.nvim_create_autocmd({ "BufLeave" }, {
+  pattern = { "*" },
   callback = function()
-    vim.cmd([[
+    vim.cmd [[
       if !exists("w:SavedBufView")
           let w:SavedBufView = {}
       endif
       let w:SavedBufView[bufnr("%")] = winsaveview()
-    ]])
+    ]]
   end,
 })
 
 -- Save current view settings on a per-window, per-buffer basis.
-vim.api.nvim_create_autocmd({"BufEnter"}, {
-  pattern = {"*"},
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*" },
   callback = function()
-    vim.cmd([[
+    vim.cmd [[
       let buf = bufnr("%")
       if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
           let v = winsaveview()
@@ -46,21 +46,17 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
           endif
           unlet w:SavedBufView[buf]
       endif
-    ]])
+    ]]
   end,
 })
 
 --------------------------------------------------------------------
 
 -- Add command to remove trailing whitespace in the whole file
-vim.api.nvim_create_user_command("StripWhitespace",
-  function()
-    if not vim.o.binary and vim.o.filetype ~= 'diff' then
-      local current_view = vim.fn.winsaveview()
-      vim.cmd([[keeppatterns %s/\s\+$//e]])
-      vim.fn.winrestview(current_view)
-    end
-  end,
-  {}
-)
-
+vim.api.nvim_create_user_command("StripWhitespace", function()
+  if not vim.o.binary and vim.o.filetype ~= "diff" then
+    local current_view = vim.fn.winsaveview()
+    vim.cmd [[keeppatterns %s/\s\+$//e]]
+    vim.fn.winrestview(current_view)
+  end
+end, {})
