@@ -354,7 +354,7 @@ return {
 
   {
     "svermeulen/vim-cutlass",
-    event = "VeryLazy",
+    event = "BufReadPost",
   },
 
   {
@@ -422,12 +422,12 @@ return {
 
   {
     "mg979/vim-visual-multi",
-    event = "VeryLazy",
+    event = "BufReadPost",
   },
 
   {
     "tpope/vim-sleuth",
-    event = "VeryLazy",
+    event = "BufReadPost",
   },
 
   {
