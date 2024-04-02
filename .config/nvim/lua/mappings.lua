@@ -60,7 +60,7 @@ end, { desc = "Illuminate. Move to prev illuminated reference" })
 -- Telekasten
 map("n", "<leader>z", "<cmd> Telekasten panel<CR>", { desc = "Telekasten. Open panel" })
 map("n", "<leader>zf", "<cmd> Telekasten find_notes<CR>", { desc = "Telekasten. Find note by name" })
-map("n", "C-Space", function()
+map("n", "<leader>zt", function()
   require("telekasten").toggle_todo()
 end, { desc = "Telekasten. Toggle TODO item" })
 
