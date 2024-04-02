@@ -177,14 +177,23 @@ return {
   },
 
   {
-    "axelf4/vim-strip-trailing-whitespace",
-    event = "BufReadPost",
-    cmd = "StripTrailingWhitespace",
-    config = function() end,
+    "lewis6991/spaceless.nvim",
+    event = "InsertEnter",
+    config = true,
     cond = function()
       return vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "diff"
     end,
   },
+
+  -- {
+  --   "axelf4/vim-strip-trailing-whitespace",
+  --   event = "BufReadPost",
+  --   cmd = "StripTrailingWhitespace",
+  --   config = function() end,
+  --   cond = function()
+  --     return vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "diff"
+  --   end,
+  -- },
 
   {
     "echasnovski/mini.map",
