@@ -9,6 +9,16 @@ return {
   },
 
   {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      require "nvchad.configs.cmp"
+    end,
+    config = function(_, opts)
+      require("cmp").setup(opts)
+    end,
+  },
+
+  {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
@@ -367,7 +377,7 @@ return {
     opts = {
       cut_key = "m",
       exclude = { "ns", "nS" },
-      }
+    },
   },
 
   {
@@ -454,9 +464,25 @@ return {
     event = { "InsertEnter" },
     cmd = { "Copilot" },
     opts = {
+      panel = {
+        enabled = false,
+      },
       suggestion = {
-        auto_trigger = true,
-      }
-    }
+        enabled = false,
+      },
+    },
+    dependencies = {
+      "zbirenbaum/copilot-cmp",
+      config = function()
+        require("copilot_cmp").setup()
+        -- Insert new source to nvim cmp
+        local cmp = require "cmp"
+        local config = cmp.get_config()
+        table.insert(config.sources, {
+          name = "copilot",
+        })
+        cmp.setup(config)
+      end,
+    },
   },
 }
