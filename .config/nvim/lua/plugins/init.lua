@@ -362,8 +362,12 @@ return {
   },
 
   {
-    "svermeulen/vim-cutlass",
+    "gbprod/cutlass.nvim",
     event = "BufReadPost",
+    opts = {
+      cut_key = "m",
+      exclude = { "ns", "nS" },
+      }
   },
 
   {
@@ -445,14 +449,14 @@ return {
     cmd = "Oil",
   },
 
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   event = { "InsertEnter" },
-  --   cmd = { "Copilot" },
-  --   opts = {
-  --     suggestion = {
-  --       auto_trigger = true,
-  --     }
-  --   }
-  -- },
+  {
+    "zbirenbaum/copilot.lua",
+    event = { "InsertEnter" },
+    cmd = { "Copilot" },
+    opts = {
+      suggestion = {
+        auto_trigger = true,
+      }
+    }
+  },
 }

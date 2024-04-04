@@ -98,9 +98,3 @@ map("n", "N", "Nzzzv")
 
 -- Disable ex mode
 map("n", "Q", "<nop>")
-
--- Use x to cut. Use with Cutlass
-map("n", "m", "d")
-map("x", "m", "d")
-map("n", "mm", "dd")
-map("n", "M", "D")
