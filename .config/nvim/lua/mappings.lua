@@ -15,8 +15,8 @@ map(
   ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
   { desc = "General. Replace all occurrences of current word" }
 )
-map({"n", "v"}, "H", "^", { desc = "General. Go to the beginning of the line" })
-map({"n", "v"}, "L", "$", { desc = "General. Go to the end of the line" })
+map({ "n", "v" }, "H", "^", { desc = "General. Go to the beginning of the line" })
+map({ "n", "v" }, "L", "$", { desc = "General. Go to the end of the line" })
 map("i", "<C-s>", "<cmd> w <CR>", { desc = "General. Save file" })
 map("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "General. Move highlighted text down" })
 map("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "General. Move highlighted text up" })
