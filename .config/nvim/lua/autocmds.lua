@@ -1,5 +1,23 @@
 require "nvchad.autocmds"
 
+-- Set LLVM filetype for .ll files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.ll",
+  callback = function()
+    vim.bo.filetype = "llvm"
+  end,
+})
+
+-- Set Tablegen filetype for .td files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.td",
+  callback = function()
+    vim.bo.filetype = "tablegen"
+  end,
+})
+
+--------------------------------------------------------------------
+
 -- Detect large files and disable some functionality that can make it slow
 local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
