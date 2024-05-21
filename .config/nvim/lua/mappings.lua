@@ -5,6 +5,8 @@ local nomap = vim.keymap.del
 
 -- Remove mappings from nvchad
 nomap("n", "<C-c>")
+-- nomap("i", "<C-j>")
+-- nomap("i", "<C-k>")
 
 -- General mappings
 map({ "n", "v" }, ";", ":", { desc = "General. Enter command mode" })
@@ -22,6 +24,13 @@ map("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "General. Move highlighted text d
 map("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "General. Move highlighted text up" })
 map("v", "<C-h>", "<gv", { desc = "General. Indent to the left" })
 map("v", "<C-l>", ">gv", { desc = "General. Indent to the right" })
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Go up on wrapped lines" })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Go down on wrapped lines" })
+
+map("i", "<Up>", "<C-O>gk", { desc = "General. Go up on wrapped lines" })
+map("i", "<Down>", "<C-O>gj", { desc = "General. Go down on wrapped lines" })
+map("i", "<C-j>", "<C-O>gj", { desc = "General. Go down on wrapped lines" })
+map("i", "<C-k>", "<C-O>gk", { desc = "General. Go up on wrapped lines" })
 
 -- Gitsigns
 map("n", "<leader>gn", function()
