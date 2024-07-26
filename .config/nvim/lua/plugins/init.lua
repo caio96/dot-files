@@ -108,6 +108,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = {
       filters = { custom = { "^.git$" } },
+      view = { adaptive_size = true },
     },
   },
 
