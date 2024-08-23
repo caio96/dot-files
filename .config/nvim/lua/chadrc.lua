@@ -7,6 +7,11 @@ local M = {}
 M.ui = {
   theme = "gruvchad",
 
+  -- hl_override = {
+  --   Comment = { italic = true },
+  --   ["@comment"] = { italic = true },
+  -- },
+
   statusline = {
     separator_style = {
       ["right"] = "█",
@@ -17,11 +22,6 @@ M.ui = {
   tabufline = {
     lazyload = false,
   },
-
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
 }
 
 return M
