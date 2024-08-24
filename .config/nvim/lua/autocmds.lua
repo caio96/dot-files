@@ -16,8 +16,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
---------------------------------------------------------------------
-
 -- Detect large files and disable some functionality that can make it slow
 local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
@@ -33,10 +31,16 @@ vim.api.nvim_create_autocmd({ "BufReadPre" }, {
   pattern = "*",
 })
 
---------------------------------------------------------------------
+-- Add command to remove trailing whitespace in the whole file
+vim.api.nvim_create_user_command("StripWhitespace", function()
+  if not vim.o.binary and vim.o.filetype ~= "diff" then
+    local current_view = vim.fn.winsaveview()
+    vim.cmd [[keeppatterns %s/\s\+$//e]]
+    vim.fn.winrestview(current_view)
+  end
+end, {})
 
 -- Avoid scrolling when changing buffers ---------------------------
-
 -- Save current view settings on a per-window, per-buffer basis.
 vim.api.nvim_create_autocmd({ "BufLeave" }, {
   pattern = { "*" },
@@ -49,7 +53,6 @@ vim.api.nvim_create_autocmd({ "BufLeave" }, {
     ]]
   end,
 })
-
 -- Save current view settings on a per-window, per-buffer basis.
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*" },
@@ -67,14 +70,4 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     ]]
   end,
 })
-
 --------------------------------------------------------------------
-
--- Add command to remove trailing whitespace in the whole file
-vim.api.nvim_create_user_command("StripWhitespace", function()
-  if not vim.o.binary and vim.o.filetype ~= "diff" then
-    local current_view = vim.fn.winsaveview()
-    vim.cmd [[keeppatterns %s/\s\+$//e]]
-    vim.fn.winrestview(current_view)
-  end
-end, {})
