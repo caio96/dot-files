@@ -5,8 +5,10 @@ local nomap = vim.keymap.del
 
 -- Remove mappings from nvchad
 nomap("n", "<C-c>")
--- nomap("i", "<C-j>")
--- nomap("i", "<C-k>")
+nomap("n", "<leader>n")
+nomap("n", "<leader>rn")
+nomap("n", "<C-n>")
+nomap("n", "<leader>e")
 
 -- General mappings
 map({ "n", "v" }, ";", ":", { desc = "General. Enter command mode" })
@@ -31,6 +33,8 @@ map("i", "<Up>", "<C-O>gk", { desc = "General. Go up on wrapped lines" })
 map("i", "<Down>", "<C-O>gj", { desc = "General. Go down on wrapped lines" })
 map("i", "<C-j>", "<C-O>gj", { desc = "General. Go down on wrapped lines" })
 map("i", "<C-k>", "<C-O>gk", { desc = "General. Go up on wrapped lines" })
+map("v", "p", "P", { desc = "General. Paste without copying" })
+map("v", "P", "p", { desc = "General. Paste copying selected text" })
 
 -- Gitsigns
 map("n", "<leader>gn", function()
@@ -74,8 +78,8 @@ map("n", "<leader>zt", function()
 end, { desc = "Telekasten. Toggle TODO item" })
 
 -- Trouble
-map("n", "<leader>tt", "<cmd> TroubleToggle <CR>", { desc = "Trouble. Toggle diagnostics" })
-map("n", "<leader>tq", "<cmd> TroubleToggle quickfix <CR>", { desc = "Trouble. Toggle quickfix diagnostics" })
+map("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble. Toggle diagnostics" })
+map("n", "<leader>tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble. Toggle quickfix diagnostics" })
 
 -- UndoTree
 map("n", "U", "<cmd> UndotreeToggle <CR>", { desc = "UndoTree. Toogle tree", remap = true })

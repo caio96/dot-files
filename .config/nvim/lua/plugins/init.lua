@@ -323,7 +323,7 @@ return {
 
   {
     "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
+    cmd = "Trouble",
     config = true,
   },
 
