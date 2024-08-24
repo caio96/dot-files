@@ -19,10 +19,11 @@ vim.opt.display:append "lastline"
 vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 5
 
-vim.diagnostic.config { virtual_text = false, underline = false, }
+-- Sort diagnostics by severity
+vim.diagnostic.config { virtual_text = false, underline = false, severity_sort = true }
 
 -- Check spelling for comments
 vim.opt.spell = true
 
 -- Update session options for auto-sessions
-vim.o.sessionoptions="blank,buffers,curdir,folds,tabpages,winsize,winpos"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,tabpages,winsize,winpos"
