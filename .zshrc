@@ -81,7 +81,6 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
-[ -f ~/.anaconda3/bin/thefuck ] && eval $(~/.anaconda3/bin/thefuck --alias)
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
