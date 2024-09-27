@@ -461,6 +461,12 @@ return {
   },
 
   {
+    "numToStr/Comment.nvim",
+    opts = {},
+    keys = { "gcc", "gbc", { "gc", "gb", mode = "v" } },
+  },
+
+  {
     "zbirenbaum/copilot.lua",
     event = { "InsertEnter" },
     cmd = { "Copilot" },

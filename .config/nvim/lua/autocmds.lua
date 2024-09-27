@@ -40,6 +40,14 @@ vim.api.nvim_create_user_command("StripWhitespace", function()
   end
 end, {})
 
+-- Disable auto-commenting when inserting newline
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'r', 'o' })
+  end,
+})
+
 -- Avoid scrolling when changing buffers ---------------------------
 -- Save current view settings on a per-window, per-buffer basis.
 vim.api.nvim_create_autocmd({ "BufLeave" }, {
