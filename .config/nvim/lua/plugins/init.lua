@@ -34,6 +34,7 @@ return {
         "beautysh",
         "black",
         "clang-format",
+        "cmakelang",
         "isort",
         "prettier",
         "shellcheck",
@@ -80,6 +81,7 @@ return {
           python = { "isort", "black" },
           sh = { "beautysh", "shellcheck" },
           c = { "clang-format" },
+          cmake = { "cmake_format" },
           cpp = { "clang-format" },
           json = { "prettier" },
           yaml = { "prettier" },
@@ -447,11 +449,6 @@ return {
   {
     "mg979/vim-visual-multi",
     event = "BufEnter",
-  },
-
-  {
-    "tpope/vim-sleuth",
-    event = "BufReadPost",
   },
 
   {
