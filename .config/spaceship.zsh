@@ -6,6 +6,7 @@ SPACESHIP_PROMPT_ORDER=(
   git            # Git section (git_branch + git_status)
   hg             # Mercurial section (hg_branch  + hg_status)
   docker         # Docker section
+  conda          # conda virtualenv section
   exec_time      # Execution time
   line_sep       # Line break
   jobs           # Background jobs indicator
