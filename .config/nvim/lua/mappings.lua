@@ -120,7 +120,12 @@ map("n", "<leader>e", "<cmd> Oil --float <CR>", { desc = "Oil. Open parent dir e
 
 -- Telescope undo
 map("n", "<leader>fu", "<CMD>Telescope undo<CR>", { desc = "Telescope Find in undo" })
-map("n", "<leader>fg", "<CMD>AdvancedGitSearch search_log_content_file<CR>", { desc = "Telescope Find in past git commits of this file" })
+map(
+  "n",
+  "<leader>fg",
+  "<CMD>AdvancedGitSearch search_log_content_file<CR>",
+  { desc = "Telescope Find in past git commits of this file" }
+)
 
 -- Half page jump keeps cursor centered
 map("n", "<C-d>", "<C-d>zz")
