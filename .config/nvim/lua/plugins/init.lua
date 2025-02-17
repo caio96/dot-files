@@ -123,16 +123,12 @@ return {
       },
       {
         "debugloop/telescope-undo.nvim",
+        "aaronhallaert/advanced-git-search.nvim",
       },
     },
     opts = {
-      extensions_list = { "fzf", "undo" },
+      extensions_list = { "fzf", "undo", "advanced_git_search" },
     },
-  },
-
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {},
   },
 
   {
@@ -256,32 +252,32 @@ return {
     opts = {
       default_mappings = true,
       mappings = {
-          i = {
-              j = {
-                  -- These can all also be functions
-                  k = "<Esc>",
-              },
+        i = {
+          j = {
+            -- These can all also be functions
+            k = "<Esc>",
           },
-          c = {
-              j = {
-                  k = "<Esc>",
-              },
+        },
+        c = {
+          j = {
+            k = "<Esc>",
           },
-          t = {
-              j = {
-                  k = "<C-\\><C-n>",
-              },
+        },
+        t = {
+          j = {
+            k = "<C-\\><C-n>",
           },
-          v = {
-              j = {
-                  k = "<Esc>",
-              },
+        },
+        v = {
+          j = {
+            k = "<Esc>",
           },
-          s = {
-              j = {
-                  k = "<Esc>",
-              },
+        },
+        s = {
+          j = {
+            k = "<Esc>",
           },
+        },
       },
     },
   },
@@ -395,6 +391,17 @@ return {
       )
       require("neogit").setup()
     end,
+  },
+
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+    cmd = { "AdvancedGitSearch" },
+    config = function()
+        require("telescope").load_extension("advanced_git_search")
+    end,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
   },
 
   {
