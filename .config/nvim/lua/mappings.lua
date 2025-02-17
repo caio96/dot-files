@@ -9,6 +9,8 @@ nomap("n", "<leader>n")
 nomap("n", "<leader>rn")
 nomap("n", "<C-n>")
 nomap("n", "<leader>e")
+nomap("n", "<leader>h")
+nomap("n", "<leader>v")
 
 -- General mappings
 map({ "n", "v" }, ";", ":", { desc = "General. Enter command mode" })
@@ -37,24 +39,42 @@ map("v", "p", "P", { desc = "General. Paste without copying" })
 map("v", "P", "p", { desc = "General. Paste copying selected text" })
 
 -- Gitsigns
+local gitsigns = require "gitsigns"
+
 map("n", "<leader>gn", function()
   if vim.wo.diff then
-    return "]c"
+    vim.cmd.normal { "]c", bang = true }
+  else
+    gitsigns.nav_hunk "next"
   end
-  vim.schedule(function()
-    require("gitsigns").next_hunk()
-  end)
-  return "<Ignore>"
 end, { desc = "Gitsigns. Jump to the next hunk" })
 map("n", "<leader>gp", function()
   if vim.wo.diff then
-    return "[c"
+    vim.cmd.normal { "[c", bang = true }
+  else
+    gitsigns.nav_hunk "prev"
   end
-  vim.schedule(function()
-    require("gitsigns").prev_hunk()
-  end)
-  return "<Ignore>"
 end, { desc = "Gitsigns. Jump to the prev hunk" })
+
+map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Gitsigns. Stage hunk" })
+map("n", "<leader>hx", gitsigns.reset_hunk, { desc = "Gitsigns. Discard hunk" })
+
+map("v", "<leader>hs", function()
+  gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+end, { desc = "Gitsigns. Stage hunk" })
+
+map("v", "<leader>hr", function()
+  gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+end, { desc = "Gitsigns. Discard hunk" })
+
+map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Gitsigns. Preview hunk" })
+map("n", "<leader>hi", gitsigns.preview_hunk_inline, { desc = "Gitsigns. Preview hunk inline" })
+
+map("n", "<leader>hb", function()
+  gitsigns.blame_line { full = true }
+end, { desc = "Gitsigns. Blame line" })
+
+map("n", "<leader>hd", gitsigns.diffthis, { desc = "Gitsigns. Diff this" })
 
 -- NvimTree
 map("n", "<F2>", "<cmd> NvimTreeToggle <CR>", { desc = "NvimTree. Toggle tree" })
