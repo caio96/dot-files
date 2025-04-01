@@ -401,6 +401,8 @@ return {
     end,
     dependencies = {
       "nvim-telescope/telescope.nvim",
+      "tpope/vim-fugitive",
+      "tpope/vim-rhubarb",
     },
   },
 
@@ -529,18 +531,13 @@ return {
     "CopilotC-Nvim/CopilotChat.nvim",
     cmd = {
       "CopilotChat",
-      "CopilotChatOpen",
-      "CopilotChatClose",
-      "CopilotChatToggle",
       "CopilotChatReset",
-      "CopilotChatSave",
-      "CopilotChatLoad",
       "CopilotChatDebugInfo",
     },
-    branch = "canary",
+    build = "make tiktoken", -- Only on MacOS or Linux
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+      { "nvim-lua/plenary.nvim"}, -- for curl, log wrapper
     },
     opts = {},
   },
