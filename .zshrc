@@ -1,3 +1,7 @@
+# Uncomment to profile oh-my-zsh
+# PROFILE_OH_MY_ZSH="TRUE"
+if [[ $PROFILE_OH_MY_ZSH == "TRUE" ]]; then zmodload zsh/zprof; fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -30,6 +34,9 @@ ZSH_THEME="spaceship"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
+
+# Disable omz update prompt
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -65,6 +72,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Lazy load nvm, node, and npm (zsh-nvm plugin)
+# export NVM_LAZY_LOAD=true
+# Lazy load on nvim
+# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -86,17 +98,5 @@ command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.profile ] && source ~/.profile
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$("$HOME/.anaconda3/bin/conda" "shell.zsh" "hook" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/.anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/.anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/.anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# Leave at the end of .zshrc
+if [[ $PROFILE_OH_MY_ZSH == "TRUE" ]]; then zprof; fi

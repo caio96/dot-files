@@ -4,8 +4,6 @@ SPACESHIP_PROMPT_ORDER=(
   dir            # Current directory section
   host           # Hostname section
   git            # Git section (git_branch + git_status)
-  hg             # Mercurial section (hg_branch  + hg_status)
-  docker         # Docker section
   conda          # conda virtualenv section
   exec_time      # Execution time
   line_sep       # Line break
@@ -15,7 +13,7 @@ SPACESHIP_PROMPT_ORDER=(
   char           # Prompt character
 )
 
-SPACESHIP_PROMPT_ASYNC=false
+SPACESHIP_PROMPT_ASYNC=true
 SPACESHIP_PROMPT_ADD_NEWLINE=true
 SPACESHIP_PROMPT_SEPARATE_LINE=false
 SPACESHIP_PROMPT_PREFIXES_SHOW=false
