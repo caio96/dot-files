@@ -1,12 +1,12 @@
 # Alias definitions
 command -v batcat &> /dev/null && alias cat='batcat'
 command -v z &> /dev/null && alias cd='z'
-if command -v exa &> /dev/null; then
-  alias ls='exa'
-  alias ll='exa -al'
-  alias la='exa -a'
-  alias la='exa -a'
-  alias lt='exa --tree'
+if command -v eza &> /dev/null; then
+  alias ls='eza'
+  alias ll='eza -al'
+  alias la='eza -a'
+  alias la='eza -a'
+  alias lt='eza --tree'
 else
   alias ls='ls --color=auto'
   alias ll='ls -AlFh'

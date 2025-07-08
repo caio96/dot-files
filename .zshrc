@@ -72,31 +72,30 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Lazy load nvm, node, and npm (zsh-nvm plugin)
-# export NVM_LAZY_LOAD=true
-# Lazy load on nvim
-# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
+# Avoid creating .zcompdump files in home
+export ZSH_COMPDUMP="$ZSH/cache/.zcompdump"
+
+# Add zsh-completions plugin
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions fzf)
-
-# Avoid creating multiple .zcompdump files in home
-export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
-
-source $ZSH/oh-my-zsh.sh
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-
-command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+plugins=(zsh-syntax-highlighting zsh-autosuggestions fzf-tab)
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.profile ] && source ~/.profile
+
+source $ZSH/oh-my-zsh.sh
+
+command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+command -v atuin &> /dev/null && eval "$(atuin init zsh)"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
 
 # Leave at the end of .zshrc
 if [[ $PROFILE_OH_MY_ZSH == "TRUE" ]]; then zprof; fi
