@@ -85,11 +85,12 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(fzf-tab zsh-syntax-highlighting zsh-autosuggestions)
 
-[ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.profile ] && source ~/.profile
 
 source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.aliases ] && source ~/.aliases
 
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 command -v atuin &> /dev/null && eval "$(atuin init zsh)"
