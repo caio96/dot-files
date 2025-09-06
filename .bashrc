@@ -40,7 +40,6 @@ if ! shopt -oq posix; then
 fi
 
 command -v starship &> /dev/null && eval "$(starship init bash)"
-command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

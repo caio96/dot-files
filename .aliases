@@ -1,5 +1,6 @@
 # Alias definitions
 command -v batcat &> /dev/null && alias cat='batcat'
+command -v bat &> /dev/null && alias cat='bat'
 command -v z &> /dev/null && alias cd='z'
 if command -v eza &> /dev/null; then
   alias ls='eza'
