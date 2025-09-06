@@ -389,6 +389,11 @@ return {
   },
 
   {
+    "tpope/vim-sleuth",
+    event = "BufReadPost",
+  },
+
+  {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
     config = function()
