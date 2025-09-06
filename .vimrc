@@ -1,138 +1,63 @@
-"--------------------------------------"
-"               General                "
-"--------------------------------------"
+" Auto-install vim-plug if not installed
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" Syntax coloring
-syntax on
+" Use vim-plug for plugin management
+call plug#begin('~/.vim/plugged')
 
-" No backwards compatibility
-set nocompatible
+  " Sensible defaults
+  Plug 'tpope/vim-sensible'
+  " Auto indent default
+  Plug 'tpope/vim-sleuth'
+  " Better escape from insert mode
+  Plug 'jdhao/better-escape.vim'
+  " Cutlass for smarter deletion
+  Plug 'svermeulen/vim-cutlass'
+  " Gruvbox colorscheme
+  Plug 'sainnhe/gruvbox-material'
 
-" File type detection
-filetype plugin indent on
+call plug#end()
 
-" Shows line number
+" Set colorscheme to gruvbox
+silent! colorscheme gruvbox-material
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_disable_italic_comment = 1
+
+" Use a dark background
+set background=dark
+
+" Enable line numbers
 set number
 
-"Always show current position
-set ruler
-
-" Smart tab and indent
-set smarttab
-set autoindent
-set smartindent
-
-" Highlights matching [{()}]
-set showmatch
-
-" Enables mouse
+" Enable mouse support
 set mouse=a
 
-" Enable 256 colors palette
-set t_Co=256
+" Enable clipboard integration (for most systems)
+set clipboard=unnamedplus
+
+" Better search
+set ignorecase
+set smartcase
+set hlsearch
 
 " UTF-8 encoding
 set encoding=utf-8
 
-" Backspace like most other apps
-set backspace=indent,eol,start
-
-" Show invisibles
-set list
-set showbreak=󱞩
-set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:⣿,eol:¬
-
-" Change line after reaching last character
-set whichwrap+=<,>,h,l,[,]
-
-" TabComplete like bash
-set wildmenu
-set wildmode=longest,list,full
-
-" Turn off backup
-set nobackup
-
-" Persistent undo
-set undofile
-set undodir=~/.vim/undo//
-
-" Swap file location
-set directory=~/.vim/swap//
-
-" Disable highlight of search matches
-set nohlsearch
-
-" Case insensitive search, sensitive when uppercase present
-set ignorecase
-set smartcase
-
-" Copy, cut and past to clipboard
-set clipboard=unnamedplus
-
-" Always show status line
-set laststatus=2
-
-" If file is changed outside of vim and not changed
-" inside vim, update file
-set autoread
-
-" Allows you to open a new file without saving the current one
-set hidden
-
-" Use dark variant colorscheme by default
-set background=dark
-
-" Stop showing preview
-set completeopt-=preview
-
-" Always show the sign column
-set signcolumn=yes
-
-" Show lines bellow or above scrolling
-set scrolloff = 2
-set sidescrolloff = 5
-
-" Last line will be showed as much as possible
-set display+=lastline
-
-" Set true color
-if v:version > 800
-    " set Vim-specific sequences for RGB colors
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
+" Enable true color support (if your terminal supports it)
+if has('termguicolors')
+  set termguicolors
 endif
 
 "--------------------------------------"
-" Avoid scrolling when switch buffers  "
+"              Plugins                 "
 "--------------------------------------"
 
-" Save current view settings on a per-window, per-buffer basis.
-function! AutoSaveWinView()
-    if !exists("w:SavedBufView")
-        let w:SavedBufView = {}
-    endif
-    let w:SavedBufView[bufnr("%")] = winsaveview()
-endfunction
-
-" Restore current view settings.
-function! AutoRestoreWinView()
-    let buf = bufnr("%")
-    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
-        let v = winsaveview()
-        let atStartOfFile = v.lnum == 1 && v.col == 0
-        if atStartOfFile && !&diff
-            call winrestview(w:SavedBufView[buf])
-        endif
-        unlet w:SavedBufView[buf]
-    endif
-endfunction
-
-" When switching buffers, preserve window view.
-if v:version >= 700
-    autocmd BufLeave * call AutoSaveWinView()
-    autocmd BufEnter * call AutoRestoreWinView()
-endif
+" Better escape settings
+let g:better_escape_shortcut = ['jk']
+let g:better_escape_interval = 200
 
 "--------------------------------------"
 "              Mapping                 "
@@ -142,167 +67,92 @@ endif
 let mapleader = "<space>"
 let g:mapleader = "<space>"
 
-" up/down arrow keys move by screen line
-nnoremap <Up> g<Up>
-nnoremap <Down> g<Down>
-vnoremap <Up> g<Up>
-vnoremap <Down> g<Down>
-inoremap <Up> <C-o>g<Up>
-inoremap <Down> <C-o>g<Down>
-
 " switch to the next buffer in the buffer list
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-" indent and return the same line where you were
-map <F3> mzgg=G`z
+" Go to the next tab
+nnoremap <leader><Tab> :tabnext<CR>
 
-" d deletes instead of cutting
-nnoremap x "_x
-nnoremap X "_X
-nnoremap d "_d
-nnoremap D "_D
-vnoremap d "_d
+" Enter command mode
+nnoremap ; :
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 
-" leader-d to cut
-nnoremap <leader>d "+d
-nnoremap <leader>D "+D
-vnoremap <leader>d "+d
+" Go to the beginning/end of the line
+nnoremap H ^
+vnoremap H ^
+nnoremap L $
+vnoremap L $
 
-" indent line multiple times when in visual mode
+" Save file
+inoremap <C-s> <Esc>:w<CR>
+nnoremap <C-s> <Esc>:w<CR>
+
+" Move highlighted text
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" Indent text
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
+
+" Go up/down on wrapped lines
+inoremap <Up> <C-O>gk
+inoremap <Down> <C-O>gj
+inoremap <C-j> <C-O>gj
+inoremap <C-k> <C-O>gk
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+" Paste without copying
+vnoremap p P
+" Paste copying selected text
+vnoremap P p
+
+" Half page jump keeps cursor centered
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" Keep search items centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Disable ex mode
+nnoremap Q <nop>
+
+" Cut keys
+nnoremap m d
+xnoremap m d
+nnoremap mm dd
+nnoremap M D
+
+" Clear search highligh
+nnoremap <silent> <cr> :noh<cr><cr>
 
 "--------------------------------------"
 "              AutoCmd                 "
 "--------------------------------------"
 
-" Triger autoread when files changes on disk
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-" Notification after file change
-autocmd FileChangedShellPost *
-            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+" Guard for distributions lacking the persistent_undo feature.
+if has('persistent_undo')    
+  " define a path to store persistent_undo files.    
+  let target_path = expand('~/.vim/undo/')
+    " create the directory and any parent directories    
+    " if the location does not exist.    
+    if !isdirectory(target_path)        
+      call system('mkdir -p ' . target_path)    
+    endif
+    " point Vim to the defined undo directory.    
+    let &undodir = target_path
+    " finally, enable undo persistence.    
+    set undofile
+endif
 
-" Return to last edit position when opening files
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-"--------------------------------------"
-"              Plugins                 "
-"--------------------------------------"
-
-" Vim Plug
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-call plug#begin()
-
-"color themes
-Plug 'dracula/vim', { 'as': 'dracula' }
-
-Plug 'tpope/vim-sensible'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot'
-Plug 'lambdalisue/suda.vim'
-Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'max397574/better-escape.nvim'
-Plug 'tpope/vim-sleuth'
-
-call plug#end()
-
-"--------------------------------------"
-"           Plugins config             "
-"--------------------------------------"
-
-" Color themes options
-
-" Dracula color theme
-colorscheme dracula
-let g:airline_theme='dracula'
-
-" airline
-"
-" Set the symbol dictionary as the one of powerline
-let g:airline_powerline_fonts = 1
-" Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
-" Just show the filename (no path) in the tab
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" devicons
-"
-" Airline configuration
-let g:airline_powerline_fonts = 1
-
-" gitgutter
-"
-" Don't map any keys
-let g:gitgutter_map_keys = 0
-" Default sign: ~_
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '~'
-let g:gitgutter_sign_removed = '_'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '<'
-" Make Sign Column color the same color as the background
-let g:gitgutter_override_sign_column_highlight = 1
-
-" nerdcommenter
-"
-let g:NERDCreateDefaultMappings = 0
-" Toggle comments based on the first line
-nnoremap <leader>cc :call nerdcommenter#Comment(0,"toggle")<CR>
-vnoremap <leader>cc :call nerdcommenter#Comment(0,"toggle")<CR>
-
-" nerdtree
-"
-" Remove arrows from folders
-let NERDTreeDirArrowExpandable = "\u00a0"
-let NERDTreeDirArrowCollapsible = "\u00a0"
-let NERDTreeNodeDelimiter = "\x07"
-" Open and close nerdtree
-map <F2> :NERDTreeToggle<CR>
-" Close vim if only nerdtree is left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" fzf
-"
-nnoremap <C-p> :FZF<CR>
-
-" vim better whitespace
-"
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
-let g:strip_whitespace_confirm=0
-let g:strip_only_modified_lines=1
-" strip to any file size
-let g:strip_max_file_size=0
-
-" vimwiki
-"
-" Use markdown syntax
-let g:vimwiki_ext2syntax = {'.wiki': 'markdown'}
-" Headers with different colors
-let g:vimwiki_hl_headers = 1
-" Highligh checked [X]
-let g:vimwiki_hl_cb_checked = 1
-" Add syntax highlight
-let wiki = {}
-let wiki.path = "$HOME/.vimwiki"
-let wiki.nested_syntaxes = {'python': 'py', 'cpp': 'cpp', 'sh': 'sh'}
-let g:vimwiki_list = [wiki]
-
-" vim visual multi
-"
-" mappings
-let g:VM_maps = {}
-let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
-let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
-
+" When switching buffers, preserve window view.
+if v:version >= 700
+  au BufLeave * let b:winview = winsaveview()
+  au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
+endif
 
