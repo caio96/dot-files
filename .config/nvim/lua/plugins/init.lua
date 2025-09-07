@@ -8,14 +8,33 @@ return {
     end,
   },
 
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   opts = function()
+  --     require "nvchad.configs.cmp"
+  --   end,
+  --   config = function(_, opts)
+  --     require("cmp").setup(opts)
+  --   end,
+  -- },
+
+  { import = "nvchad.blink.lazyspec" },
   {
-    "hrsh7th/nvim-cmp",
-    opts = function()
-      require "nvchad.configs.cmp"
-    end,
-    config = function(_, opts)
-      require("cmp").setup(opts)
-    end,
+    "saghen/blink.cmp",
+    dependencies = { "fang2hou/blink-copilot" },
+    opts = {
+      sources = {
+        default = { "copilot" },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
+      },
+    },
   },
 
   {
@@ -522,45 +541,24 @@ return {
     keys = { "gcc", "gbc", { "gc", "gb", mode = "v" } },
   },
 
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   event = { "InsertEnter" },
-  --   cmd = { "Copilot" },
-  --   opts = {
-  --     panel = {
-  --       enabled = false,
-  --     },
-  --     suggestion = {
-  --       enabled = false,
-  --     },
-  --   },
-  --   dependencies = {
-  --     "zbirenbaum/copilot-cmp",
-  --     config = function()
-  --       require("copilot_cmp").setup()
-  --       -- Insert new source to nvim cmp
-  --       local cmp = require "cmp"
-  --       local config = cmp.get_config()
-  --       table.insert(config.sources, {
-  --         name = "copilot",
-  --       })
-  --       cmp.setup(config)
-  --     end,
-  --   },
-  -- },
-  --
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   cmd = {
-  --     "CopilotChat",
-  --     "CopilotChatReset",
-  --     "CopilotChatDebugInfo",
-  --   },
-  --   build = "make tiktoken", -- Only on MacOS or Linux
-  --   dependencies = {
-  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-  --   },
-  --   opts = {},
-  -- },
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    event = "BufWinEnter",
+    version = "v1.53.0",
+    init = function()
+      vim.g.copilot_no_maps = true
+    end,
+    config = function()
+      -- Block the normal Copilot suggestions
+      vim.api.nvim_create_augroup("github_copilot", { clear = true })
+      vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+        group = "github_copilot",
+        callback = function(args)
+          vim.fn["copilot#On" .. args.event]()
+        end,
+      })
+      vim.fn["copilot#OnFileType"]()
+    end,
+  },
 }
