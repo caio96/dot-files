@@ -12,6 +12,4 @@
 [diff]
     tool = meld
 [init]
-	defaultBranch = main
-[pull]
-	rebase = false
+  defaultBranch = main

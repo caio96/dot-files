@@ -11,14 +11,16 @@ M.base46 = {
   --   Comment = { italic = true },
   --   ["@comment"] = { italic = true },
   -- },
+  theme_toggle = { "gruvchad", "rosepine-dawn" },
+}
 
+M.ui = {
   statusline = {
     separator_style = {
       ["right"] = "█",
       ["left"] = "",
     },
   },
-
   tabufline = {
     lazyload = false,
   },

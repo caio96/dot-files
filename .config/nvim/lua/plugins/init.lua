@@ -26,10 +26,10 @@ return {
         "bash-language-server",
         "cmake-language-server",
         "clangd",
+        "copilot-language-server",
         "dockerfile-language-server",
         "lua-language-server",
         "python-lsp-server",
-        "shellcheck",
         -- formatter
         "beautysh",
         "black",
@@ -110,7 +110,6 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = {
       filters = { custom = { "^.git$" } },
-      view = { adaptive_size = true },
     },
   },
 
@@ -195,56 +194,35 @@ return {
   },
 
   -- {
-  --   "axelf4/vim-strip-trailing-whitespace",
-  --   event = "BufReadPost",
-  --   cmd = "StripTrailingWhitespace",
-  --   config = function() end,
-  --   cond = function()
-  --     return vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "diff"
+  --   "echasnovski/mini.map",
+  --   event = "BufEnter",
+  --   version = "*",
+  --   config = function()
+  --     local map = require "mini.map"
+  --     map.setup {
+  --       integrations = {
+  --         map.gen_integration.gitsigns(),
+  --       },
+  --       symbols = {
+  --         encode = map.gen_encode_symbols.dot "4x2",
+  --         scroll_line = "█ ",
+  --       },
+  --       window = {
+  --         width = 10,
+  --         show_integration_count = false,
+  --         winblend = 0,
+  --       },
+  --     }
+  --
+  --     -- Open minimap automatically
+  --     vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  --       callback = function()
+  --         require("mini.map").open()
+  --       end,
+  --       pattern = "*",
+  --     })
   --   end,
   -- },
-
-  {
-    "echasnovski/mini.map",
-    event = "BufEnter",
-    version = "*",
-    config = function()
-      local map = require "mini.map"
-      map.setup {
-        integrations = {
-          map.gen_integration.gitsigns(),
-        },
-        symbols = {
-          encode = map.gen_encode_symbols.dot "4x2",
-          scroll_line = "█ ",
-        },
-        window = {
-          width = 10,
-          show_integration_count = false,
-          winblend = 0,
-        },
-      }
-
-      -- Open minimap automatically
-      vim.api.nvim_create_autocmd({ "VimEnter" }, {
-        callback = function()
-          require("mini.map").open()
-        end,
-        pattern = "*",
-      })
-    end,
-  },
-
-  {
-    "renerocksai/telekasten.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    cmd = "Telekasten",
-    opts = {
-      home = vim.fn.expand "~/.zettelkasten",
-      command_palette_theme = "dropdown",
-      auto_set_filetype = false,
-    },
-  },
 
   {
     "max397574/better-escape.nvim",
@@ -361,11 +339,6 @@ return {
   },
 
   {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh" },
-  },
-
-  {
     "NeogitOrg/neogit",
     ft = { "diff" },
     cmd = { "Neogit" },
@@ -397,12 +370,13 @@ return {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
     config = function()
-        require("telescope").load_extension("advanced_git_search")
+      require("telescope").load_extension "advanced_git_search"
     end,
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "tpope/vim-fugitive",
       "tpope/vim-rhubarb",
+      "sindrets/diffview.nvim",
     },
   },
 
@@ -442,8 +416,8 @@ return {
   },
 
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = { "SymbolsOutline" },
+    "hedyhli/outline.nvim",
+    cmd = { "Outline" },
     opts = {},
   },
 
@@ -484,8 +458,56 @@ return {
   },
 
   {
-    "mg979/vim-visual-multi",
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
     event = "BufEnter",
+    config = function()
+      local mc = require "multicursor-nvim"
+      mc.setup()
+
+      local set = vim.keymap.set
+
+      -- Add or skip cursor above/below the main cursor.
+      set({ "n", "x" }, "<C-up>", function()
+        mc.lineAddCursor(-1)
+      end)
+      set({ "n", "x" }, "<C-down>", function()
+        mc.lineAddCursor(1)
+      end)
+
+      -- Add a new cursor by matching word/selection
+      set({ "n", "x" }, "<C-n>", function()
+        mc.matchAddCursor(1)
+      end)
+
+      -- Add and remove cursors with control + left click.
+      set("n", "<c-leftmouse>", mc.handleMouse)
+      set("n", "<c-leftdrag>", mc.handleMouseDrag)
+      set("n", "<c-leftrelease>", mc.handleMouseRelease)
+
+      -- Disable and enable cursors.
+      -- set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+
+      -- Mappings defined in a keymap layer only apply when there are
+      -- multiple cursors. This lets you have overlapping mappings.
+      mc.addKeymapLayer(function(layerSet)
+        -- Select a different cursor as the main one.
+        layerSet({ "n", "x" }, "<left>", mc.prevCursor)
+        layerSet({ "n", "x" }, "<right>", mc.nextCursor)
+
+        -- Delete the main cursor.
+        layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
+
+        -- Enable and clear cursors using escape.
+        layerSet("n", "<esc>", function()
+          if not mc.cursorsEnabled() then
+            mc.enableCursors()
+          else
+            mc.clearCursors()
+          end
+        end)
+      end)
+    end,
   },
 
   {
@@ -500,45 +522,45 @@ return {
     keys = { "gcc", "gbc", { "gc", "gb", mode = "v" } },
   },
 
-  {
-    "zbirenbaum/copilot.lua",
-    event = { "InsertEnter" },
-    cmd = { "Copilot" },
-    opts = {
-      panel = {
-        enabled = false,
-      },
-      suggestion = {
-        enabled = false,
-      },
-    },
-    dependencies = {
-      "zbirenbaum/copilot-cmp",
-      config = function()
-        require("copilot_cmp").setup()
-        -- Insert new source to nvim cmp
-        local cmp = require "cmp"
-        local config = cmp.get_config()
-        table.insert(config.sources, {
-          name = "copilot",
-        })
-        cmp.setup(config)
-      end,
-    },
-  },
-
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    cmd = {
-      "CopilotChat",
-      "CopilotChatReset",
-      "CopilotChatDebugInfo",
-    },
-    build = "make tiktoken", -- Only on MacOS or Linux
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim"}, -- for curl, log wrapper
-    },
-    opts = {},
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   event = { "InsertEnter" },
+  --   cmd = { "Copilot" },
+  --   opts = {
+  --     panel = {
+  --       enabled = false,
+  --     },
+  --     suggestion = {
+  --       enabled = false,
+  --     },
+  --   },
+  --   dependencies = {
+  --     "zbirenbaum/copilot-cmp",
+  --     config = function()
+  --       require("copilot_cmp").setup()
+  --       -- Insert new source to nvim cmp
+  --       local cmp = require "cmp"
+  --       local config = cmp.get_config()
+  --       table.insert(config.sources, {
+  --         name = "copilot",
+  --       })
+  --       cmp.setup(config)
+  --     end,
+  --   },
+  -- },
+  --
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   cmd = {
+  --     "CopilotChat",
+  --     "CopilotChatReset",
+  --     "CopilotChatDebugInfo",
+  --   },
+  --   build = "make tiktoken", -- Only on MacOS or Linux
+  --   dependencies = {
+  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+  --   },
+  --   opts = {},
+  -- },
 }

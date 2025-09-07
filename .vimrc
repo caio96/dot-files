@@ -136,17 +136,17 @@ nnoremap <silent> <cr> :noh<cr><cr>
 "--------------------------------------"
 
 " Guard for distributions lacking the persistent_undo feature.
-if has('persistent_undo')    
-  " define a path to store persistent_undo files.    
+if has('persistent_undo')
+  " define a path to store persistent_undo files.
   let target_path = expand('~/.vim/undo/')
-    " create the directory and any parent directories    
-    " if the location does not exist.    
-    if !isdirectory(target_path)        
-      call system('mkdir -p ' . target_path)    
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+      call system('mkdir -p ' . target_path)
     endif
-    " point Vim to the defined undo directory.    
+    " point Vim to the defined undo directory.
     let &undodir = target_path
-    " finally, enable undo persistence.    
+    " finally, enable undo persistence.
     set undofile
 endif
 
