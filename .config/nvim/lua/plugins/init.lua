@@ -45,7 +45,6 @@ return {
         "bash-language-server",
         "cmake-language-server",
         "clangd",
-        "copilot-language-server",
         "dockerfile-language-server",
         "lua-language-server",
         "python-lsp-server",
@@ -468,11 +467,11 @@ return {
     lazy = false,
     opts = {
       log_level = "error",
-      auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+      pre_save_cmds = { "NvimTreeClose" },
       session_lens = {
         load_on_setup = false,
       },
-      pre_save_cmds = { "NvimTreeClose" },
+      suppressed_dirs = { "~/", "~/Downloads", "/" },
     },
   },
 
