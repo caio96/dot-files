@@ -467,7 +467,6 @@ return {
     lazy = false,
     opts = {
       log_level = "error",
-      pre_save_cmds = { "NvimTreeClose" },
       session_lens = {
         load_on_setup = false,
       },
