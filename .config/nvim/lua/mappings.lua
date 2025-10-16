@@ -50,6 +50,11 @@ map("n", "N", "Nzzzv")
 -- Disable ex mode
 map("n", "Q", "<nop>")
 
+-- Add missing mapping for lsp
+map("n", "gsh", function()
+  vim.lsp.buf.signature_help()
+end, { desc = "LSP Signature help" })
+
 --
 -- Gitsigns
 local gitsigns = require "gitsigns"
