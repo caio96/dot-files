@@ -118,17 +118,17 @@ map("n", "<leader>tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble Toggl
 -- UndoTree
 map("n", "U", "<cmd> UndotreeToggle <CR>", { desc = "UndoTree. Toogle tree", remap = true })
 
--- --
--- -- MiniMap
--- map("n", "<leader>mf", function()
---   require("mini.map").toggle_focus()
--- end, { desc = "MiniMap. Toggle focus" })
--- map("n", "<leader>mr", function()
---   require("mini.map").refresh()
--- end, { desc = "MiniMap. Refresh" })
--- map("n", "<leader>mt", function()
---   require("mini.map").toggle()
--- end, { desc = "MiniMap. Toggle map" })
+--
+-- MiniMap
+map("n", "<leader>mf", function()
+  require("mini.map").toggle_focus()
+end, { desc = "MiniMap. Toggle focus" })
+map("n", "<leader>mr", function()
+  require("mini.map").refresh()
+end, { desc = "MiniMap. Refresh" })
+map("n", "<leader>mt", function()
+  require("mini.map").toggle()
+end, { desc = "MiniMap. Toggle map" })
 
 --
 -- Oil

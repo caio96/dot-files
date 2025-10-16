@@ -211,36 +211,36 @@ return {
     end,
   },
 
-  -- {
-  --   "echasnovski/mini.map",
-  --   event = "BufEnter",
-  --   version = "*",
-  --   config = function()
-  --     local map = require "mini.map"
-  --     map.setup {
-  --       integrations = {
-  --         map.gen_integration.gitsigns(),
-  --       },
-  --       symbols = {
-  --         encode = map.gen_encode_symbols.dot "4x2",
-  --         scroll_line = "█ ",
-  --       },
-  --       window = {
-  --         width = 10,
-  --         show_integration_count = false,
-  --         winblend = 0,
-  --       },
-  --     }
-  --
-  --     -- Open minimap automatically
-  --     vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  --       callback = function()
-  --         require("mini.map").open()
-  --       end,
-  --       pattern = "*",
-  --     })
-  --   end,
-  -- },
+  {
+    "echasnovski/mini.map",
+    event = "BufEnter",
+    version = "*",
+    config = function()
+      local map = require "mini.map"
+      map.setup {
+        integrations = {
+          map.gen_integration.gitsigns(),
+        },
+        symbols = {
+          encode = map.gen_encode_symbols.dot "4x2",
+          scroll_line = "█ ",
+        },
+        window = {
+          width = 10,
+          show_integration_count = false,
+          winblend = 0,
+        },
+      }
+
+      -- Open minimap automatically
+      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+        callback = function()
+          require("mini.map").open()
+        end,
+        pattern = "*",
+      })
+    end,
+  },
 
   {
     "max397574/better-escape.nvim",
