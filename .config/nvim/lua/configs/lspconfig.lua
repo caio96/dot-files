@@ -19,6 +19,7 @@ vim.lsp.config.clangd = {
 
 -- Disable inline diagnostics and underlining
 vim.diagnostic.config {
+  severity_sort = true,
   virtual_text = false,
   underline = false,
 }
