@@ -2,7 +2,7 @@
 require("nvchad.configs.lspconfig").defaults()
 
 -- "copilot": disable for now
-local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp" }
+local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp", "copilot"}
 vim.lsp.enable(servers)
 
 -- custom clangd config
