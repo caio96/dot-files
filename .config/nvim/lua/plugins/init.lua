@@ -105,6 +105,7 @@ return {
           json = { "prettier" },
           yaml = { "prettier" },
           markdown = { "prettier" },
+          mojo = { "mojo_format" },
         },
       }
 
