@@ -9,7 +9,5 @@
     br = branch --sort=-committerdate
 [core]
     editor = nvim
-[diff]
-    tool = meld
 [init]
   defaultBranch = main

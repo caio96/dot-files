@@ -1,7 +1,6 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
--- "copilot": disable for now
 local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp", "copilot", "mojo"}
 vim.lsp.enable(servers)
 
