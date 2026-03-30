@@ -419,6 +419,7 @@ return {
     event = "BufReadPost",
     opts = {
       highlight = {
+        enabled = true,
         timeout = 200,
       },
       clipboard = {
@@ -426,11 +427,14 @@ return {
       },
       tmux = {
         enabled = true,
+        -- remove `-w` to disable copy to host client's clipboard
+        cmd = { "tmux", "set-buffer", "-w" },
       },
       osc52 = {
         enabled = true,
         escseq = "tmux",
         silent = true,
+        echo_hl = "Directory",
       },
     },
   },
@@ -467,6 +471,10 @@ return {
   {
     "rmagatti/auto-session",
     lazy = false,
+    cond = function()
+      -- Disable when this env var is present
+      return not vim.env.DISABLE_AUTOSESSION
+    end,
     opts = {
       log_level = "error",
       session_lens = {

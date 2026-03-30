@@ -101,6 +101,10 @@ map("n", "<F2>", "<cmd> NvimTreeToggle <CR>", { desc = "NvimTree Toggle tree" })
 map("n", "<F3>", "<cmd> Outline <CR>", { desc = "Outline Toggle outline" })
 
 --
+-- Neogit
+map("n", "<F4>", "<cmd> Neogit <CR>", { desc = "Neogit Toggle git interface" })
+
+--
 -- Illuminate
 map("n", "<leader>in", function()
   require("illuminate").goto_next_reference()
