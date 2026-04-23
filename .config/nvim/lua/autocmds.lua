@@ -1,11 +1,19 @@
 require "nvchad.autocmds"
 
--- OSC52 clipboard provider (works over SSH/tmux without external tools)
+-- OSC52 clipboard provider (works over SSH/tmux without external tools).
+-- Copy is sent via OSC 52 (fast, fire-and-forget). Paste uses nvim's unnamed
+-- register because OSC 52 paste requires a terminal response that most
+-- terminals/tmux configurations don't reliably send, causing nvim to hang
+-- on the timeout. To paste from the host system clipboard into nvim, use the
+-- terminal's own paste shortcut (Ctrl+Shift+V / middle-click / cmd-V).
 local osc52 = require "vim.ui.clipboard.osc52"
+local function paste_from_unnamed()
+  return vim.split(vim.fn.getreg '"', "\n", { plain = true })
+end
 vim.g.clipboard = {
-  name = "OSC 52",
+  name = "OSC 52 (copy only)",
   copy = { ["+"] = osc52.copy "+", ["*"] = osc52.copy "*" },
-  paste = { ["+"] = osc52.paste "+", ["*"] = osc52.paste "*" },
+  paste = { ["+"] = paste_from_unnamed, ["*"] = paste_from_unnamed },
 }
 
 -- Highlight on yank
