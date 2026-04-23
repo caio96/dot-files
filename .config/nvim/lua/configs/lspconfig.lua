@@ -5,13 +5,16 @@ local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp", "copilot", "
 vim.lsp.enable(servers)
 
 -- custom clangd config
-vim.lsp.config.clangd = {
+vim.lsp.config("clangd", {
   cmd = {
     "clangd",
     "--background-index",
     "--header-insertion=never",
   },
-}
+})
+
+-- Register copilot so :checkhealth sidekick sees it before any buffer attaches
+vim.lsp.config("copilot", {})
 
 -- Enable copilot inline completion
 -- vim.lsp.inline_completion.enable()

@@ -1,5 +1,35 @@
 require "nvchad.autocmds"
 
+-- OSC52 clipboard provider (works over SSH/tmux without external tools)
+local osc52 = require "vim.ui.clipboard.osc52"
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = { ["+"] = osc52.copy "+", ["*"] = osc52.copy "*" },
+  paste = { ["+"] = osc52.paste "+", ["*"] = osc52.paste "*" },
+}
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.hl.on_yank { timeout = 200 }
+  end,
+})
+
+-- Restore last cursor position when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    if ft == "gitcommit" or ft == "gitrebase" then
+      return
+    end
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
 -- Set LLVM filetype for .ll files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.ll",
@@ -33,34 +63,36 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
--- Avoid scrolling when changing buffers ---------------------------
--- Save current view settings on a per-window, per-buffer basis.
-vim.api.nvim_create_autocmd({ "BufLeave" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.cmd [[
-      if !exists("w:SavedBufView")
-          let w:SavedBufView = {}
-      endif
-      let w:SavedBufView[bufnr("%")] = winsaveview()
-    ]]
+-- Avoid scrolling when changing buffers: remember each (window, buffer) pair's
+-- view on BufLeave and restore it on BufEnter — but only if we'd otherwise
+-- land at the very top of the file (so manual jumps still win).
+local saved_views = {} ---@type table<integer, table<integer, vim.fn.winsaveview.ret>>
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  callback = function(args)
+    local win = vim.api.nvim_get_current_win()
+    saved_views[win] = saved_views[win] or {}
+    saved_views[win][args.buf] = vim.fn.winsaveview()
   end,
 })
--- Save current view settings on a per-window, per-buffer basis.
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.cmd [[
-      let buf = bufnr("%")
-      if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
-          let v = winsaveview()
-          let atStartOfFile = v.lnum == 1 && v.col == 0
-          if atStartOfFile && !&diff
-              call winrestview(w:SavedBufView[buf])
-          endif
-          unlet w:SavedBufView[buf]
-      endif
-    ]]
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(args)
+    local win = vim.api.nvim_get_current_win()
+    local view = saved_views[win] and saved_views[win][args.buf]
+    if not view then
+      return
+    end
+    local cur = vim.fn.winsaveview()
+    if cur.lnum == 1 and cur.col == 0 and not vim.wo.diff then
+      vim.fn.winrestview(view)
+    end
+    saved_views[win][args.buf] = nil
   end,
 })
---------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd("WinClosed", {
+  callback = function(args)
+    saved_views[tonumber(args.match)] = nil
+  end,
+})

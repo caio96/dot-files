@@ -119,8 +119,11 @@ map("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble 
 map("n", "<leader>tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble Toggle quickfix diagnostics" })
 
 --
--- UndoTree
-map("n", "U", "<cmd> UndotreeToggle <CR>", { desc = "UndoTree. Toogle tree", remap = true })
+-- UndoTree (builtin nvim.undotree, opt-packed)
+map("n", "U", function()
+  vim.cmd "packadd nvim.undotree"
+  vim.cmd "Undotree"
+end, { desc = "UndoTree Toggle tree" })
 
 --
 -- MiniMap

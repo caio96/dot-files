@@ -3,20 +3,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
   },
-
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   opts = function()
-  --     require "nvchad.configs.cmp"
-  --   end,
-  --   config = function(_, opts)
-  --     require("cmp").setup(opts)
-  --   end,
-  -- },
 
   { import = "nvchad.blink.lazyspec" },
   {
@@ -214,37 +203,6 @@ return {
   },
 
   {
-    "echasnovski/mini.map",
-    event = "BufEnter",
-    version = "*",
-    config = function()
-      local map = require "mini.map"
-      map.setup {
-        integrations = {
-          map.gen_integration.gitsigns(),
-        },
-        symbols = {
-          encode = map.gen_encode_symbols.dot "4x2",
-          scroll_line = "█ ",
-        },
-        window = {
-          width = 10,
-          show_integration_count = false,
-          winblend = 0,
-        },
-      }
-
-      -- Open minimap automatically
-      vim.api.nvim_create_autocmd({ "VimEnter" }, {
-        callback = function()
-          require("mini.map").open()
-        end,
-        pattern = "*",
-      })
-    end,
-  },
-
-  {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     opts = {
@@ -273,11 +231,6 @@ return {
         },
       },
     },
-  },
-
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
   },
 
   {
@@ -353,12 +306,6 @@ return {
   },
 
   {
-    "ethanholz/nvim-lastplace",
-    lazy = false,
-    opts = {},
-  },
-
-  {
     "NeogitOrg/neogit",
     ft = { "diff" },
     cmd = { "Neogit" },
@@ -411,31 +358,6 @@ return {
     opts = {
       cut_key = "m",
       exclude = { "ns", "nS" },
-    },
-  },
-
-  {
-    "ibhagwan/smartyank.nvim",
-    event = "BufReadPost",
-    opts = {
-      highlight = {
-        enabled = true,
-        timeout = 200,
-      },
-      clipboard = {
-        enabled = true,
-      },
-      tmux = {
-        enabled = true,
-        -- remove `-w` to disable copy to host client's clipboard
-        cmd = { "tmux", "set-buffer", "-w" },
-      },
-      osc52 = {
-        enabled = true,
-        escseq = "tmux",
-        silent = true,
-        echo_hl = "Directory",
-      },
     },
   },
 
@@ -541,12 +463,6 @@ return {
     "stevearc/oil.nvim",
     opts = {},
     cmd = "Oil",
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    keys = { "gcc", "gbc", { "gc", "gb", mode = "v" } },
   },
 
   {
