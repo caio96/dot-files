@@ -314,7 +314,10 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = true,
+    config = function()
+      dofile(vim.g.base46_cache .. "neogit")
+      require("neogit").setup()
+    end,
   },
 
   {
