@@ -7,10 +7,21 @@ local M = {}
 M.base46 = {
   theme = "gruvchad",
 
-  -- hl_override = {
-  --   Comment = { italic = true },
-  --   ["@comment"] = { italic = true },
-  -- },
+  integrations = { "neogit" },
+
+  hl_override = {
+    DiffChange = { bg = { "blue", "black", 90 }, fg = "blue" },
+    DiffText = { bg = { "blue", "black", 30 }, fg = { "blue", -50 }, bold = true },
+
+    NeogitDiffAdd = { fg = "green", bg = "NONE" },
+    NeogitDiffAddHighlight = { fg = "green", bg = "NONE" },
+    NeogitDiffDelete = { fg = "red", bg = "NONE" },
+    NeogitDiffDeleteHighlight = { fg = "red", bg = "NONE" },
+  },
+  hl_add = {
+    NeogitDiffAddInline = { bg = { "green", "black", 30 }, fg = { "green", -50 }, bold = true },
+    NeogitDiffDeleteInline = { bg = { "red", "black", 30 }, fg = { "red", -50 }, bold = true },
+  },
   theme_toggle = { "gruvchad", "rosepine-dawn" },
 }
 

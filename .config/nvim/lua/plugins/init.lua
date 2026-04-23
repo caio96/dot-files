@@ -314,18 +314,7 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = function()
-      local colors = require("base46").get_theme_tb "base_30"
-      vim.cmd(string.format("highlight def NeogitDiffAdd             guifg=%s", colors.green))
-      vim.cmd(string.format("highlight def NeogitDiffAddHighlight    guifg=%s", colors.green))
-      vim.cmd(string.format("highlight def NeogitDiffDelete          guifg=%s", colors.red))
-      vim.cmd(string.format("highlight def NeogitDiffDeleteHighlight guifg=%s", colors.red))
-      vim.cmd(string.format("highlight def NeogitHunkHeader          guibg=%s guifg=%s", colors.grey, colors.black))
-      vim.cmd(
-        string.format("highlight def NeogitHunkHeaderHighlight guibg=%s guifg=%s", colors.light_grey, colors.black)
-      )
-      require("neogit").setup()
-    end,
+    config = true,
   },
 
   {

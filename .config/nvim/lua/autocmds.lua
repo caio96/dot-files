@@ -1,5 +1,20 @@
 require "nvchad.autocmds"
 
+-- NvChad's theme toggle skips the ColorScheme event, leaving plugins like
+-- barbecue with stale cached colors. Re-fire it after each toggle. The patch
+-- must be re-applied each call because base46 reloads its own module via
+-- plenary.reload during load_all_highlights, wiping any monkey-patch.
+local function patch_toggle_theme()
+  local base46 = require("base46")
+  local original = base46.toggle_theme
+  base46.toggle_theme = function()
+    original()
+    vim.api.nvim_exec_autocmds("ColorScheme", { modeline = false })
+    patch_toggle_theme()
+  end
+end
+patch_toggle_theme()
+
 -- OSC52 clipboard provider (works over SSH/tmux without external tools).
 -- Copy is sent via OSC 52 (fast, fire-and-forget). Paste uses nvim's unnamed
 -- register because OSC 52 paste requires a terminal response that most
