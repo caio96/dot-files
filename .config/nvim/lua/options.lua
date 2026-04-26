@@ -20,7 +20,7 @@ vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 5
 
 -- Update session options for auto-sessions
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Add path to python in uv env
-vim.g.python3_host_prog = vim.fn.expand('~/.venv/bin/python')
+vim.g.python3_host_prog = vim.fn.expand "~/.venv/bin/python"

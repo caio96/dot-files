@@ -1,7 +1,7 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp", "copilot", "mojo"}
+local servers = { "bashls", "clangd", "cmake", "dockerls", "pylsp", "copilot", "mojo" }
 vim.lsp.enable(servers)
 
 -- custom clangd config

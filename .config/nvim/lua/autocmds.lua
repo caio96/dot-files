@@ -5,7 +5,7 @@ require "nvchad.autocmds"
 -- must be re-applied each call because base46 reloads its own module via
 -- plenary.reload during load_all_highlights, wiping any monkey-patch.
 local function patch_toggle_theme()
-  local base46 = require("base46")
+  local base46 = require "base46"
   local original = base46.toggle_theme
   base46.toggle_theme = function()
     original()
@@ -82,7 +82,7 @@ end, {})
 vim.api.nvim_create_autocmd("Filetype", {
   pattern = "*",
   callback = function()
-    vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    vim.opt_local.formatoptions:remove { "r", "o" }
   end,
 })
 
