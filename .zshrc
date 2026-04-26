@@ -7,7 +7,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE \
-       HIST_FIND_NO_DUPS INC_APPEND_HISTORY EXTENDED_HISTORY
+       HIST_FIND_NO_DUPS EXTENDED_HISTORY
 
 # -- Sane defaults
 setopt AUTO_CD                  # `dir` -> `cd dir`
@@ -64,7 +64,6 @@ zstyle ':completion:*' cache-path "$HOME/.cache/zsh/zcompcache"
 [ -f ~/.aliases ] && source ~/.aliases
 
 # -- Tool init
-command -v zoxide  >/dev/null && eval "$(zoxide init zsh)"
 # fzf 0.48+ ships its own integration (Ctrl-T file picker, Alt-C cd into dir;
 # Ctrl-R is taken by atuin so fzf's history binding is silently overridden)
 command -v fzf     >/dev/null && eval "$(fzf --zsh)" 2>/dev/null

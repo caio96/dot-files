@@ -78,7 +78,6 @@ if [[ -d "$DOT_FILES" && -n "$DOT_FILES" ]]; then
   link "$DOT_FILES/.bashrc" "$HOME/.bashrc"
   link "$DOT_FILES/.gitconfig" "$HOME/.gitconfig"
   link "$DOT_FILES/.profile" "$HOME/.profile"
-  link "$DOT_FILES/.tigrc" "$HOME/.tigrc"
   link "$DOT_FILES/.tmux.conf" "$HOME/.tmux.conf"
   link "$DOT_FILES/.vimrc" "$HOME/.vimrc"
   link "$DOT_FILES/.wezterm.lua" "$HOME/.wezterm.lua"

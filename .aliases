@@ -1,11 +1,9 @@
 # Alias definitions
 command -v batcat &> /dev/null && alias cat='batcat'
 command -v bat &> /dev/null && alias cat='bat'
-command -v z &> /dev/null && alias cd='z'
 if command -v eza &> /dev/null; then
   alias ls='eza'
   alias ll='eza -al'
-  alias la='eza -a'
   alias la='eza -a'
   alias lt='eza --tree'
 else
@@ -16,10 +14,9 @@ else
 fi
 
 alias tmux='tmux -2'
-alias grep='grep --color=auto'
+alias grep='grep --color=auto --exclude-dir={.git,.hg}'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias grep='grep --color=auto --exclude-dir={.git,.hg}'
 alias lsize='du -had 1 | sort -hr'
 alias nautilus='nohup nautilus . > /dev/null 2>&1 &'
 alias ..='cd ..'

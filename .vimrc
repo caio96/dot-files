@@ -64,8 +64,8 @@ let g:better_escape_interval = 200
 "--------------------------------------"
 
 " leader mapping
-let mapleader = "<space>"
-let g:mapleader = "<space>"
+let mapleader = " "
+let g:mapleader = " "
 
 " switch to the next buffer in the buffer list
 nnoremap <Tab> :bnext<CR>
