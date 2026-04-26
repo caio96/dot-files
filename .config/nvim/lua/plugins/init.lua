@@ -27,7 +27,9 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
     opts = {
       ensure_installed = {
         -- lsp
@@ -39,7 +41,7 @@ return {
         "lua-language-server",
         "python-lsp-server",
         -- formatter
-        "beautysh",
+        "shfmt",
         "black",
         "clang-format",
         "cmakelang",
@@ -48,6 +50,8 @@ return {
         "shellcheck",
         "stylua",
       },
+      auto_update = false,
+      run_on_start = false,
     },
   },
 
@@ -85,16 +89,17 @@ return {
     config = function()
       local options = {
         formatters_by_ft = {
-          lua = { "stylua" },
-          python = { "isort", "black" },
-          sh = { "beautysh", "shellcheck" },
           c = { "clang-format" },
           cmake = { "cmake_format" },
           cpp = { "clang-format" },
+          go = { "gofmt" },
           json = { "prettier" },
-          yaml = { "prettier" },
+          lua = { "stylua" },
           markdown = { "prettier" },
           mojo = { "mojo_format" },
+          python = { "isort", "black" },
+          sh = { "shfmt", "shellcheck" },
+          yaml = { "prettier" },
         },
       }
 

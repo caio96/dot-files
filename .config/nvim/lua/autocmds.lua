@@ -86,6 +86,18 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
+-- Delete NvChad's MasonInstallAll (we use mason-tool-installer's command
+-- instead). Use User VeryLazy rather than VimEnter — lazy.nvim sometimes
+-- defers `lazy = false` plugin config until during VimEnter, so a VimEnter
+-- callback can race the command's creation. VeryLazy fires after all startup
+-- plugins are configured.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    pcall(vim.api.nvim_del_user_command, "MasonInstallAll")
+  end,
+})
+
 -- Avoid scrolling when changing buffers: remember each (window, buffer) pair's
 -- view on BufLeave and restore it on BufEnter — but only if we'd otherwise
 -- land at the very top of the file (so manual jumps still win).
