@@ -2,8 +2,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -14,16 +14,19 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=50000
+HISTFILESIZE=100000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# QoL shopts
+shopt -s globstar   # enable ** recursive glob
+shopt -s autocd     # `dir` -> `cd dir`
+shopt -s cdspell    # autocorrect minor cd typos
+shopt -s dirspell   # autocorrect dir name during completion
+shopt -s histverify # `!!` shows command before running
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -39,8 +42,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-command -v starship &> /dev/null && eval "$(starship init bash)"
+# Tool inits
+command -v fzf >/dev/null && eval "$(fzf --bash)" 2>/dev/null
+
+# Use bash-specific starship config (keeps ❯; zsh's default config uses ➜)
+export STARSHIP_CONFIG="$HOME/.config/starship-bash.toml"
+command -v starship >/dev/null && eval "$(starship init bash)"
 
 [ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.profile ] && source ~/.profile

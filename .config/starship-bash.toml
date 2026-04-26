@@ -1,15 +1,15 @@
-# Default starship config (used by zsh).
-# Bash uses .config/starship-bash.toml (selected via STARSHIP_CONFIG in .bashrc)
-# so the prompt character differs visually between shells.
+# Bash-specific starship config.
+# Mirrors starship.toml but uses ❯ as the prompt char (zsh uses ➜) so the
+# active shell is visually obvious. Selected via STARSHIP_CONFIG in .bashrc.
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
 
-# zsh prompt char: ➜ (visually distinct from bash's ❯)
+# bash prompt char: ❯ (starship default; ➜ is reserved for zsh in starship.toml)
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol   = "[➜](bold red)"
+success_symbol = "[❯](bold green)"
+error_symbol   = "[❯](bold red)"
 
 # Custom: container indicator when running inside a Docker container.
 [custom.docker]

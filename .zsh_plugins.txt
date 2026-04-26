@@ -1,0 +1,7 @@
+# Plugins loaded by antidote (see .zshrc).
+# Format: <github-user>/<repo> [annotations]
+# Order matters: zsh-syntax-highlighting MUST be last so it can wrap the line editor.
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions      kind:fpath path:src
+zsh-users/zsh-syntax-highlighting

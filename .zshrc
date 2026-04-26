@@ -1,102 +1,77 @@
-# Uncomment to profile oh-my-zsh
-# PROFILE_OH_MY_ZSH="TRUE"
-if [[ $PROFILE_OH_MY_ZSH == "TRUE" ]]; then zmodload zsh/zprof; fi
+# Uncomment to profile zsh startup
+# PROFILE_ZSH="TRUE"
+if [[ $PROFILE_ZSH == "TRUE" ]]; then zmodload zsh/zprof; fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# -- History
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE \
+       HIST_FIND_NO_DUPS INC_APPEND_HISTORY EXTENDED_HISTORY
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# -- Sane defaults
+setopt AUTO_CD                  # `dir` -> `cd dir`
+setopt INTERACTIVE_COMMENTS     # allow `#` comments in interactive shell
+setopt NO_BEEP
+setopt EXTENDED_GLOB            # **, ~, ^, qualifiers, etc.
+setopt AUTO_PUSHD               # `cd` builds a stack; `cd -` cycles, `dirs -v` lists
+setopt PUSHD_IGNORE_DUPS PUSHD_SILENT
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+# Drop `/` from word chars so Ctrl-W and Ctrl-Left stop at path separators
+WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# -- Key bindings (omz defaults)
+bindkey -e                                       # emacs mode
+bindkey '^[[H'    beginning-of-line              # Home
+bindkey '^[[F'    end-of-line                    # End
+bindkey '^[[3~'   delete-char                    # Delete
+bindkey '^[[1;5C' forward-word                   # Ctrl-Right
+bindkey '^[[1;5D' backward-word                  # Ctrl-Left
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Ctrl-X Ctrl-E -> edit current command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# -- Plugins via antidote (self-installing)
+# antidote auto-clones any plugin in ~/.zsh_plugins.txt that isn't yet cloned.
+ANTIDOTE_DIR="$HOME/.antidote"
+[ -d "$ANTIDOTE_DIR" ] || \
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+# Set plugin-specific options BEFORE loading
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=none'
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+source "$ANTIDOTE_DIR/antidote.zsh"
+antidote load   # reads ~/.zsh_plugins.txt, clones missing plugins, sources them
 
-# Disable omz update prompt
-DISABLE_AUTO_UPDATE="true"
+# -- Completion (after antidote so fpath is fully populated)
+ZSH_COMPDUMP="$HOME/.cache/zsh/.zcompdump"
+mkdir -p "${ZSH_COMPDUMP%/*}"
+autoload -Uz compinit
+compinit -d "$ZSH_COMPDUMP"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/zcompcache"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Avoid creating .zcompdump files in home
-export ZSH_COMPDUMP="$ZSH/cache/.zcompdump"
-
-# Add zsh-completions plugin
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions)
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# -- Sources
 [ -f ~/.profile ] && source ~/.profile
-
-source $ZSH/oh-my-zsh.sh
-
 [ -f ~/.aliases ] && source ~/.aliases
 
-command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
-command -v atuin &> /dev/null && eval "$(atuin init zsh)"
+# -- Tool init
+command -v zoxide  >/dev/null && eval "$(zoxide init zsh)"
+# fzf 0.48+ ships its own integration (Ctrl-T file picker, Alt-C cd into dir;
+# Ctrl-R is taken by atuin so fzf's history binding is silently overridden)
+command -v fzf     >/dev/null && eval "$(fzf --zsh)" 2>/dev/null
+command -v atuin   >/dev/null && eval "$(atuin init zsh)"
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# -- Prompt (uses default starship.toml -> ➜; bash uses starship-bash.toml -> ❯)
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # Leave at the end of .zshrc
-if [[ $PROFILE_OH_MY_ZSH == "TRUE" ]]; then zprof; fi
+if [[ $PROFILE_ZSH == "TRUE" ]]; then zprof; fi
