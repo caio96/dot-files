@@ -86,7 +86,6 @@ if [[ -d "$DOT_FILES" && -n "$DOT_FILES" ]]; then
 
   link "$DOT_FILES/.config/nvim" "$HOME/.config/nvim"
   link "$DOT_FILES/.config/starship.toml" "$HOME/.config/starship.toml"
-  link "$DOT_FILES/.config/starship-bash.toml" "$HOME/.config/starship-bash.toml"
   link "$DOT_FILES/.config/atuin/config.toml" "$HOME/.config/atuin/config.toml"
   link "$DOT_FILES/.config/bat/config" "$HOME/.config/bat/config"
 fi

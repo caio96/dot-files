@@ -44,9 +44,6 @@ fi
 
 # Tool inits
 command -v fzf >/dev/null && eval "$(fzf --bash)" 2>/dev/null
-
-# Use bash-specific starship config (keeps ❯; zsh's default config uses ➜)
-export STARSHIP_CONFIG="$HOME/.config/starship-bash.toml"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 [ -f ~/.aliases ] && source ~/.aliases

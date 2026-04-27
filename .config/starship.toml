@@ -17,9 +17,7 @@ description = "Docker container indicator"
 command = "echo 󰡨"
 # command = "echo 🐳"
 when = "test -f /.dockerenv"
-format = '[$output]($style) '
 style = "cyan"
-shell = ["sh", "--noprofile", "--norc"]
 
 # Custom: container indicator when inside an enroot container (IN_ENROOT=1).
 [custom.enroot]
@@ -27,13 +25,19 @@ description = "Enroot container indicator (set IN_ENROOT=1)"
 command = "echo 󰹦"
 # command = "echo 🌱"
 when = 'test -n "$IN_ENROOT"'
-format = '[$output]($style) '
 style = "green"
-shell = ["sh", "--noprofile", "--norc"]
 
 # -------------------------------------------------------------------------------------------------------------
 # Nerd-font preset overrides: strip "via" / "on" / "took" words from module formats, while keeping the symbols.
 # -------------------------------------------------------------------------------------------------------------
+
+[shell]
+fish_indicator = '󰈺 '
+powershell_indicator = '_'
+bash_indicator = '󱆃'
+zsh_indicator = ''
+style = 'cyan bold'
+disabled = false
 
 [aws]
 symbol = " "
@@ -177,7 +181,7 @@ symbol = " "
 format = '[$symbol$branch]($style) '
 
 [hostname]
-ssh_symbol = " "
+ssh_symbol = ""
 format = '[$ssh_symbol$hostname]($style) '   # default appended " in "; we drop it
 style = 'bold bright-green'                  # default 'bold dimmed green' was hard to read
 
