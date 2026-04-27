@@ -1,20 +1,117 @@
 [user]
+    # Identity stamped on every commit.
     name = Caio Salvador Rohwedder
     email = caiosalvador96@gmail.com
+
 [push]
+    # `simple` pushes only the current branch, and only if its upstream has the same name.
     default = simple
+    # First push of a new local branch auto-creates the matching remote tracking branch.
     autoSetupRemote = true
-[alias]
-    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-    br = branch --sort=-committerdate
-[core]
-    editor = nvim
-    pager = delta
+
+[pull]
+    # Refuse to pull unless fast-forward is possible — forces an explicit rebase or merge
+    # decision instead of silently creating a merge commit.
+    ff = only
+
+[fetch]
+    # Delete local remote-tracking refs whose upstream branch was removed.
+    prune = true
+
 [init]
-  defaultBranch = main
+    # New repos start on `main` instead of `master`.
+    defaultBranch = main
+
+[core]
+    # External editor for commit messages, interactive rebase, etc.
+    editor = nvim
+    # Pipe diff/log output through delta for syntax-highlighted diffs.
+    pager = delta
+
 [interactive]
+    # Use delta for color in `git add -p` and similar interactive prompts (no paging).
     diffFilter = delta --color-only
+
 [delta]
-    navigate = true  # use n and N to move between diff sections
+    features = classic
+    navigate = true
+    dark = true
+    syntax-theme = gruvbox-dark
+
+# Default look: flat red/green +/- lines, white boxes around file & hunk
+# headers, no syntax highlighting on diff lines — close to vanilla `git diff`.
+[delta "classic"]
+    file-style = white
+    file-decoration-style = white box
+    hunk-header-style = file line-number syntax
+    hunk-header-decoration-style = white box
+    hunk-header-file-style = white
+    hunk-header-line-number-style = white
+    minus-style = red
+    minus-emph-style = red reverse
+    plus-style = green
+    plus-emph-style = green reverse
+    zero-style = normal
+
+# Side-by-side look: layered on top of `classic` by `gdiffs`. Restores delta's
+# colorful default diff-line styling (so syntax highlighting comes back) and
+# enables the split view with line numbers.
+[delta "sbs"]
+    side-by-side = true
+    line-numbers = true
+    minus-style = normal auto
+    minus-emph-style = normal auto
+    plus-style = syntax auto
+    plus-emph-style = syntax auto
+    zero-style = syntax
+    file-style = white
+    file-decoration-style = white box
+    hunk-header-style = file line-number syntax
+    hunk-header-decoration-style = white box
+    hunk-header-file-style = white
+    hunk-header-line-number-style = white
+    line-numbers-left-format = "{nm:^4}⋮"
+    line-numbers-right-format = "{nm:^4}⋮"
+    line-numbers-left-style = white
+    line-numbers-right-style = white
+    line-numbers-zero-style = white
+
+[diff]
+    # Highlight moved blocks of code differently from plain add/remove lines.
+    colorMoved = default
+    # Histogram algorithm usually produces more readable diffs than the default (Myers).
+    algorithm = histogram
+
 [merge]
+    # Show the common-ancestor version alongside conflicts — easier 3-way resolution
+    # than the classic "ours/theirs" markers.
     conflictStyle = zdiff3
+
+[rerere]
+    # "Reuse recorded resolution" — git remembers how you resolved a conflict and
+    # replays the resolution if the same conflict appears again (rebases, cherry-picks).
+    enabled = true
+
+[rebase]
+    # Stash dirty working tree before rebase, restore it afterward.
+    autostash = true
+    # When rebasing a stack of branches, update each branch ref to its new tip
+    # (so dependent branches don't get orphaned). Requires git ≥ 2.38.
+    updateRefs = true
+
+[branch]
+    # `git branch` lists newest-committed branches first.
+    sort = -committerdate
+
+[column]
+    # `git branch`, `git tag`, etc. wrap into columns when output is a TTY.
+    ui = auto
+
+[alias]
+    # Pretty graph log.
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    # Side-by-side diff via delta. Leading `!` makes git run this as a shell
+    # command (so the env var sticks); trailing args after `git sbs ...` are
+    # appended automatically — e.g. `git sbs HEAD~1 -- foo.py`.
+    # DELTA_FEATURES=+<name> APPENDS to the features set in [delta] above.
+    sbs = "!DELTA_FEATURES=+sbs git diff"

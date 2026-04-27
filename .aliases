@@ -1,6 +1,9 @@
 # Alias definitions
-command -v batcat &> /dev/null && alias cat='batcat'
-command -v bat &> /dev/null && alias cat='bat'
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+elif command -v batcat &> /dev/null; then
+  alias cat='batcat'
+fi
 if command -v eza &> /dev/null; then
   alias ls='eza'
   alias ll='eza -al'
@@ -15,9 +18,6 @@ fi
 
 alias tmux='tmux -2'
 alias grep='grep --color=auto --exclude-dir={.git,.hg}'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias lsize='du -had 1 | sort -hr'
 alias nautilus='nohup nautilus . > /dev/null 2>&1 &'
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -27,3 +27,9 @@ alias ......='cd ../../../../../'
 alias ubuntu-update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y clean'
 alias git-fetch-branches='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done; git fetch --all; git pull --all'
 alias ngit='DISABLE_AUTOSESSION=1 nvim -c "Neogit kind=replace"'
+
+# Make a directory and cd into it in one step
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+# Print $PATH one entry per line (much more readable than the colon-joined form)
+alias path='echo "${PATH//:/$'\''\n'\''}"'
