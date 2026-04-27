@@ -18,8 +18,31 @@ call plug#begin('~/.vim/plugged')
   Plug 'svermeulen/vim-cutlass'
   " Gruvbox colorscheme
   Plug 'sainnhe/gruvbox-material'
+  " OSC52 yank → forwards yanked text to the host terminal's clipboard via
+  " an ANSI escape sequence. Works through SSH and tmux
+  Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 call plug#end()
+
+" Auto-OSC52: when vim's native clipboard isn't working (e.g. WSL/SSH without
+" X11), forward every yank to the host terminal's clipboard via OSC52.
+" Skipped on nvim (has its own OSC52 path) and on vim builds with a working
+" clipboard. Watches the unnamed, +, and * registers because `clipboard=
+" unnamedplus` can make any of them carry the yanked text.
+if !has('clipboard_working')
+  let s:VimOSCYankPostRegisters = ['', '+', '*']
+  let s:VimOSCYankOperators = ['y']
+  function! s:VimOSCYankPostCallback(event)
+    if index(s:VimOSCYankPostRegisters, a:event.regname) != -1
+        \ && index(s:VimOSCYankOperators, a:event.operator) != -1
+      call OSCYankRegister(a:event.regname)
+    endif
+  endfunction
+  augroup VimOSCYankPost
+    autocmd!
+    autocmd TextYankPost * call s:VimOSCYankPostCallback(v:event)
+  augroup END
+endif
 
 " Set colorscheme to gruvbox
 silent! colorscheme gruvbox-material
