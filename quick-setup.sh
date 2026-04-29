@@ -34,7 +34,7 @@ pixi global install atuin \
   tree-sitter-cli \
   uv
 
-# -- Set up a "base" Python env with uv (replaces miniconda base)
+# Set up a "base" Python env with uv (replaces miniconda base)
 # Treat ~/.venv as conda's base: pip-install into it freely, point nvim/linters at it.
 # Required changes in dotfiles to auto-activate this on every shell:
 #   .profile  ->  add:  [ -f "$HOME/.venv/bin/activate" ] && . "$HOME/.venv/bin/activate"
@@ -45,6 +45,9 @@ source "$HOME/.venv/bin/activate"
 uv pip install ipython \
   pygments \
   pynvim
+
+# Set up cargo
+[ -d "$HOME/.cargo" ] || curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 
 # Setup dotfiles =============================================== #
 

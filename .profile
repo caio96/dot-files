@@ -3,6 +3,14 @@
 [ -f "$HOME/.venv/bin/activate" ] && source "$HOME/.venv/bin/activate"
 [ -f "$HOME/.llm/env.sh" ] && source "$HOME/.llm/env.sh"
 
+# Go
+export GOPATH="$HOME/.go"
+[ -d "$GOPATH/bin" ] && PATH="$GOPATH/bin:$PATH"
+
+# Rust
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
+
 # set editor
 export EDITOR="nvim"
 
