@@ -379,7 +379,7 @@ return {
         markdown = {
           headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
           codeblock_highlight = false,
-          fat_headline = false,
+          fat_headlines = false,
           fat_headline_upper_string = "",
           fat_headline_lower_string = "",
         },
