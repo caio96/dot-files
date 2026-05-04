@@ -85,7 +85,7 @@
 [merge]
     # Show the common-ancestor version alongside conflicts — easier 3-way resolution
     # than the classic "ours/theirs" markers.
-    conflictStyle = zdiff3
+    conflictStyle = diff3
 
 [rerere]
     # "Reuse recorded resolution" — git remembers how you resolved a conflict and

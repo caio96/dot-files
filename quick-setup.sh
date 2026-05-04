@@ -11,7 +11,8 @@ fi
 # Make pixi bin visible
 [ -d "$HOME/.pixi/bin" ] && PATH="$HOME/.pixi/bin:$PATH"
 
-pixi global install atuin \
+pixi global install atool \
+  atuin \
   bat \
   btop \
   docker-buildx \
@@ -28,7 +29,6 @@ pixi global install atuin \
   luarocks \
   nodejs \
   nvim \
-  ouch \
   ripgrep \
   starship \
   tree-sitter-cli \

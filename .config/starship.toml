@@ -11,21 +11,19 @@ add_newline = true
 success_symbol = "[➜](bold green)"
 error_symbol   = "[➜](bold red)"
 
-# Custom: container indicator when running inside a Docker container.
-[custom.docker]
-description = "Docker container indicator"
-command = "echo 󰡨"
-# command = "echo 🐳"
-when = "test -f /.dockerenv"
-style = "cyan"
+# # Custom: container indicator when running inside a Docker container.
+# [custom.docker]
+# description = "Docker container indicator"
+# command = "echo 󰡨"
+# when = "test -f /.dockerenv"
+# style = "cyan"
 
-# Custom: container indicator when inside an enroot container (IN_ENROOT=1).
-[custom.enroot]
-description = "Enroot container indicator (set IN_ENROOT=1)"
-command = "echo 󰹦"
-# command = "echo 🌱"
-when = 'test -n "$IN_ENROOT"'
+# Enroot indicator (set IN_ENROOT=1): env_var module renders only when the
+# variable is set, also without spawning a shell.
+[env_var.IN_ENROOT]
+symbol = "󰹦"
 style = "green"
+format = '[$symbol]($style) '
 
 # -------------------------------------------------------------------------------------------------------------
 # Nerd-font preset overrides: strip "via" / "on" / "took" words from module formats, while keeping the symbols.
