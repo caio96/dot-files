@@ -365,29 +365,6 @@ return {
   },
 
   {
-    "lukas-reineke/headlines.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    ft = "markdown",
-    config = function()
-      local colors = require("base46").get_theme_tb "base_30"
-      vim.cmd(string.format("highlight Headline1 guifg=%s gui=bold", colors.pink))
-      vim.cmd(string.format("highlight Headline2 guifg=%s gui=bold", colors.yellow))
-      vim.cmd(string.format("highlight Headline3 guifg=%s gui=bold", colors.blue))
-      vim.cmd(string.format("highlight Headline4 guifg=%s gui=bold", colors.orange))
-      vim.cmd(string.format("highlight Headline5 guifg=%s gui=bold", colors.red))
-      require("headlines").setup {
-        markdown = {
-          headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
-          codeblock_highlight = false,
-          fat_headlines = false,
-          fat_headline_upper_string = "",
-          fat_headline_lower_string = "",
-        },
-      }
-    end,
-  },
-
-  {
     "rmagatti/auto-session",
     lazy = false,
     cond = function()
