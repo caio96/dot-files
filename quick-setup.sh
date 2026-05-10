@@ -25,6 +25,7 @@ pixi global install atool \
   gitui \
   git-delta \
   go \
+  jq \
   lua=5.1 \
   luarocks \
   nodejs \
