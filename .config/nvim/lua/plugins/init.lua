@@ -274,6 +274,43 @@ return {
   },
 
   {
+    "petertriho/nvim-scrollbar",
+    event = "BufReadPost",
+    dependencies = { "lewis6991/gitsigns.nvim" },
+    config = function()
+      require("scrollbar").setup {
+        -- To find the filetype of any window: :lua print(vim.bo.filetype)
+        excluded_filetypes = {
+          "NvimTree",
+          "Outline",
+          "Trouble",
+          "TelescopePrompt",
+          "lazy",
+          "mason",
+          "help",
+          "alpha",
+          "neogit-status",
+          "neogit-commit",
+          "DiffviewFiles",
+          "DiffviewFileHistory",
+        },
+        excluded_buftypes = {
+          "terminal",
+          "nofile",
+          "prompt",
+        },
+        handlers = {
+          cursor = true,
+          diagnostic = true,
+          gitsigns = true,
+          search = false,
+        },
+      }
+      require("scrollbar.handlers.gitsigns").setup()
+    end,
+  },
+
+  {
     "kevinhwang91/nvim-hlslens",
     event = "BufReadPost",
     config = function()
