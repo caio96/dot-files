@@ -69,6 +69,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+-- Treat HIP source as C++ for syntax highlighting / LSP
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.hip", "*.hip.cpp", "*.hipcc" },
+  callback = function()
+    vim.bo.filetype = "cpp"
+  end,
+})
+
 -- Add command to remove trailing whitespace in the whole file
 vim.api.nvim_create_user_command("StripWhitespace", function()
   if not vim.o.binary and vim.o.filetype ~= "diff" then
