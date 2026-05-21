@@ -41,12 +41,12 @@
 # Default look: flat red/green +/- lines, white boxes around file & hunk
 # headers, no syntax highlighting on diff lines — close to vanilla `git diff`.
 [delta "classic"]
-    file-style = white
-    file-decoration-style = white box
+    file-style = yellow
+    file-decoration-style = yellow box
     hunk-header-style = file line-number syntax
-    hunk-header-decoration-style = white box
+    hunk-header-decoration-style = white ol
     hunk-header-file-style = white
-    hunk-header-line-number-style = white
+    hunk-header-line-number-style = yellow
     minus-style = red
     minus-emph-style = red reverse
     plus-style = green
