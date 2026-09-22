@@ -77,12 +77,14 @@ DOT_FILES="$HOME/git/dot-files"
 mkdir -p "$HOME/git"
 [ -d "$DOT_FILES" ] || git clone https://github.com/caio96/dot-files.git "$DOT_FILES"
 
+backup_if_real "$HOME/.bash_profile"
 backup_if_real "$HOME/.bashrc"
 backup_if_real "$HOME/.profile"
 backup_if_real "$HOME/.zshrc"
 
 if [[ -d "$DOT_FILES" && -n "$DOT_FILES" ]]; then
   link "$DOT_FILES/.aliases" "$HOME/.aliases"
+  link "$DOT_FILES/.bash_profile" "$HOME/.bash_profile"
   link "$DOT_FILES/.bashrc" "$HOME/.bashrc"
   link "$DOT_FILES/.gitconfig" "$HOME/.gitconfig"
   link "$DOT_FILES/.profile" "$HOME/.profile"
