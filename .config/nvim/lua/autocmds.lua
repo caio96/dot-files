@@ -53,6 +53,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+-- Set C++ filetype for HIP files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.hip",
+  callback = function()
+    vim.bo.filetype = "cpp"
+  end,
+})
+
 -- Set LLVM filetype for .ll files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.ll",

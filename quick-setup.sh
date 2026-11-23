@@ -44,6 +44,7 @@ uv python install 3.12
 uv venv "$HOME/.venv" --python=3.12 --allow-existing
 source "$HOME/.venv/bin/activate"
 uv pip install ipython \
+  pip \
   pygments \
   pynvim
 
@@ -53,6 +54,11 @@ uv pip install ipython \
 # Install AI tools
 [ -f "$HOME/.local/bin/claude" ] || curl -fsSL https://claude.ai/install.sh | bash
 [ -f "$HOME/.local/bin/agent" ] || curl https://cursor.com/install -fsS | bash
+
+# Install gh extensions (works without `gh auth login`; the install sometimes hangs, so use a timeout)
+gh extension list | grep -q 'gh-stack' ||
+  timeout 60 gh extension install github/gh-stack ||
+  echo "WARNING: gh-stack install failed or timed out; retry: gh extension install github/gh-stack" >&2
 
 # Setup dotfiles =============================================== #
 

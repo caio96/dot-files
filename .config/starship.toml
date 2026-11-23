@@ -153,6 +153,7 @@ tag_symbol = '  '
 [golang]
 symbol = " "
 format = '[$symbol($version )( $mod_version )]($style)'
+disabled = true
 
 [gradle]
 symbol = " "
@@ -331,6 +332,7 @@ symbol = " "
 format = '[$symbol$channel]($style) '
 
 [pixi]
+disabled = true
 symbol = "󰏗 "
 format = '[$symbol$version( $environment)( \($features\))]($style) '
 
