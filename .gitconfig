@@ -111,3 +111,8 @@
     # appended automatically — e.g. `git sbs HEAD~1 -- foo.py`.
     # DELTA_FEATURES=+<name> APPENDS to the features set in [delta] above.
     sbs = "!DELTA_FEATURES=+sbs git diff"
+
+# Machine-specific overrides (untracked, e.g. a work email). Ignored if the file is missing.
+# Must stay last so it overrides the settings above.
+[include]
+    path = ~/.gitconfig.local
