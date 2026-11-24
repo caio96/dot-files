@@ -277,10 +277,10 @@ return {
     "petertriho/nvim-scrollbar",
     event = "BufReadPost",
     dependencies = { "lewis6991/gitsigns.nvim" },
-    config = function()
-      require("scrollbar").setup {
+    opts = {
+      exclude = {
         -- To find the filetype of any window: :lua print(vim.bo.filetype)
-        excluded_filetypes = {
+        filetypes = {
           "NvimTree",
           "Outline",
           "Trouble",
@@ -294,20 +294,19 @@ return {
           "DiffviewFiles",
           "DiffviewFileHistory",
         },
-        excluded_buftypes = {
+        buftypes = {
           "terminal",
           "nofile",
           "prompt",
         },
-        handlers = {
-          cursor = true,
-          diagnostic = true,
-          gitsigns = true,
-          search = false,
-        },
-      }
-      require("scrollbar.handlers.gitsigns").setup()
-    end,
+      },
+      providers = {
+        cursor = true,
+        diagnostic = true,
+        gitsigns = true,
+        search = false,
+      },
+    },
   },
 
   {

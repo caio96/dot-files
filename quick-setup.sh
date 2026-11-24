@@ -48,9 +48,6 @@ uv pip install ipython \
   pygments \
   pynvim
 
-# Set up cargo
-[ -d "$HOME/.cargo" ] || curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-
 # Install AI tools
 [ -f "$HOME/.local/bin/claude" ] || curl -fsSL https://claude.ai/install.sh | bash
 [ -f "$HOME/.local/bin/agent" ] || curl https://cursor.com/install -fsS | bash

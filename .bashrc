@@ -42,9 +42,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.profile ] && source ~/.profile
+
 # Tool inits
 command -v fzf >/dev/null && eval "$(fzf --bash)" 2>/dev/null
 command -v starship >/dev/null && eval "$(starship init bash)"
 
-[ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.profile ] && source ~/.profile
