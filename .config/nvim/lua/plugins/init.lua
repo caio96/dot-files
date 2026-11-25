@@ -470,6 +470,25 @@ return {
   },
 
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    cmd = "RenderMarkdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      enabled = false,
+      -- Same bullet glow uses, for every level
+      bullet = { icons = { "•" } },
+      -- Highlight only the heading text, not the whole line
+      heading = { width = "block" },
+    },
+  },
+
+  {
+    "shortcuts/no-neck-pain.nvim",
+    cmd = { "NoNeckPain" },
+    opts = { width = 120 },
+  },
+
+  {
     "stevearc/oil.nvim",
     opts = {},
     cmd = "Oil",

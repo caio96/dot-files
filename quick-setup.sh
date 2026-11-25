@@ -24,6 +24,7 @@ pixi global install atool \
   git \
   gitui \
   git-delta \
+  glow-md \
   go \
   jq \
   lua=5.1 \

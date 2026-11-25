@@ -147,3 +147,17 @@ vim.api.nvim_create_autocmd("WinClosed", {
     saved_views[tonumber(args.match)] = nil
   end,
 })
+
+-- :Reader toggles a "reading mode": centered layout (no-neck-pain) plus
+-- rendered markdown (render-markdown.nvim). Both plugins load on demand.
+local reader_on = false
+vim.api.nvim_create_user_command("Reader", function()
+  reader_on = not reader_on
+  if reader_on then
+    vim.cmd "RenderMarkdown enable"
+    require("no-neck-pain").enable()
+  else
+    require("no-neck-pain").disable()
+    vim.cmd "RenderMarkdown disable"
+  end
+end, { desc = "Toggle centered layout + rendered markdown" })
